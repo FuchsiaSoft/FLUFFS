@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Xml.Linq;
 
 namespace OdfDigger
@@ -7,13 +8,18 @@ namespace OdfDigger
     /// Provides an implementation of IOdfReader specifically
     /// for Word format files.
     /// </summary>
-    internal class WordReader : IOdfReader
+    internal class WordReader : OdfReader
     {
-        public string ReadContents(string path)
+        public WordReader(string path)
+        {
+            _FilePath = path;
+        }
+        
+        public override string ReadContents()
         {
             using (OdfUnpacker packer = new OdfUnpacker())
             {
-                string newFolder = packer.UnpackOdf(path);
+                string newFolder = packer.UnpackOdf(_FilePath);
                 string xmlFileLocation = newFolder + "\\word\\document.xml";
                 string xmlContent = File.ReadAllText(xmlFileLocation);
 

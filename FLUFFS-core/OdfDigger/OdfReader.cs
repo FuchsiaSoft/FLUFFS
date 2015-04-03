@@ -9,7 +9,7 @@ namespace OdfDigger
     /// deal with the logic around whether it is a Word/Excel
     /// file etc.
     /// </summary>
-    public class OdfReader : IOdfReader
+    public abstract class OdfReader : IOdfReader
     {
         /// <summary>
         /// The message that will be included in an exception
@@ -18,6 +18,11 @@ namespace OdfDigger
         private const string NOT_VALID_FILE_MESSAGE =
             "The file specified is not a supported " +
             "ODF file that can be parsed";
+
+        /// <summary>
+        /// The path to the file to be read.
+        /// </summary>
+        protected string _FilePath;
 
         /// <summary>
         /// The list of Word file formats that are known to work with
@@ -38,32 +43,56 @@ namespace OdfDigger
         };
 
         /// <summary>
-        /// Pulls the contents of a supported ODF office file 
-        /// into a single string.
+        /// Returns a new IOdfReader that can read the contents
+        /// of the provided Odf format document.  If the file format
+        /// is not supported, then an InvalidDataException will
+        /// be thrown.  It is possible to do a pre-check using
+        /// the IsValidFile method.
         /// </summary>
-        /// <param name="path">The file to extract the contents from</param>
-        /// <returns>A string of the contents of the file.</returns>
-        public string ReadContents(string path)
+        /// <param name="path"></param>
+        /// <returns></returns>
+        public static IOdfReader GetNew(string path)
         {
-            IOdfReader reader = null;
             string extension = Path.GetExtension(path).ToUpper();
+
+            IOdfReader reader = null;
 
             if (_WordOdfExtensions.Contains(extension))
             {
-                reader = new WordReader();
+                reader = new WordReader(path);
+                return reader;
             }
 
             if (_ExcelOdfExtensions.Contains(extension))
             {
-                reader = new ExcelReader();
+                reader = new ExcelReader(path);
+                return reader;
             }
+            throw new InvalidDataException(NOT_VALID_FILE_MESSAGE);
+        }
 
-            if (reader == null)
-            {
-                throw new InvalidDataException(NOT_VALID_FILE_MESSAGE);
-            }
+        /// <summary>
+        /// Pulls the contents of a supported ODF office file 
+        /// into a single string.
+        /// </summary>
+        /// <returns>A string of the contents of the file.</returns>
+        public abstract string ReadContents();
 
-            return reader.ReadContents(path);
+
+        /// <summary>
+        /// Checks whether the file is a supported format
+        /// </summary>
+        /// <param name="path">The path of the file
+        /// to check format</param>
+        /// <returns>true if the format is supported</returns>
+        public static bool IsValidFile(string path)
+        {
+            string extension = Path.GetExtension(path).ToUpper();
+            if (_WordOdfExtensions.Contains(extension))
+                return true;
+            if (_ExcelOdfExtensions.Contains(extension))
+                return true;
+            return false;
         }
     }
 }

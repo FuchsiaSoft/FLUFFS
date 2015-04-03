@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Xml.Linq;
 
 namespace OdfDigger
@@ -7,9 +8,14 @@ namespace OdfDigger
     /// Provides an implementation of IOdfReader
     /// specifically for Excel format files.
     /// </summary>
-    internal class ExcelReader : IOdfReader
+    internal class ExcelReader : OdfReader
     {
-        public string ReadContents(string path)
+        public ExcelReader(string path)
+        {
+            _FilePath = path;
+        }
+
+        public override string ReadContents()
         {
 
             /*
@@ -27,7 +33,7 @@ namespace OdfDigger
 
             using (OdfUnpacker packer = new OdfUnpacker())
             {
-                string newFolder = packer.UnpackOdf(path);
+                string newFolder = packer.UnpackOdf(_FilePath);
                 string sharedXmlLocation = newFolder + "\\xl\\sharedStrings.xml";
                 string xmlContent = File.ReadAllText(sharedXmlLocation);
 
