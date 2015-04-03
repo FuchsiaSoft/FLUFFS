@@ -13,6 +13,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Model", "Model", "{41993D02
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OdfDigger", "OdfDigger\OdfDigger.csproj", "{511CAE85-211A-4DBE-BBB2-EECD0C15A451}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TesterConsole", "TesterConsole", "{1545B371-24BF-438E-AD91-53FFF0916B2B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TesterConsole", "TesterConsole\TesterConsole.csproj", "{088A5435-82FC-4252-A769-1953E6B72C48}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntityModel", "EntityModel\EntityModel.csproj", "{690CE3FE-76E1-4309-9E76-209AB7CDEE95}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,11 +33,21 @@ Global
 		{511CAE85-211A-4DBE-BBB2-EECD0C15A451}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{511CAE85-211A-4DBE-BBB2-EECD0C15A451}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{511CAE85-211A-4DBE-BBB2-EECD0C15A451}.Release|Any CPU.Build.0 = Release|Any CPU
+		{088A5435-82FC-4252-A769-1953E6B72C48}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{088A5435-82FC-4252-A769-1953E6B72C48}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{088A5435-82FC-4252-A769-1953E6B72C48}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{088A5435-82FC-4252-A769-1953E6B72C48}.Release|Any CPU.Build.0 = Release|Any CPU
+		{690CE3FE-76E1-4309-9E76-209AB7CDEE95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{690CE3FE-76E1-4309-9E76-209AB7CDEE95}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{690CE3FE-76E1-4309-9E76-209AB7CDEE95}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{690CE3FE-76E1-4309-9E76-209AB7CDEE95}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{511CAE85-211A-4DBE-BBB2-EECD0C15A451} = {F875565F-BDF4-4471-8469-6E5C1CEA186B}
+		{088A5435-82FC-4252-A769-1953E6B72C48} = {1545B371-24BF-438E-AD91-53FFF0916B2B}
+		{690CE3FE-76E1-4309-9E76-209AB7CDEE95} = {41993D02-A181-48AD-B2A8-E60EF0BF01BE}
 	EndGlobalSection
 EndGlobal
