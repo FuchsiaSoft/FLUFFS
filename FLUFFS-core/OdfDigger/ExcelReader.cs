@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.IO;
+using System.Xml.Linq;
 
 namespace OdfDigger
 {
@@ -31,8 +28,12 @@ namespace OdfDigger
             using (OdfUnpacker packer = new OdfUnpacker())
             {
                 string newFolder = packer.UnpackOdf(path);
-                string sharedXmlLocation = newFolder + "\\sharedStrings.xml";
+                string sharedXmlLocation = newFolder + "\\xl\\sharedStrings.xml";
+                string xmlContent = File.ReadAllText(sharedXmlLocation);
 
+                XDocument xDoc = XDocument.Parse(xmlContent);
+                string documentContent = xDoc.Root.Value;
+                return documentContent;
             }
         }
     }

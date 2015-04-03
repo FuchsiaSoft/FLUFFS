@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OdfDigger;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,9 @@ namespace TesterConsole
     {
         static void Main(string[] args)
         {
+            IOdfReader reader = new OdfReader();
+            Console.WriteLine(reader.ReadContents("G:\\FileDiggerTest\\SpreadsheetTest.xlsx"));
+            Console.ReadLine();
         }
     }
 }

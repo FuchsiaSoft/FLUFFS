@@ -23,7 +23,7 @@ namespace OdfDigger
         /// <returns>The path of the unpacked folder</returns>
         public string UnpackOdf(string path)
         {
-            _TempFolder = Path.GetTempPath() + "\\" + Path.GetRandomFileName();
+            _TempFolder = Path.GetTempPath() + Path.GetRandomFileName();
             Directory.CreateDirectory(_TempFolder);
 
             ZipFile.ExtractToDirectory(path, _TempFolder);
