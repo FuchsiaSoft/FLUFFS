@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Express 2013 for Windows Desktop
+VisualStudioVersion = 12.0.30723.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FLUFFS-core", "FLUFFS-core\FLUFFS-core.csproj", "{256C30D5-DA04-46BC-B77E-43629A864CAE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FileAnalysis", "FileAnalysis", "{F875565F-BDF4-4471-8469-6E5C1CEA186B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Mail", "Mail", "{23A10C03-CC0F-4492-84BA-B510A5EDF6F9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Model", "Model", "{41993D02-A181-48AD-B2A8-E60EF0BF01BE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OdfDigger", "OdfDigger\OdfDigger.csproj", "{511CAE85-211A-4DBE-BBB2-EECD0C15A451}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{256C30D5-DA04-46BC-B77E-43629A864CAE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{256C30D5-DA04-46BC-B77E-43629A864CAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{256C30D5-DA04-46BC-B77E-43629A864CAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{256C30D5-DA04-46BC-B77E-43629A864CAE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{511CAE85-211A-4DBE-BBB2-EECD0C15A451}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{511CAE85-211A-4DBE-BBB2-EECD0C15A451}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{511CAE85-211A-4DBE-BBB2-EECD0C15A451}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{511CAE85-211A-4DBE-BBB2-EECD0C15A451}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{511CAE85-211A-4DBE-BBB2-EECD0C15A451} = {F875565F-BDF4-4471-8469-6E5C1CEA186B}
+	EndGlobalSection
+EndGlobal
