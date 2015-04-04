@@ -24,6 +24,13 @@ namespace FileDigger
             "either call with a file path in the constructor or " +
             "call the Open method";
 
+        public FileReader() { }
+
+        public FileReader(string path)
+        {
+            Open(path);
+        }
+
         public void Open(string path)
         {
             if (IsReadable(path) == false)
@@ -34,7 +41,12 @@ namespace FileDigger
             if (Settings.Default.MakeLocalCache)
             {
                 string tempPath = Path.GetTempFileName();
-                File.Copy(path, tempPath);
+
+                //lots of checks are done on file extension, so append
+                //the exiting file extension.
+                File.Move(tempPath, tempPath += Path.GetExtension(path));
+
+                File.Copy(path, tempPath, true);
                 _InternalFilePath = tempPath;
             }
             else

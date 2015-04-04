@@ -48,9 +48,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\OdfDigger\OdfDigger.csproj">
-      <Project>{511cae85-211a-4dbe-bbb2-eecd0c15a451}</Project>
-      <Name>OdfDigger</Name>
+    <ProjectReference Include="..\FileDigger\FileDigger.csproj">
+      <Project>{d6fe8d7d-1e5e-41b5-8c13-b2861cac2ecd}</Project>
+      <Name>FileDigger</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

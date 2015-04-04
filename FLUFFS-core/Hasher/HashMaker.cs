@@ -86,12 +86,12 @@ namespace Hasher
             {
                 stream.Position = offset;
                 byte[] buffer = new byte[size];
-                int bytesRead;
-                while (size > 0 && (bytesRead = stream.Read(buffer, offset, size)) > 0)
+                int bytesRead = 0;
+                do
                 {
-                    offset += bytesRead;
+                    bytesRead += stream.Read(buffer, bytesRead, size);
                     size -= bytesRead;
-                }
+                } while (size > 0);
                 return buffer;
             }
         }
