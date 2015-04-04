@@ -57,6 +57,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Hasher\Hasher.csproj">
+      <Project>{e6a89c99-16db-4cdb-8b84-8d01a40f5502}</Project>
+      <Name>Hasher</Name>
+    </ProjectReference>
     <ProjectReference Include="..\OdfDigger\OdfDigger.csproj">
       <Project>{511cae85-211a-4dbe-bbb2-eecd0c15a451}</Project>
       <Name>OdfDigger</Name>

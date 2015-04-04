@@ -1,4 +1,5 @@
 ﻿using FileDigger.Properties;
+using Hasher;
 using OdfDigger;
 using System;
 using System.Collections.Generic;
@@ -17,6 +18,11 @@ namespace FileDigger
 
         private const string UNREADABLE_FILE_MESSAGE =
             "The specified file is not supported.";
+
+        private const string NOT_INITIALISED_MESSAGE =
+            "The FileReader has not been initialised correctly, " +
+            "either call with a file path in the constructor or " +
+            "call the Open method";
 
         public void Open(string path)
         {
@@ -54,6 +60,8 @@ namespace FileDigger
 
         public string ReadContents()
         {
+            CheckInternalState();
+
             string contents = string.Empty;
 
             if (OdfReader.IsValidFile(_InternalFilePath))
@@ -67,11 +75,58 @@ namespace FileDigger
 
         public string GetHash(HashType hashType)
         {
-            throw new NotImplementedException();
+            CheckInternalState();
+
+            string output = string.Empty;
+            IHashMaker hasher = new HashMaker();
+
+            switch (hashType)
+            {
+                case HashType.MD5:
+                    if (Settings.Default.HoldBufferInMemory)
+                    {
+                        output = hasher.GetMD5(_InternalBuffer);
+                    }
+                    else
+                    {
+                        output = hasher.GetMD5(_InternalFilePath);
+                    }
+                    break;
+
+                case HashType.SHA1:
+                    if (Settings.Default.HoldBufferInMemory)
+                    {
+                        output = hasher.GetSHA1(_InternalBuffer);
+                    }
+                    else
+                    {
+                        output = hasher.GetSHA1(_InternalFilePath);
+                    }
+                    break;
+
+                case HashType.SHA256:
+                    if (Settings.Default.HoldBufferInMemory)
+                    {
+                        output = hasher.GetSHA256(_InternalBuffer);
+                    }
+                    else
+                    {
+                        output = hasher.GetSHA256(_InternalFilePath);
+                    }
+                    break;
+
+                case HashType.PreHash:
+                    output = hasher.GetPreHash(_InternalFilePath);
+                    break;
+            }
+
+            return output;
         }
 
         public bool IsEqualTo(string path)
         {
+            CheckInternalState();
+
             byte[] thisFile;
 
             if (Settings.Default.HoldBufferInMemory)
@@ -118,6 +173,34 @@ namespace FileDigger
                     //not a big deal if can't delete local
                     //temp file.
                 }
+            }
+        }
+
+        /// <summary>
+        /// Checks the internal state of the instance to make
+        /// sure that is has been initialised properly.
+        /// </summary>
+        /// <returns></returns>
+        private bool IsReady()
+        {
+            if (_InternalFilePath == null ||
+                _InternalFilePath == string.Empty)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// Used to make sure that the internal state is OK, and if not
+        /// then an exception is thrown.  THis should be used before trying
+        /// to work with any internals of the instance.
+        /// </summary>
+        private void CheckInternalState()
+        {
+            if (IsReady() == false)
+            {
+                throw new InvalidOperationException(NOT_INITIALISED_MESSAGE);
             }
         }
     }

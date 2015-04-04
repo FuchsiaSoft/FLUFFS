@@ -5,10 +5,11 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using Pri.LongPath;
+using Hasher.Properties;
 
 namespace Hasher
 {
-    class HashMaker : IHashMaker
+    public class HashMaker : IHashMaker
     {
         public string GetMD5(string path)
         {
@@ -34,15 +35,29 @@ namespace Hasher
             return HashToString(hash);
         }
 
-        public string GetSHA256(byte[] buffer)
+        public string GetSHA256(string path)
         {
-            throw new NotImplementedException();
+            return GetSHA256(File.ReadAllBytes(path));
         }
 
-        public string GetPreHash(byte[] buffer)
+        public string GetSHA256(byte[] buffer)
         {
-            throw new NotImplementedException();
+            SHA256 sha256 = SHA256.Create();
+            byte[] hash = sha256.ComputeHash(buffer);
+            return HashToString(hash);
         }
+
+        public string GetPreHash(string path)
+        {
+            SHA1 sha1 = SHA1.Create();
+            int offset = Settings.Default.PreHashOffset;
+            int size = Settings.Default.PreHashSize;
+            byte[] buffer = ReadExactly(path, offset, size);
+            byte[] hash = sha1.ComputeHash(buffer);
+            return HashToString(hash);
+        }
+
+        
 
         private string HashToString(byte[] hash)
         {
@@ -53,5 +68,34 @@ namespace Hasher
             }
             return builder.ToString();
         }
+
+        private byte[] ReadExactly(string path, int offset, int size)
+        {
+            //if the file length is less than offset+size then always just return
+            //the whole file.  sometimes this will mean prehash is a bit
+            //longer to run than with just 1KB designed for but still a trivial
+            //time frame.  Done this way for simplicity.
+
+            FileInfo file = new FileInfo(path);
+            if (file.Length <= (offset + size))
+            {
+                return File.ReadAllBytes(path);
+            }
+
+            using (System.IO.Stream stream = File.OpenRead(path))
+            {
+                stream.Position = offset;
+                byte[] buffer = new byte[size];
+                int bytesRead;
+                while (size > 0 && (bytesRead = stream.Read(buffer, offset, size)) > 0)
+                {
+                    offset += bytesRead;
+                    size -= bytesRead;
+                }
+                return buffer;
+            }
+        }
+
+        
     }
 }
