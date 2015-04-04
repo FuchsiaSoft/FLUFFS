@@ -1,4 +1,5 @@
 ﻿using FileDigger.Properties;
+using OdfDigger;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -11,8 +12,6 @@ namespace FileDigger
     public class FileReader : IFileReader
     {
         private string _InternalFilePath;
-
-        private string _OriginalPath;
 
         private byte[] _InternalBuffer = null;
 
@@ -34,30 +33,36 @@ namespace FileDigger
             }
             else
             {
-                _OriginalPath = path;
+                _InternalFilePath = path;
             }
 
             if (Settings.Default.HoldBufferInMemory)
             {
-                if (Settings.Default.MakeLocalCache)
-                {
-                    _InternalBuffer = File.ReadAllBytes(_InternalFilePath);
-                }
-                else
-                {
-                    _InternalBuffer = File.ReadAllBytes(_OriginalPath);
-                }
+                _InternalBuffer = File.ReadAllBytes(_InternalFilePath);
             }
         }
 
         public bool IsReadable(string path)
         {
-            throw new NotImplementedException();
+            if (OdfReader.IsValidFile(path))
+            {
+                return true;
+            }
+
+            return false;
         }
 
         public string ReadContents()
         {
-            throw new NotImplementedException();
+            string contents = string.Empty;
+
+            if (OdfReader.IsValidFile(_InternalFilePath))
+            {
+                IOdfReader reader = OdfReader.GetNew(_InternalFilePath);
+                contents = reader.ReadContents();
+            }
+
+            return contents;
         }
 
         public string GetHash(HashType hashType)
@@ -75,14 +80,7 @@ namespace FileDigger
             }
             else
             {
-                if (Settings.Default.MakeLocalCache)
-                {
-                    thisFile = File.ReadAllBytes(_InternalFilePath);
-                }
-                else
-                {
-                    thisFile = File.ReadAllBytes(_OriginalPath);
-                }
+                thisFile = File.ReadAllBytes(_InternalFilePath);
             }
 
             //breakout check, if they're not even the same length
