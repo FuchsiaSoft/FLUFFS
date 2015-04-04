@@ -14,8 +14,11 @@ namespace TesterConsole
         {
             for (int i = 0; i < 100; i++)
             {
+                Stopwatch stopwatch = Stopwatch.StartNew();
+                IOdfReader reader = OdfReader.GetNew("C:\\Users\\LCC\\Documents\\wedding.xlsx");
+                string content = reader.ReadContents();
                 stopwatch.Stop();
-                    stopwatch.ElapsedMilliseconds + " ms");
+                Console.WriteLine(content.Length.ToString("#,###") + " characters read in: " + stopwatch.ElapsedMilliseconds + " ms");
             }
 
             Console.ReadLine();
