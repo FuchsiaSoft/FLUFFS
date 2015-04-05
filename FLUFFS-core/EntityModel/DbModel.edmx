@@ -1,0 +1,217 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl" Namespace="DbModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005">
+        <EntityContainer Name="DbModelTargetContainer" >
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="DbModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="DbModelContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Indices" EntityType="DbModel.Index" />
+          <EntitySet Name="TrackedFolders" EntityType="DbModel.TrackedFolder" />
+          <AssociationSet Name="IndexTrackedFolder" Association="DbModel.IndexTrackedFolder">
+            <End Role="Index" EntitySet="Indices" />
+            <End Role="TrackedFolder" EntitySet="TrackedFolders" />
+          </AssociationSet>
+          <EntitySet Name="TrackedFiles" EntityType="DbModel.TrackedFile" />
+          <AssociationSet Name="TrackedFolderTrackedFolder" Association="DbModel.TrackedFolderTrackedFolder">
+            <End Role="TrackedFolder" EntitySet="TrackedFolders" />
+            <End Role="TrackedFolder1" EntitySet="TrackedFolders" />
+          </AssociationSet>
+          <AssociationSet Name="TrackedFolderTrackedFile" Association="DbModel.TrackedFolderTrackedFile">
+            <End Role="TrackedFolder" EntitySet="TrackedFolders" />
+            <End Role="TrackedFile" EntitySet="TrackedFiles" />
+          </AssociationSet>
+          <AssociationSet Name="TrackedFileTrackedFile" Association="DbModel.TrackedFileTrackedFile">
+            <End Role="TrackedFile" EntitySet="TrackedFiles" />
+            <End Role="TrackedFile1" EntitySet="TrackedFiles" />
+          </AssociationSet>
+          <EntitySet Name="Categories" EntityType="DbModel.Category" />
+          <AssociationSet Name="TrackedFileCategory" Association="DbModel.TrackedFileCategory">
+            <End Role="TrackedFile" EntitySet="TrackedFiles" />
+            <End Role="Category" EntitySet="Categories" />
+          </AssociationSet>
+          <EntitySet Name="SearchJobs" EntityType="DbModel.SearchJob" />
+          <AssociationSet Name="SearchJobCategory" Association="DbModel.SearchJobCategory">
+            <End Role="SearchJob" EntitySet="SearchJobs" />
+            <End Role="Category" EntitySet="Categories" />
+          </AssociationSet>
+          <AssociationSet Name="SearchJobTrackedFile" Association="DbModel.SearchJobTrackedFile">
+            <End Role="SearchJob" EntitySet="SearchJobs" />
+            <End Role="TrackedFile" EntitySet="TrackedFiles" />
+          </AssociationSet>
+        </EntityContainer>
+        <EnumType Name="JobStatus">
+          <Member Name="Working" Value="0" />
+          <Member Name="Cancelled" Value="1" />
+          <Member Name="Ready" Value="2" />
+        </EnumType>
+        <EntityType Name="Index">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Alias" Type="String" Nullable="false" />
+          <NavigationProperty Name="Root" Relationship="DbModel.IndexTrackedFolder" FromRole="Index" ToRole="TrackedFolder" />
+        </EntityType>
+        <EntityType Name="TrackedFolder">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <Property Name="FullPath" Type="String" Nullable="false" />
+          <NavigationProperty Name="Index" Relationship="DbModel.IndexTrackedFolder" FromRole="TrackedFolder" ToRole="Index" />
+          <NavigationProperty Name="SubFolders" Relationship="DbModel.TrackedFolderTrackedFolder" FromRole="TrackedFolder" ToRole="TrackedFolder1" />
+          <NavigationProperty Name="Parent" Relationship="DbModel.TrackedFolderTrackedFolder" FromRole="TrackedFolder1" ToRole="TrackedFolder" />
+          <Property Name="TrackedFolderId" Type="Int32" Nullable="true" />
+          <NavigationProperty Name="TrackedFiles" Relationship="DbModel.TrackedFolderTrackedFile" FromRole="TrackedFolder" ToRole="TrackedFile" />
+        </EntityType>
+        <Association Name="IndexTrackedFolder">
+          <End Type="DbModel.Index" Role="Index" Multiplicity="1" />
+          <End Type="DbModel.TrackedFolder" Role="TrackedFolder" Multiplicity="1" />
+        </Association>
+        <EntityType Name="TrackedFile">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <Property Name="FullPath" Type="String" Nullable="false" />
+          <Property Name="Length" Type="Int64" Nullable="false" />
+          <Property Name="Extension" Type="String" Nullable="false" />
+          <Property Name="PreHash" Type="String" Nullable="false" />
+          <Property Name="MD5" Type="String" Nullable="false" />
+          <Property Name="SHA1" Type="String" Nullable="false" />
+          <Property Name="SHA256" Type="String" Nullable="false" />
+          <NavigationProperty Name="TrackedFolder" Relationship="DbModel.TrackedFolderTrackedFile" FromRole="TrackedFile" ToRole="TrackedFolder" />
+          <Property Name="TrackedFolderId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="DuplicateFiles" Relationship="DbModel.TrackedFileTrackedFile" FromRole="TrackedFile" ToRole="TrackedFile1" />
+          <NavigationProperty Name="MasterFile" Relationship="DbModel.TrackedFileTrackedFile" FromRole="TrackedFile1" ToRole="TrackedFile" />
+          <Property Name="TrackedFileId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Categories" Relationship="DbModel.TrackedFileCategory" FromRole="TrackedFile" ToRole="Category" />
+          <NavigationProperty Name="SearchJob" Relationship="DbModel.SearchJobTrackedFile" FromRole="TrackedFile" ToRole="SearchJob" />
+          <Property Name="SearchJobId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="TrackedFolderTrackedFolder">
+          <End Type="DbModel.TrackedFolder" Role="TrackedFolder" Multiplicity="0..1" />
+          <End Type="DbModel.TrackedFolder" Role="TrackedFolder1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TrackedFolder">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TrackedFolder1">
+              <PropertyRef Name="TrackedFolderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TrackedFolderTrackedFile">
+          <End Type="DbModel.TrackedFolder" Role="TrackedFolder" Multiplicity="1" />
+          <End Type="DbModel.TrackedFile" Role="TrackedFile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TrackedFolder">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TrackedFile">
+              <PropertyRef Name="TrackedFolderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TrackedFileTrackedFile">
+          <End Type="DbModel.TrackedFile" Role="TrackedFile" Multiplicity="1" />
+          <End Type="DbModel.TrackedFile" Role="TrackedFile1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TrackedFile">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TrackedFile1">
+              <PropertyRef Name="TrackedFileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <NavigationProperty Name="TrackedFiles" Relationship="DbModel.TrackedFileCategory" FromRole="Category" ToRole="TrackedFile" />
+          <NavigationProperty Name="SearchJob" Relationship="DbModel.SearchJobCategory" FromRole="Category" ToRole="SearchJob" />
+        </EntityType>
+        <Association Name="TrackedFileCategory">
+          <End Type="DbModel.TrackedFile" Role="TrackedFile" Multiplicity="*" />
+          <End Type="DbModel.Category" Role="Category" Multiplicity="*" />
+        </Association>
+        <EntityType Name="SearchJob">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Alias" Type="String" Nullable="false" />
+          <NavigationProperty Name="Category" Relationship="DbModel.SearchJobCategory" FromRole="SearchJob" ToRole="Category" />
+          <NavigationProperty Name="TrackedFiles" Relationship="DbModel.SearchJobTrackedFile" FromRole="SearchJob" ToRole="TrackedFile" />
+          <Property Name="Status" Type="DbModel.SearchStatus" Nullable="false" />
+          <Property Name="RequestorComments" Type="String" Nullable="false" />
+          <Property Name="AdminComments" Type="String" Nullable="false" />
+        </EntityType>
+        <Association Name="SearchJobCategory">
+          <End Type="DbModel.SearchJob" Role="SearchJob" Multiplicity="1" />
+          <End Type="DbModel.Category" Role="Category" Multiplicity="1" />
+        </Association>
+        <Association Name="SearchJobTrackedFile">
+          <End Type="DbModel.SearchJob" Role="SearchJob" Multiplicity="1" />
+          <End Type="DbModel.TrackedFile" Role="TrackedFile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SearchJob">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TrackedFile">
+              <PropertyRef Name="SearchJobId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EnumType Name="SearchStatus">
+          <Member Name="Pending" Value="0" />
+          <Member Name="Running" Value="1" />
+          <Member Name="Paused" Value="2" />
+          <Member Name="Cancelled" Value="3" />
+          <Member Name="Rejected" Value="4" />
+          <Member Name="Completed" Value="5" />
+        </EnumType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs" Space="C-S">
+        <Alias Key="Model" Value="DbModel" />
+        <Alias Key="Target" Value="DbModel.Store" />
+        <EntityContainerMapping CdmEntityContainer="DbModelContainer" StorageEntityContainer="DbModelTargetContainer">
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

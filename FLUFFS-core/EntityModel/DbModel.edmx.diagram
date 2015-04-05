@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="db7e9702bc6e43cbb28b99d579bac539" Name="Diagram1" >
+        <EntityTypeShape EntityType="DbModel.Index" Width="1.5" PointX="0.875" PointY="0.5" />
+        <EntityTypeShape EntityType="DbModel.TrackedFolder" Width="1.5" PointX="2.875" PointY="0.5" />
+        <AssociationConnector Association="DbModel.IndexTrackedFolder" />
+        <EntityTypeShape EntityType="DbModel.TrackedFile" Width="1.5" PointX="4.75" PointY="0.5" />
+        <AssociationConnector Association="DbModel.TrackedFolderTrackedFolder" />
+        <AssociationConnector Association="DbModel.TrackedFolderTrackedFile" />
+        <AssociationConnector Association="DbModel.TrackedFileTrackedFile" />
+        <EntityTypeShape EntityType="DbModel.Category" Width="1.5" PointX="6.75" PointY="0.5" />
+        <AssociationConnector Association="DbModel.TrackedFileCategory" />
+        <EntityTypeShape EntityType="DbModel.SearchJob" Width="1.5" PointX="6.75" PointY="3" />
+        <AssociationConnector Association="DbModel.SearchJobCategory" />
+        <AssociationConnector Association="DbModel.SearchJobTrackedFile" />
+        <EntityTypeShape EntityType="DbModel.SearchString" Width="1.5" PointX="8.875" PointY="2.375" />
+        <EntityTypeShape EntityType="DbModel.Regex" Width="1.5" PointX="8.875" PointY="4.75" />
+        <AssociationConnector Association="DbModel.SearchJobSearchString" />
+        <AssociationConnector Association="DbModel.SearchJobRegex" />
+        <EntityTypeShape EntityType="DbModel.FileUpdate" Width="1.5" PointX="2.875" PointY="4.25" />
+        <AssociationConnector Association="DbModel.TrackedFileFileUpdate" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
