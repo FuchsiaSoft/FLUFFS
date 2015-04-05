@@ -30,5 +30,8 @@ namespace EntityModel
         public virtual DbSet<TrackedFile> TrackedFiles { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<SearchJob> SearchJobs { get; set; }
+        public virtual DbSet<SearchString> SearchStrings { get; set; }
+        public virtual DbSet<Regex> Regexes { get; set; }
+        public virtual DbSet<FileUpdate> FileUpdates { get; set; }
     }
 }

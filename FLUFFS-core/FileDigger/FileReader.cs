@@ -1,5 +1,7 @@
 ﻿using FileDigger.Properties;
 using Hasher;
+using iTextSharp.text.pdf;
+using iTextSharp.text.pdf.parser;
 using OdfDigger;
 using System;
 using System.Collections.Generic;
@@ -67,6 +69,20 @@ namespace FileDigger
                 return true;
             }
 
+            if (IsReadablePdf(path))
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        private bool IsReadablePdf(string path)
+        {
+            if (Path.GetExtension(path).ToUpper() == ".PDF")
+            {
+                return true;
+            }
             return false;
         }
 
@@ -82,7 +98,33 @@ namespace FileDigger
                 contents = reader.ReadContents();
             }
 
+            if (IsReadablePdf(_InternalFilePath))
+            {
+                contents = ReadPdfContents();
+            }
+
             return contents;
+        }
+
+        private string ReadPdfContents()
+        {
+            PdfReader reader;
+            if (Settings.Default.HoldBufferInMemory)
+            {
+                reader = new PdfReader(_InternalBuffer);
+            }
+            else
+            {
+                reader = new PdfReader(_InternalFilePath);
+            }
+
+            StringBuilder output = new StringBuilder();
+
+            for (int i = 1; i <= reader.NumberOfPages; i++)
+                output.Append(PdfTextExtractor.GetTextFromPage
+                    (reader, i, new SimpleTextExtractionStrategy()));
+
+            return output.ToString();
         }
 
         public string GetHash(HashType hashType)

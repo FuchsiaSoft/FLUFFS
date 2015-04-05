@@ -18,6 +18,7 @@ namespace EntityModel
         {
             this.DuplicateFiles = new HashSet<TrackedFile>();
             this.Categories = new HashSet<Category>();
+            this.FileUpdates = new HashSet<FileUpdate>();
         }
     
         public int Id { get; set; }
@@ -32,11 +33,16 @@ namespace EntityModel
         public int TrackedFolderId { get; set; }
         public int TrackedFileId { get; set; }
         public int SearchJobId { get; set; }
+        public bool TrackForUpdates { get; set; }
+        public System.DateTime Created { get; set; }
+        public System.DateTime LastSeen { get; set; }
+        public int TotalChanges { get; set; }
     
         public virtual TrackedFolder TrackedFolder { get; set; }
         public virtual ICollection<TrackedFile> DuplicateFiles { get; set; }
         public virtual TrackedFile MasterFile { get; set; }
         public virtual ICollection<Category> Categories { get; set; }
         public virtual SearchJob SearchJob { get; set; }
+        public virtual ICollection<FileUpdate> FileUpdates { get; set; }
     }
 }
