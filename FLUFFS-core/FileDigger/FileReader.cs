@@ -4,10 +4,7 @@ using iTextSharp.text.pdf;
 using iTextSharp.text.pdf.parser;
 using OdfDigger;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using Pri.LongPath;
 
 namespace FileDigger
@@ -46,7 +43,7 @@ namespace FileDigger
 
                 //lots of checks are done on file extension, so append
                 //the exiting file extension.
-                File.Move(tempPath, tempPath += Path.GetExtension(path));
+                tempPath = Path.ChangeExtension(tempPath, "PDF");
 
                 File.Copy(path, tempPath, true);
                 _InternalFilePath = tempPath;
