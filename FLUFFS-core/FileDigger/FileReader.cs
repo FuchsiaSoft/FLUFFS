@@ -5,10 +5,10 @@ using iTextSharp.text.pdf.parser;
 using OdfDigger;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Pri.LongPath;
 
 namespace FileDigger
 {
@@ -37,7 +37,7 @@ namespace FileDigger
         {
             if (IsReadable(path) == false)
             {
-                throw new InvalidDataException(UNREADABLE_FILE_MESSAGE);
+                throw new System.IO.InvalidDataException(UNREADABLE_FILE_MESSAGE);
             }
 
             if (Settings.Default.MakeLocalCache)

@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using System.IO;
+﻿using Pri.LongPath;
+using System.Collections.Generic;
 
 namespace OdfDigger
 {
@@ -68,7 +68,7 @@ namespace OdfDigger
                 reader = new ExcelReader(path);
                 return reader;
             }
-            throw new InvalidDataException(NOT_VALID_FILE_MESSAGE);
+            throw new System.IO.InvalidDataException(NOT_VALID_FILE_MESSAGE);
         }
 
         /// <summary>

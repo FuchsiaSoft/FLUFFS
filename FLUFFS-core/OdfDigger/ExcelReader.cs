@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using System.IO;
+﻿using Pri.LongPath;
+using System.Collections.Generic;
 using System.Xml.Linq;
 
 namespace OdfDigger
