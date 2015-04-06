@@ -25,9 +25,9 @@ namespace EntityModel
         public string FullPath { get; set; }
         public Nullable<int> TrackedFolderId { get; set; }
     
-        public virtual Index Index { get; set; }
         public virtual ICollection<TrackedFolder> SubFolders { get; set; }
         public virtual TrackedFolder Parent { get; set; }
+        public virtual Index Index { get; set; }
         public virtual ICollection<TrackedFile> TrackedFiles { get; set; }
     }
 }

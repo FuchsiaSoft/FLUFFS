@@ -13,6 +13,9 @@ namespace TesterConsole
     {
         static void Main(string[] args)
         {
+            Index index = new Index();
+            index.BuildIndexAsync("C:\\", "Local Drive");
+
             for (int i = 0; i < 100; i++)
             {
                 Stopwatch stopwatch = Stopwatch.StartNew();

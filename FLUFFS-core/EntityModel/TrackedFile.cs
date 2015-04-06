@@ -14,35 +14,20 @@ namespace EntityModel
     
     public partial class TrackedFile
     {
-        public TrackedFile()
-        {
-            this.DuplicateFiles = new HashSet<TrackedFile>();
-            this.Categories = new HashSet<Category>();
-            this.FileUpdates = new HashSet<FileUpdate>();
-        }
-    
         public int Id { get; set; }
         public string Name { get; set; }
         public string FullPath { get; set; }
-        public long Length { get; set; }
+        public Nullable<long> Length { get; set; }
         public string Extension { get; set; }
         public string PreHash { get; set; }
         public string MD5 { get; set; }
         public string SHA1 { get; set; }
         public string SHA256 { get; set; }
-        public int TrackedFolderId { get; set; }
-        public int TrackedFileId { get; set; }
-        public int SearchJobId { get; set; }
         public bool TrackForUpdates { get; set; }
         public System.DateTime Created { get; set; }
         public System.DateTime LastSeen { get; set; }
-        public int TotalChanges { get; set; }
+        public int TrackedFolderId { get; set; }
     
         public virtual TrackedFolder TrackedFolder { get; set; }
-        public virtual ICollection<TrackedFile> DuplicateFiles { get; set; }
-        public virtual TrackedFile MasterFile { get; set; }
-        public virtual ICollection<Category> Categories { get; set; }
-        public virtual SearchJob SearchJob { get; set; }
-        public virtual ICollection<FileUpdate> FileUpdates { get; set; }
     }
 }

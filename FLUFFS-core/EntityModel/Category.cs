@@ -14,15 +14,9 @@ namespace EntityModel
     
     public partial class Category
     {
-        public Category()
-        {
-            this.TrackedFiles = new HashSet<TrackedFile>();
-        }
-    
         public int Id { get; set; }
         public string Name { get; set; }
     
-        public virtual ICollection<TrackedFile> TrackedFiles { get; set; }
         public virtual SearchJob SearchJob { get; set; }
     }
 }

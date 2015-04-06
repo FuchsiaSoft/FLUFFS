@@ -32,6 +32,5 @@ namespace EntityModel
         public virtual DbSet<SearchJob> SearchJobs { get; set; }
         public virtual DbSet<SearchString> SearchStrings { get; set; }
         public virtual DbSet<Regex> Regexes { get; set; }
-        public virtual DbSet<FileUpdate> FileUpdates { get; set; }
     }
 }

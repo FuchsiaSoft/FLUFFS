@@ -16,7 +16,6 @@ namespace EntityModel
     {
         public SearchJob()
         {
-            this.TrackedFiles = new HashSet<TrackedFile>();
             this.SearchStrings = new HashSet<SearchString>();
             this.Regexes = new HashSet<Regex>();
         }
@@ -28,7 +27,6 @@ namespace EntityModel
         public string AdminComments { get; set; }
     
         public virtual Category Category { get; set; }
-        public virtual ICollection<TrackedFile> TrackedFiles { get; set; }
         public virtual ICollection<SearchString> SearchStrings { get; set; }
         public virtual ICollection<Regex> Regexes { get; set; }
     }
