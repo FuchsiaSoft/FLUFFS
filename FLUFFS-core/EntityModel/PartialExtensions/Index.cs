@@ -50,30 +50,16 @@ namespace EntityModel
 
         private void DigDirectory(DirectoryInfo directory, int parentID)
         {
-            //might not be able to enumerate files for like
-            //a million reasons, as per design docs it
-            //doesn't matter too much if not able to get
-            //to some files, so do a quick TryCatch to see
-            //if there are any issues
-            FileInfo[] files;
-            DirectoryInfo[] subFolders;
+            IEnumerable<FileInfo> files;
+            IEnumerable<DirectoryInfo> subFolders;
 
-            try
-            {
-                files = directory.GetFiles();
-                subFolders = directory.GetDirectories();
-            }
-            catch (Exception)
-            {
-                return;
-            }
 
             List<TrackedFile> trackedFiles = new List<TrackedFile>();
-            for (int i = 0; i < files.Count()-1; i++)
+            try
             {
-                try
+                files = directory.EnumerateFiles();
+                foreach (FileInfo file in files)
                 {
-                    FileInfo file = files[i];
                     trackedFiles.Add(new TrackedFile()
                     {
                         Name = file.Name,
@@ -86,19 +72,20 @@ namespace EntityModel
                         TrackForUpdates = false
                     });
                 }
-                catch (Exception)
-                {
-                    //some exceptions for protected files etc.
-                    //nothing to do with it really.
-                }
+            }
+            catch (Exception)
+            {
+                //some exceptions for protected files etc.
+                //nothing to do with it really.
             }
 
             List<TrackedFolder> trackedFolders = new List<TrackedFolder>();
-            for (int i = 0; i < subFolders.Count() - 1; i++)
+
+            try
             {
-                try
+                subFolders = directory.EnumerateDirectories();
+                foreach (DirectoryInfo folder in subFolders)
                 {
-                    DirectoryInfo folder = subFolders[i];
                     trackedFolders.Add(new TrackedFolder()
                     {
                         Name = folder.Name,
@@ -106,10 +93,10 @@ namespace EntityModel
                         TrackedFolderId = parentID,
                     });
                 }
-                catch (Exception)
-                {
-                    //as per for file.
-                }
+            }
+            catch (Exception)
+            {
+                //as per for file.
             }
 
             using (DbModelContainer db = new DbModelContainer())

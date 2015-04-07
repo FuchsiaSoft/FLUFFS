@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 04/05/2015 17:41:36
--- Generated from EDMX file: C:\Users\LCC\Documents\GitHub\FLUFFS\FLUFFS-core\EntityModel\DbModel.edmx
+-- Date Created: 04/07/2015 14:55:56
+-- Generated from EDMX file: G:\Git\FLUFFS\FLUFFS-core\EntityModel\DbModel.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -192,6 +192,7 @@ ADD CONSTRAINT [FK_TrackedFolderTrackedFolder]
     REFERENCES [dbo].[TrackedFolders]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_TrackedFolderTrackedFolder'
 CREATE INDEX [IX_FK_TrackedFolderTrackedFolder]
@@ -206,6 +207,7 @@ ADD CONSTRAINT [FK_SearchJobCategory]
     REFERENCES [dbo].[Categories]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_SearchJobCategory'
 CREATE INDEX [IX_FK_SearchJobCategory]
@@ -220,6 +222,7 @@ ADD CONSTRAINT [FK_SearchJobSearchString]
     REFERENCES [dbo].[SearchJobs]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_SearchJobSearchString'
 CREATE INDEX [IX_FK_SearchJobSearchString]
@@ -234,6 +237,7 @@ ADD CONSTRAINT [FK_SearchJobRegex]
     REFERENCES [dbo].[SearchJobs]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_SearchJobRegex'
 CREATE INDEX [IX_FK_SearchJobRegex]
@@ -248,6 +252,7 @@ ADD CONSTRAINT [FK_IndexTrackedFolder]
     REFERENCES [dbo].[TrackedFolders]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_IndexTrackedFolder'
 CREATE INDEX [IX_FK_IndexTrackedFolder]
@@ -262,6 +267,7 @@ ADD CONSTRAINT [FK_TrackedFolderTrackedFile]
     REFERENCES [dbo].[TrackedFolders]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_TrackedFolderTrackedFile'
 CREATE INDEX [IX_FK_TrackedFolderTrackedFile]

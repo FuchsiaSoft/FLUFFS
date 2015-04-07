@@ -14,14 +14,14 @@ namespace TesterConsole
         static void Main(string[] args)
         {
             Index index = new Index();
-            index.BuildIndexAsync("C:\\", "Local Drive");
+            index.BuildIndexAsync("G:\\", "Local Drive");
 
             for (int i = 0; i < 100; i++)
             {
                 Stopwatch stopwatch = Stopwatch.StartNew();
 
                 IFileReader reader = new FileReader();
-                reader.Open("C:\\users\\lcc\\documents\\lorem doc.pdf");
+                reader.Open("C:\\test\\TestWorkDoc.docx");
 
                 stopwatch = Stopwatch.StartNew();
                 string md5 = reader.GetHash(HashType.MD5);

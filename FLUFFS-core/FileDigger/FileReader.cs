@@ -43,7 +43,7 @@ namespace FileDigger
 
                 //lots of checks are done on file extension, so append
                 //the exiting file extension.
-                tempPath = Path.ChangeExtension(tempPath, "PDF");
+                tempPath = Path.ChangeExtension(tempPath, Path.GetExtension(path));
 
                 File.Copy(path, tempPath, true);
                 _InternalFilePath = tempPath;
