@@ -6,6 +6,7 @@ using OdfDigger;
 using System;
 using System.Text;
 using Pri.LongPath;
+using System.Collections.Generic;
 
 namespace FileDigger
 {
@@ -253,6 +254,24 @@ namespace FileDigger
             {
                 throw new InvalidOperationException(NOT_INITIALISED_MESSAGE);
             }
+        }
+
+
+        public bool CheckString(IEnumerable<string> toCheck)
+        {
+            string contents = ReadContents().ToUpper();
+
+            foreach (string item in toCheck)
+            {
+                if (contents.Contains(item.ToUpper()))
+                    return true;
+            }
+            return false;
+        }
+
+        public bool CheckRegEx(IEnumerable<string> toCheck)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -41,6 +41,24 @@ namespace FileDigger
         string ReadContents();
 
         /// <summary>
+        /// Checks the contents of the file to see if any of
+        /// the specified strings occur in its contents.
+        /// </summary>
+        /// <param name="toCheck">The list of strings to check.</param>
+        /// <returns>True if any of the strings occur.</returns>
+        bool CheckString(IEnumerable<string> toCheck);
+
+        /// <summary>
+        /// Checks the contents of the file to see if any of
+        /// the specified regular expressions have matches.
+        /// </summary>
+        /// <param name="toCheck">The list of regular expressions
+        /// to check.</param>
+        /// <returns>True of any of the regular expressions
+        /// have matches.</returns>
+        bool CheckRegEx(IEnumerable<string> toCheck);
+
+        /// <summary>
         /// Performs a hash of the specified type on the
         /// opened file.
         /// </summary>
