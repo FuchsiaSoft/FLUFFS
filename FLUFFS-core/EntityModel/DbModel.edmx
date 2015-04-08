@@ -13,6 +13,7 @@
     <EntitySet Name="SearchJobs" EntityType="DbModel.Store.SearchJobs" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="SearchStrings" EntityType="DbModel.Store.SearchStrings" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Regexes" EntityType="DbModel.Store.Regexes" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="SearchJobTrackedFile" EntityType="DbModel.Store.SearchJobTrackedFile" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="TrackedFolderTrackedFolder" Association="DbModel.Store.TrackedFolderTrackedFolder">
       <End Role="TrackedFolder" EntitySet="TrackedFolders" />
       <End Role="TrackedFolder1" EntitySet="TrackedFolders" />
@@ -36,6 +37,14 @@
     <AssociationSet Name="TrackedFolderTrackedFile" Association="DbModel.Store.TrackedFolderTrackedFile">
       <End Role="TrackedFolder" EntitySet="TrackedFolders" />
       <End Role="TrackedFile" EntitySet="TrackedFiles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SearchJobTrackedFile_SearchJob" Association="DbModel.Store.FK_SearchJobTrackedFile_SearchJob">
+      <End Role="SearchJob" EntitySet="SearchJobs" />
+      <End Role="SearchJobTrackedFile" EntitySet="SearchJobTrackedFile" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SearchJobTrackedFile_TrackedFile" Association="DbModel.Store.FK_SearchJobTrackedFile_TrackedFile">
+      <End Role="TrackedFile" EntitySet="TrackedFiles" />
+      <End Role="SearchJobTrackedFile" EntitySet="SearchJobTrackedFile" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="Indices">
@@ -106,6 +115,14 @@
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Content" Type="nvarchar(max)" Nullable="false" />
     <Property Name="SearchJobId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SearchJobTrackedFile">
+    <Key>
+      <PropertyRef Name="SearchJobs_Id" />
+      <PropertyRef Name="TrackedFiles_Id" />
+    </Key>
+    <Property Name="SearchJobs_Id" Type="int" Nullable="false" />
+    <Property Name="TrackedFiles_Id" Type="int" Nullable="false" />
   </EntityType>
   <Association Name="TrackedFolderTrackedFolder">
     <End Role="TrackedFolder" Type="DbModel.Store.TrackedFolders" Multiplicity="0..1" />
@@ -179,6 +196,30 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_SearchJobTrackedFile_SearchJob">
+    <End Role="SearchJob" Type="DbModel.Store.SearchJobs" Multiplicity="1" />
+    <End Role="SearchJobTrackedFile" Type="DbModel.Store.SearchJobTrackedFile" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SearchJob">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SearchJobTrackedFile">
+        <PropertyRef Name="SearchJobs_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SearchJobTrackedFile_TrackedFile">
+    <End Role="SearchJobTrackedFile" Type="DbModel.Store.SearchJobTrackedFile" Multiplicity="*" />
+    <End Role="TrackedFile" Type="DbModel.Store.TrackedFiles" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="TrackedFile">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SearchJobTrackedFile">
+        <PropertyRef Name="TrackedFiles_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -214,6 +255,10 @@
           <AssociationSet Name="TrackedFolderTrackedFile" Association="DbModel.TrackedFolderTrackedFile">
             <End EntitySet="TrackedFolders" Role="TrackedFolder" />
             <End EntitySet="TrackedFiles" Role="TrackedFile" />
+          </AssociationSet>
+          <AssociationSet Name="SearchJobTrackedFile" Association="DbModel.SearchJobTrackedFile">
+            <End Role="SearchJob" EntitySet="SearchJobs" />
+            <End Role="TrackedFile" EntitySet="TrackedFiles" />
           </AssociationSet>
         </EntityContainer>
         <EnumType Name="JobStatus">
@@ -260,6 +305,7 @@
           <Property Name="LastSeen" Type="DateTime" Nullable="false" />
           <NavigationProperty Name="TrackedFolder" Relationship="DbModel.TrackedFolderTrackedFile" FromRole="TrackedFile" ToRole="TrackedFolder" />
           <Property Name="TrackedFolderId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="SearchJobs" Relationship="DbModel.SearchJobTrackedFile" FromRole="TrackedFile" ToRole="SearchJob" />
         </EntityType>
         <Association Name="TrackedFolderTrackedFolder">
           <End Type="DbModel.TrackedFolder" Role="TrackedFolder" Multiplicity="0..1" >
@@ -294,6 +340,7 @@
           <Property Name="AdminComments" Type="String" Nullable="false" />
           <NavigationProperty Name="SearchStrings" Relationship="DbModel.SearchJobSearchString" FromRole="SearchJob" ToRole="SearchString" />
           <NavigationProperty Name="Regexes" Relationship="DbModel.SearchJobRegex" FromRole="SearchJob" ToRole="Regex" />
+          <NavigationProperty Name="TrackedFiles" Relationship="DbModel.SearchJobTrackedFile" FromRole="SearchJob" ToRole="TrackedFile" />
         </EntityType>
         <Association Name="SearchJobCategory">
           <End Type="DbModel.SearchJob" Role="SearchJob" Multiplicity="1" />
@@ -364,6 +411,10 @@
               <PropertyRef Name="TrackedFolderId" />
             </Dependent>
           </ReferentialConstraint>
+        </Association>
+        <Association Name="SearchJobTrackedFile">
+          <End Type="DbModel.SearchJob" Role="SearchJob" Multiplicity="*" />
+          <End Type="DbModel.TrackedFile" Role="TrackedFile" Multiplicity="*" />
         </Association>
       </Schema>
     </edmx:ConceptualModels>
@@ -459,6 +510,14 @@
       </EndProperty>
       <EndProperty Name="Index">
         <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="SearchJobTrackedFile" TypeName="DbModel.SearchJobTrackedFile" StoreEntitySet="SearchJobTrackedFile">
+      <EndProperty Name="SearchJob">
+        <ScalarProperty Name="Id" ColumnName="SearchJobs_Id" />
+      </EndProperty>
+      <EndProperty Name="TrackedFile">
+        <ScalarProperty Name="Id" ColumnName="TrackedFiles_Id" />
       </EndProperty>
     </AssociationSetMapping>
   </EntityContainerMapping>

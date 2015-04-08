@@ -18,6 +18,7 @@
         <AssociationConnector Association="DbModel.SearchJobRegex" />
         <AssociationConnector Association="DbModel.IndexTrackedFolder" />
         <AssociationConnector Association="DbModel.TrackedFolderTrackedFile" />
+        <AssociationConnector Association="DbModel.SearchJobTrackedFile" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

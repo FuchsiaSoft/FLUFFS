@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 04/07/2015 14:55:56
+-- Date Created: 04/08/2015 18:27:01
 -- Generated from EDMX file: G:\Git\FLUFFS\FLUFFS-core\EntityModel\DbModel.edmx
 -- --------------------------------------------------
 
@@ -135,6 +135,13 @@ CREATE TABLE [dbo].[Regexes] (
 );
 GO
 
+-- Creating table 'SearchJobTrackedFile'
+CREATE TABLE [dbo].[SearchJobTrackedFile] (
+    [SearchJobs_Id] int  NOT NULL,
+    [TrackedFiles_Id] int  NOT NULL
+);
+GO
+
 -- --------------------------------------------------
 -- Creating all PRIMARY KEY constraints
 -- --------------------------------------------------
@@ -179,6 +186,12 @@ GO
 ALTER TABLE [dbo].[Regexes]
 ADD CONSTRAINT [PK_Regexes]
     PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [SearchJobs_Id], [TrackedFiles_Id] in table 'SearchJobTrackedFile'
+ALTER TABLE [dbo].[SearchJobTrackedFile]
+ADD CONSTRAINT [PK_SearchJobTrackedFile]
+    PRIMARY KEY CLUSTERED ([SearchJobs_Id], [TrackedFiles_Id] ASC);
 GO
 
 -- --------------------------------------------------
@@ -273,6 +286,30 @@ GO
 CREATE INDEX [IX_FK_TrackedFolderTrackedFile]
 ON [dbo].[TrackedFiles]
     ([TrackedFolderId]);
+GO
+
+-- Creating foreign key on [SearchJobs_Id] in table 'SearchJobTrackedFile'
+ALTER TABLE [dbo].[SearchJobTrackedFile]
+ADD CONSTRAINT [FK_SearchJobTrackedFile_SearchJob]
+    FOREIGN KEY ([SearchJobs_Id])
+    REFERENCES [dbo].[SearchJobs]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating foreign key on [TrackedFiles_Id] in table 'SearchJobTrackedFile'
+ALTER TABLE [dbo].[SearchJobTrackedFile]
+ADD CONSTRAINT [FK_SearchJobTrackedFile_TrackedFile]
+    FOREIGN KEY ([TrackedFiles_Id])
+    REFERENCES [dbo].[TrackedFiles]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_SearchJobTrackedFile_TrackedFile'
+CREATE INDEX [IX_FK_SearchJobTrackedFile_TrackedFile]
+ON [dbo].[SearchJobTrackedFile]
+    ([TrackedFiles_Id]);
 GO
 
 -- --------------------------------------------------

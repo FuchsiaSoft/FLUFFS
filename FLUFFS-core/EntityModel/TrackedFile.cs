@@ -14,6 +14,11 @@ namespace EntityModel
     
     public partial class TrackedFile
     {
+        public TrackedFile()
+        {
+            this.SearchJobs = new HashSet<SearchJob>();
+        }
+    
         public int Id { get; set; }
         public string Name { get; set; }
         public string FullPath { get; set; }
@@ -29,5 +34,6 @@ namespace EntityModel
         public int TrackedFolderId { get; set; }
     
         public virtual TrackedFolder TrackedFolder { get; set; }
+        public virtual ICollection<SearchJob> SearchJobs { get; set; }
     }
 }

@@ -76,6 +76,7 @@
       <DependentUpon>DbModel.tt</DependentUpon>
     </Compile>
     <Compile Include="PartialExtensions\Index.cs" />
+    <Compile Include="PartialExtensions\SearchJob.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Regex.cs">
       <DependentUpon>DbModel.tt</DependentUpon>
