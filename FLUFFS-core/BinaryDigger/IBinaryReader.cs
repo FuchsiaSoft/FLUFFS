@@ -8,6 +8,6 @@ namespace BinaryDigger
 {
     interface IBinaryReader
     {
-        public string ReadContents();
+        string ReadContents();
     }
 }
