@@ -10,19 +10,13 @@
 namespace EntityModel
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Category
+    public enum PdfVersion : int
     {
-        public Category()
-        {
-            this.TrackedFiles = new HashSet<TrackedFile>();
-        }
-    
-        public int Id { get; set; }
-        public string Name { get; set; }
-    
-        public virtual SearchJob SearchJob { get; set; }
-        public virtual ICollection<TrackedFile> TrackedFiles { get; set; }
+        v13 = 0,
+        v14 = 1,
+        v15 = 2,
+        v16 = 3,
+        v17 = 4
     }
 }

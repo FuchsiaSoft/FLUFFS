@@ -14,14 +14,14 @@ namespace TesterConsole
         static void Main(string[] args)
         {
             Index index = new Index();
-            index.BuildIndexAsync("G:\\", "Local Drive");
+            index.BuildIndexAsync("C:\\Users", "Local Profiles");
 
             for (int i = 0; i < 100; i++)
             {
                 Stopwatch stopwatch = Stopwatch.StartNew();
 
                 IFileReader reader = new FileReader();
-                reader.Open("C:\\test\\TestWorkDoc.docx");
+                reader.Open("C:\\Users\\LCC\\Documents\\lorem doc.docx");
 
                 stopwatch = Stopwatch.StartNew();
                 string md5 = reader.GetHash(HashType.MD5);
@@ -44,7 +44,7 @@ namespace TesterConsole
                 Console.WriteLine(content.Length.ToString("#,###") + " characters read in " + stopwatch.ElapsedMilliseconds + "ms");
 
             }
-
+            Console.WriteLine("DONE!");
             Console.ReadLine();
         }
     }

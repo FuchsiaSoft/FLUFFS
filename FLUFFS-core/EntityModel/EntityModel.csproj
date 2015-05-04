@@ -77,7 +77,13 @@
     </Compile>
     <Compile Include="PartialExtensions\Index.cs" />
     <Compile Include="PartialExtensions\SearchJob.cs" />
+    <Compile Include="PdfVersion.cs">
+      <DependentUpon>DbModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReductionLog.cs">
+      <DependentUpon>DbModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Regex.cs">
       <DependentUpon>DbModel.tt</DependentUpon>
     </Compile>
@@ -88,6 +94,9 @@
       <DependentUpon>DbModel.tt</DependentUpon>
     </Compile>
     <Compile Include="SearchString.cs">
+      <DependentUpon>DbModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ShrinkJob.cs">
       <DependentUpon>DbModel.tt</DependentUpon>
     </Compile>
     <Compile Include="TrackedFile.cs">

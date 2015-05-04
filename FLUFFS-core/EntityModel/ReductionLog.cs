@@ -12,17 +12,13 @@ namespace EntityModel
     using System;
     using System.Collections.Generic;
     
-    public partial class Category
+    public partial class ReductionLog
     {
-        public Category()
-        {
-            this.TrackedFiles = new HashSet<TrackedFile>();
-        }
-    
         public int Id { get; set; }
-        public string Name { get; set; }
+        public long OldSize { get; set; }
+        public long NewSize { get; set; }
     
-        public virtual SearchJob SearchJob { get; set; }
-        public virtual ICollection<TrackedFile> TrackedFiles { get; set; }
+        public virtual ShrinkJob ShrinkJob { get; set; }
+        public virtual TrackedFile TrackedFile { get; set; }
     }
 }

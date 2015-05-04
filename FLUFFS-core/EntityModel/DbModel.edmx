@@ -13,7 +13,11 @@
     <EntitySet Name="SearchJobs" EntityType="DbModel.Store.SearchJobs" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="SearchStrings" EntityType="DbModel.Store.SearchStrings" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Regexes" EntityType="DbModel.Store.Regexes" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ShrinkJobs" EntityType="DbModel.Store.ShrinkJobs" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ReductionLogs" EntityType="DbModel.Store.ReductionLogs" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="SearchJobTrackedFile" EntityType="DbModel.Store.SearchJobTrackedFile" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="CategoryTrackedFile" EntityType="DbModel.Store.CategoryTrackedFile" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="TrackedFileShrinkJob" EntityType="DbModel.Store.TrackedFileShrinkJob" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="TrackedFolderTrackedFolder" Association="DbModel.Store.TrackedFolderTrackedFolder">
       <End Role="TrackedFolder" EntitySet="TrackedFolders" />
       <End Role="TrackedFolder1" EntitySet="TrackedFolders" />
@@ -45,6 +49,30 @@
     <AssociationSet Name="FK_SearchJobTrackedFile_TrackedFile" Association="DbModel.Store.FK_SearchJobTrackedFile_TrackedFile">
       <End Role="TrackedFile" EntitySet="TrackedFiles" />
       <End Role="SearchJobTrackedFile" EntitySet="SearchJobTrackedFile" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CategoryTrackedFile_Category" Association="DbModel.Store.FK_CategoryTrackedFile_Category">
+      <End Role="Category" EntitySet="Categories" />
+      <End Role="CategoryTrackedFile" EntitySet="CategoryTrackedFile" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CategoryTrackedFile_TrackedFile" Association="DbModel.Store.FK_CategoryTrackedFile_TrackedFile">
+      <End Role="TrackedFile" EntitySet="TrackedFiles" />
+      <End Role="CategoryTrackedFile" EntitySet="CategoryTrackedFile" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TrackedFileShrinkJob_TrackedFile" Association="DbModel.Store.FK_TrackedFileShrinkJob_TrackedFile">
+      <End Role="TrackedFile" EntitySet="TrackedFiles" />
+      <End Role="TrackedFileShrinkJob" EntitySet="TrackedFileShrinkJob" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TrackedFileShrinkJob_ShrinkJob" Association="DbModel.Store.FK_TrackedFileShrinkJob_ShrinkJob">
+      <End Role="ShrinkJob" EntitySet="ShrinkJobs" />
+      <End Role="TrackedFileShrinkJob" EntitySet="TrackedFileShrinkJob" />
+    </AssociationSet>
+    <AssociationSet Name="ShrinkJobReductionLog" Association="DbModel.Store.ShrinkJobReductionLog">
+      <End Role="ShrinkJob" EntitySet="ShrinkJobs" />
+      <End Role="ReductionLog" EntitySet="ReductionLogs" />
+    </AssociationSet>
+    <AssociationSet Name="TrackedFileReductionLog" Association="DbModel.Store.TrackedFileReductionLog">
+      <End Role="TrackedFile" EntitySet="TrackedFiles" />
+      <End Role="ReductionLog" EntitySet="ReductionLogs" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="Indices">
@@ -116,6 +144,32 @@
     <Property Name="Content" Type="nvarchar(max)" Nullable="false" />
     <Property Name="SearchJobId" Type="int" Nullable="false" />
   </EntityType>
+  <EntityType Name="ShrinkJobs">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Alias" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Status" Type="int" Nullable="false" />
+    <Property Name="ShrinkJpegs" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="JpegTarget" Type="int" Nullable="false" />
+    <Property Name="ShrinkPdfs" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="PdfTarget" Type="int" Nullable="false" />
+    <Property Name="PdfJpegTarget" Type="int" Nullable="true" />
+    <Property Name="ShrinkWord" Type="bit" Nullable="false" />
+    <Property Name="UpgradeWord" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="WordJpegTarget" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ReductionLogs">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="OldSize" Type="bigint" Nullable="false" />
+    <Property Name="NewSize" Type="bigint" Nullable="false" />
+    <Property Name="ShrinkJob_Id" Type="int" Nullable="false" />
+    <Property Name="TrackedFile_Id" Type="int" Nullable="false" />
+  </EntityType>
   <EntityType Name="SearchJobTrackedFile">
     <Key>
       <PropertyRef Name="SearchJobs_Id" />
@@ -123,6 +177,22 @@
     </Key>
     <Property Name="SearchJobs_Id" Type="int" Nullable="false" />
     <Property Name="TrackedFiles_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CategoryTrackedFile">
+    <Key>
+      <PropertyRef Name="Categories_Id" />
+      <PropertyRef Name="TrackedFiles_Id" />
+    </Key>
+    <Property Name="Categories_Id" Type="int" Nullable="false" />
+    <Property Name="TrackedFiles_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TrackedFileShrinkJob">
+    <Key>
+      <PropertyRef Name="TrackedFiles_Id" />
+      <PropertyRef Name="ShrinkJobs_Id" />
+    </Key>
+    <Property Name="TrackedFiles_Id" Type="int" Nullable="false" />
+    <Property Name="ShrinkJobs_Id" Type="int" Nullable="false" />
   </EntityType>
   <Association Name="TrackedFolderTrackedFolder">
     <End Role="TrackedFolder" Type="DbModel.Store.TrackedFolders" Multiplicity="0..1" />
@@ -196,6 +266,30 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="ShrinkJobReductionLog">
+    <End Role="ShrinkJob" Type="DbModel.Store.ShrinkJobs" Multiplicity="1" />
+    <End Role="ReductionLog" Type="DbModel.Store.ReductionLogs" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ShrinkJob">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ReductionLog">
+        <PropertyRef Name="ShrinkJob_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="TrackedFileReductionLog">
+    <End Role="TrackedFile" Type="DbModel.Store.TrackedFiles" Multiplicity="1" />
+    <End Role="ReductionLog" Type="DbModel.Store.ReductionLogs" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TrackedFile">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ReductionLog">
+        <PropertyRef Name="TrackedFile_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_SearchJobTrackedFile_SearchJob">
     <End Role="SearchJob" Type="DbModel.Store.SearchJobs" Multiplicity="1" />
     <End Role="SearchJobTrackedFile" Type="DbModel.Store.SearchJobTrackedFile" Multiplicity="*" />
@@ -217,6 +311,54 @@
       </Principal>
       <Dependent Role="SearchJobTrackedFile">
         <PropertyRef Name="TrackedFiles_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CategoryTrackedFile_Category">
+    <End Role="Category" Type="DbModel.Store.Categories" Multiplicity="1" />
+    <End Role="CategoryTrackedFile" Type="DbModel.Store.CategoryTrackedFile" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Category">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CategoryTrackedFile">
+        <PropertyRef Name="Categories_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CategoryTrackedFile_TrackedFile">
+    <End Role="CategoryTrackedFile" Type="DbModel.Store.CategoryTrackedFile" Multiplicity="*" />
+    <End Role="TrackedFile" Type="DbModel.Store.TrackedFiles" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="TrackedFile">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CategoryTrackedFile">
+        <PropertyRef Name="TrackedFiles_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TrackedFileShrinkJob_TrackedFile">
+    <End Role="TrackedFile" Type="DbModel.Store.TrackedFiles" Multiplicity="1" />
+    <End Role="TrackedFileShrinkJob" Type="DbModel.Store.TrackedFileShrinkJob" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TrackedFile">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TrackedFileShrinkJob">
+        <PropertyRef Name="TrackedFiles_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TrackedFileShrinkJob_ShrinkJob">
+    <End Role="TrackedFileShrinkJob" Type="DbModel.Store.TrackedFileShrinkJob" Multiplicity="*" />
+    <End Role="ShrinkJob" Type="DbModel.Store.ShrinkJobs" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="ShrinkJob">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TrackedFileShrinkJob">
+        <PropertyRef Name="ShrinkJobs_Id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -259,6 +401,24 @@
           <AssociationSet Name="SearchJobTrackedFile" Association="DbModel.SearchJobTrackedFile">
             <End Role="SearchJob" EntitySet="SearchJobs" />
             <End Role="TrackedFile" EntitySet="TrackedFiles" />
+          </AssociationSet>
+          <AssociationSet Name="CategoryTrackedFile" Association="DbModel.CategoryTrackedFile">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="TrackedFile" EntitySet="TrackedFiles" />
+          </AssociationSet>
+          <EntitySet Name="ShrinkJobs" EntityType="DbModel.ShrinkJob" />
+          <AssociationSet Name="TrackedFileShrinkJob" Association="DbModel.TrackedFileShrinkJob">
+            <End Role="TrackedFile" EntitySet="TrackedFiles" />
+            <End Role="ShrinkJob" EntitySet="ShrinkJobs" />
+          </AssociationSet>
+          <EntitySet Name="ReductionLogs" EntityType="DbModel.ReductionLog" />
+          <AssociationSet Name="ShrinkJobReductionLog" Association="DbModel.ShrinkJobReductionLog">
+            <End Role="ShrinkJob" EntitySet="ShrinkJobs" />
+            <End Role="ReductionLog" EntitySet="ReductionLogs" />
+          </AssociationSet>
+          <AssociationSet Name="TrackedFileReductionLog" Association="DbModel.TrackedFileReductionLog">
+            <End Role="TrackedFile" EntitySet="TrackedFiles" />
+            <End Role="ReductionLog" EntitySet="ReductionLogs" />
           </AssociationSet>
         </EntityContainer>
         <EnumType Name="JobStatus">
@@ -306,6 +466,9 @@
           <NavigationProperty Name="TrackedFolder" Relationship="DbModel.TrackedFolderTrackedFile" FromRole="TrackedFile" ToRole="TrackedFolder" />
           <Property Name="TrackedFolderId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="SearchJobs" Relationship="DbModel.SearchJobTrackedFile" FromRole="TrackedFile" ToRole="SearchJob" />
+          <NavigationProperty Name="Categories" Relationship="DbModel.CategoryTrackedFile" FromRole="TrackedFile" ToRole="Category" />
+          <NavigationProperty Name="ShrinkJobs" Relationship="DbModel.TrackedFileShrinkJob" FromRole="TrackedFile" ToRole="ShrinkJob" />
+          <NavigationProperty Name="ReductionLogs" Relationship="DbModel.TrackedFileReductionLog" FromRole="TrackedFile" ToRole="ReductionLog" />
         </EntityType>
         <Association Name="TrackedFolderTrackedFolder">
           <End Type="DbModel.TrackedFolder" Role="TrackedFolder" Multiplicity="0..1" >
@@ -327,6 +490,7 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" Nullable="false" />
           <NavigationProperty Name="SearchJob" Relationship="DbModel.SearchJobCategory" FromRole="Category" ToRole="SearchJob" />
+          <NavigationProperty Name="TrackedFiles" Relationship="DbModel.CategoryTrackedFile" FromRole="Category" ToRole="TrackedFile" />
         </EntityType>
         <EntityType Name="SearchJob">
           <Key>
@@ -416,6 +580,57 @@
           <End Type="DbModel.SearchJob" Role="SearchJob" Multiplicity="*" />
           <End Type="DbModel.TrackedFile" Role="TrackedFile" Multiplicity="*" />
         </Association>
+        <Association Name="CategoryTrackedFile">
+          <End Type="DbModel.Category" Role="Category" Multiplicity="*" />
+          <End Type="DbModel.TrackedFile" Role="TrackedFile" Multiplicity="*" />
+        </Association>
+        <EntityType Name="ShrinkJob">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Alias" Type="String" Nullable="false" />
+          <Property Name="Status" Type="DbModel.SearchStatus" Nullable="false" />
+          <Property Name="ShrinkJpegs" Type="String" Nullable="false" />
+          <Property Name="JpegTarget" Type="Int32" Nullable="false" />
+          <Property Name="ShrinkPdfs" Type="String" Nullable="false" />
+          <Property Name="PdfTarget" Type="DbModel.PdfVersion" Nullable="false" />
+          <Property Name="PdfJpegTarget" Type="Int32" Nullable="true" />
+          <Property Name="ShrinkWord" Type="Boolean" Nullable="false" />
+          <Property Name="UpgradeWord" Type="String" Nullable="false" />
+          <Property Name="WordJpegTarget" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="TrackedFiles" Relationship="DbModel.TrackedFileShrinkJob" FromRole="ShrinkJob" ToRole="TrackedFile" />
+          <NavigationProperty Name="ReductionLogs" Relationship="DbModel.ShrinkJobReductionLog" FromRole="ShrinkJob" ToRole="ReductionLog" />
+        </EntityType>
+        <EnumType Name="PdfVersion">
+          <Member Name="v13" Value="0" />
+          <Member Name="v14" Value="1" />
+          <Member Name="v15" Value="2" />
+          <Member Name="v16" Value="3" />
+          <Member Name="v17" Value="4" />
+        </EnumType>
+        <Association Name="TrackedFileShrinkJob">
+          <End Type="DbModel.TrackedFile" Role="TrackedFile" Multiplicity="*" />
+          <End Type="DbModel.ShrinkJob" Role="ShrinkJob" Multiplicity="*" />
+        </Association>
+        <EntityType Name="ReductionLog">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OldSize" Type="Int64" Nullable="false" />
+          <Property Name="NewSize" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="ShrinkJob" Relationship="DbModel.ShrinkJobReductionLog" FromRole="ReductionLog" ToRole="ShrinkJob" />
+          <NavigationProperty Name="TrackedFile" Relationship="DbModel.TrackedFileReductionLog" FromRole="ReductionLog" ToRole="TrackedFile" />
+        </EntityType>
+        <Association Name="ShrinkJobReductionLog">
+          <End Type="DbModel.ShrinkJob" Role="ShrinkJob" Multiplicity="1" />
+          <End Type="DbModel.ReductionLog" Role="ReductionLog" Multiplicity="*" />
+        </Association>
+        <Association Name="TrackedFileReductionLog">
+          <End Type="DbModel.TrackedFile" Role="TrackedFile" Multiplicity="1" />
+          <End Type="DbModel.ReductionLog" Role="ReductionLog" Multiplicity="*" />
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -496,6 +711,32 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="ShrinkJobs">
+      <EntityTypeMapping TypeName="IsTypeOf(DbModel.ShrinkJob)">
+        <MappingFragment StoreEntitySet="ShrinkJobs">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Alias" ColumnName="Alias" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="ShrinkJpegs" ColumnName="ShrinkJpegs" />
+          <ScalarProperty Name="JpegTarget" ColumnName="JpegTarget" />
+          <ScalarProperty Name="ShrinkPdfs" ColumnName="ShrinkPdfs" />
+          <ScalarProperty Name="PdfTarget" ColumnName="PdfTarget" />
+          <ScalarProperty Name="PdfJpegTarget" ColumnName="PdfJpegTarget" />
+          <ScalarProperty Name="ShrinkWord" ColumnName="ShrinkWord" />
+          <ScalarProperty Name="UpgradeWord" ColumnName="UpgradeWord" />
+          <ScalarProperty Name="WordJpegTarget" ColumnName="WordJpegTarget" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ReductionLogs">
+      <EntityTypeMapping TypeName="IsTypeOf(DbModel.ReductionLog)">
+        <MappingFragment StoreEntitySet="ReductionLogs">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="OldSize" ColumnName="OldSize" />
+          <ScalarProperty Name="NewSize" ColumnName="NewSize" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <AssociationSetMapping Name="SearchJobCategory" TypeName="DbModel.SearchJobCategory" StoreEntitySet="SearchJobs">
       <EndProperty Name="Category">
         <ScalarProperty Name="Id" ColumnName="Category_Id" />
@@ -518,6 +759,38 @@
       </EndProperty>
       <EndProperty Name="TrackedFile">
         <ScalarProperty Name="Id" ColumnName="TrackedFiles_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="CategoryTrackedFile" TypeName="DbModel.CategoryTrackedFile" StoreEntitySet="CategoryTrackedFile">
+      <EndProperty Name="Category">
+        <ScalarProperty Name="Id" ColumnName="Categories_Id" />
+      </EndProperty>
+      <EndProperty Name="TrackedFile">
+        <ScalarProperty Name="Id" ColumnName="TrackedFiles_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="TrackedFileShrinkJob" TypeName="DbModel.TrackedFileShrinkJob" StoreEntitySet="TrackedFileShrinkJob">
+      <EndProperty Name="TrackedFile">
+        <ScalarProperty Name="Id" ColumnName="TrackedFiles_Id" />
+      </EndProperty>
+      <EndProperty Name="ShrinkJob">
+        <ScalarProperty Name="Id" ColumnName="ShrinkJobs_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="ShrinkJobReductionLog" TypeName="DbModel.ShrinkJobReductionLog" StoreEntitySet="ReductionLogs">
+      <EndProperty Name="ShrinkJob">
+        <ScalarProperty Name="Id" ColumnName="ShrinkJob_Id" />
+      </EndProperty>
+      <EndProperty Name="ReductionLog">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="TrackedFileReductionLog" TypeName="DbModel.TrackedFileReductionLog" StoreEntitySet="ReductionLogs">
+      <EndProperty Name="TrackedFile">
+        <ScalarProperty Name="Id" ColumnName="TrackedFile_Id" />
+      </EndProperty>
+      <EndProperty Name="ReductionLog">
+        <ScalarProperty Name="Id" ColumnName="Id" />
       </EndProperty>
     </AssociationSetMapping>
   </EntityContainerMapping>

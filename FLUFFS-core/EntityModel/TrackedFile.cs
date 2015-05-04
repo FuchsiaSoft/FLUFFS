@@ -17,6 +17,9 @@ namespace EntityModel
         public TrackedFile()
         {
             this.SearchJobs = new HashSet<SearchJob>();
+            this.Categories = new HashSet<Category>();
+            this.ShrinkJobs = new HashSet<ShrinkJob>();
+            this.ReductionLogs = new HashSet<ReductionLog>();
         }
     
         public int Id { get; set; }
@@ -35,5 +38,8 @@ namespace EntityModel
     
         public virtual TrackedFolder TrackedFolder { get; set; }
         public virtual ICollection<SearchJob> SearchJobs { get; set; }
+        public virtual ICollection<Category> Categories { get; set; }
+        public virtual ICollection<ShrinkJob> ShrinkJobs { get; set; }
+        public virtual ICollection<ReductionLog> ReductionLogs { get; set; }
     }
 }

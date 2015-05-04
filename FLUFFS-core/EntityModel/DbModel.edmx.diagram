@@ -19,6 +19,12 @@
         <AssociationConnector Association="DbModel.IndexTrackedFolder" />
         <AssociationConnector Association="DbModel.TrackedFolderTrackedFile" />
         <AssociationConnector Association="DbModel.SearchJobTrackedFile" />
+        <AssociationConnector Association="DbModel.CategoryTrackedFile" />
+        <EntityTypeShape EntityType="DbModel.ShrinkJob" Width="1.5" PointX="4.875" PointY="5.625" />
+        <AssociationConnector Association="DbModel.TrackedFileShrinkJob" />
+        <EntityTypeShape EntityType="DbModel.ReductionLog" Width="1.5" PointX="2.5" PointY="4.125" />
+        <AssociationConnector Association="DbModel.ShrinkJobReductionLog" />
+        <AssociationConnector Association="DbModel.TrackedFileReductionLog" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

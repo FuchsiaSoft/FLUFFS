@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 04/08/2015 18:27:01
--- Generated from EDMX file: G:\Git\FLUFFS\FLUFFS-core\EntityModel\DbModel.edmx
+-- Date Created: 05/04/2015 12:07:14
+-- Generated from EDMX file: C:\Users\LCC\Documents\GitHub\FLUFFS\FLUFFS-core\EntityModel\DbModel.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -35,6 +35,12 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_TrackedFolderTrackedFile]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[TrackedFiles] DROP CONSTRAINT [FK_TrackedFolderTrackedFile];
 GO
+IF OBJECT_ID(N'[dbo].[FK_SearchJobTrackedFile_SearchJob]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[SearchJobTrackedFile] DROP CONSTRAINT [FK_SearchJobTrackedFile_SearchJob];
+GO
+IF OBJECT_ID(N'[dbo].[FK_SearchJobTrackedFile_TrackedFile]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[SearchJobTrackedFile] DROP CONSTRAINT [FK_SearchJobTrackedFile_TrackedFile];
+GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
@@ -60,6 +66,9 @@ IF OBJECT_ID(N'[dbo].[SearchStrings]', 'U') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[Regexes]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Regexes];
+GO
+IF OBJECT_ID(N'[dbo].[SearchJobTrackedFile]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[SearchJobTrackedFile];
 GO
 
 -- --------------------------------------------------
@@ -135,10 +144,50 @@ CREATE TABLE [dbo].[Regexes] (
 );
 GO
 
+-- Creating table 'ShrinkJobs'
+CREATE TABLE [dbo].[ShrinkJobs] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [Alias] nvarchar(max)  NOT NULL,
+    [Status] int  NOT NULL,
+    [ShrinkJpegs] nvarchar(max)  NOT NULL,
+    [JpegTarget] int  NOT NULL,
+    [ShrinkPdfs] nvarchar(max)  NOT NULL,
+    [PdfTarget] int  NOT NULL,
+    [PdfJpegTarget] int  NULL,
+    [ShrinkWord] bit  NOT NULL,
+    [UpgradeWord] nvarchar(max)  NOT NULL,
+    [WordJpegTarget] int  NOT NULL
+);
+GO
+
+-- Creating table 'ReductionLogs'
+CREATE TABLE [dbo].[ReductionLogs] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [OldSize] bigint  NOT NULL,
+    [NewSize] bigint  NOT NULL,
+    [ShrinkJob_Id] int  NOT NULL,
+    [TrackedFile_Id] int  NOT NULL
+);
+GO
+
 -- Creating table 'SearchJobTrackedFile'
 CREATE TABLE [dbo].[SearchJobTrackedFile] (
     [SearchJobs_Id] int  NOT NULL,
     [TrackedFiles_Id] int  NOT NULL
+);
+GO
+
+-- Creating table 'CategoryTrackedFile'
+CREATE TABLE [dbo].[CategoryTrackedFile] (
+    [Categories_Id] int  NOT NULL,
+    [TrackedFiles_Id] int  NOT NULL
+);
+GO
+
+-- Creating table 'TrackedFileShrinkJob'
+CREATE TABLE [dbo].[TrackedFileShrinkJob] (
+    [TrackedFiles_Id] int  NOT NULL,
+    [ShrinkJobs_Id] int  NOT NULL
 );
 GO
 
@@ -188,10 +237,34 @@ ADD CONSTRAINT [PK_Regexes]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
+-- Creating primary key on [Id] in table 'ShrinkJobs'
+ALTER TABLE [dbo].[ShrinkJobs]
+ADD CONSTRAINT [PK_ShrinkJobs]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'ReductionLogs'
+ALTER TABLE [dbo].[ReductionLogs]
+ADD CONSTRAINT [PK_ReductionLogs]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
 -- Creating primary key on [SearchJobs_Id], [TrackedFiles_Id] in table 'SearchJobTrackedFile'
 ALTER TABLE [dbo].[SearchJobTrackedFile]
 ADD CONSTRAINT [PK_SearchJobTrackedFile]
     PRIMARY KEY CLUSTERED ([SearchJobs_Id], [TrackedFiles_Id] ASC);
+GO
+
+-- Creating primary key on [Categories_Id], [TrackedFiles_Id] in table 'CategoryTrackedFile'
+ALTER TABLE [dbo].[CategoryTrackedFile]
+ADD CONSTRAINT [PK_CategoryTrackedFile]
+    PRIMARY KEY CLUSTERED ([Categories_Id], [TrackedFiles_Id] ASC);
+GO
+
+-- Creating primary key on [TrackedFiles_Id], [ShrinkJobs_Id] in table 'TrackedFileShrinkJob'
+ALTER TABLE [dbo].[TrackedFileShrinkJob]
+ADD CONSTRAINT [PK_TrackedFileShrinkJob]
+    PRIMARY KEY CLUSTERED ([TrackedFiles_Id], [ShrinkJobs_Id] ASC);
 GO
 
 -- --------------------------------------------------
@@ -205,7 +278,6 @@ ADD CONSTRAINT [FK_TrackedFolderTrackedFolder]
     REFERENCES [dbo].[TrackedFolders]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_TrackedFolderTrackedFolder'
 CREATE INDEX [IX_FK_TrackedFolderTrackedFolder]
@@ -220,7 +292,6 @@ ADD CONSTRAINT [FK_SearchJobCategory]
     REFERENCES [dbo].[Categories]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_SearchJobCategory'
 CREATE INDEX [IX_FK_SearchJobCategory]
@@ -235,7 +306,6 @@ ADD CONSTRAINT [FK_SearchJobSearchString]
     REFERENCES [dbo].[SearchJobs]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_SearchJobSearchString'
 CREATE INDEX [IX_FK_SearchJobSearchString]
@@ -250,7 +320,6 @@ ADD CONSTRAINT [FK_SearchJobRegex]
     REFERENCES [dbo].[SearchJobs]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_SearchJobRegex'
 CREATE INDEX [IX_FK_SearchJobRegex]
@@ -265,7 +334,6 @@ ADD CONSTRAINT [FK_IndexTrackedFolder]
     REFERENCES [dbo].[TrackedFolders]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_IndexTrackedFolder'
 CREATE INDEX [IX_FK_IndexTrackedFolder]
@@ -280,7 +348,6 @@ ADD CONSTRAINT [FK_TrackedFolderTrackedFile]
     REFERENCES [dbo].[TrackedFolders]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_TrackedFolderTrackedFile'
 CREATE INDEX [IX_FK_TrackedFolderTrackedFile]
@@ -304,12 +371,85 @@ ADD CONSTRAINT [FK_SearchJobTrackedFile_TrackedFile]
     REFERENCES [dbo].[TrackedFiles]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_SearchJobTrackedFile_TrackedFile'
 CREATE INDEX [IX_FK_SearchJobTrackedFile_TrackedFile]
 ON [dbo].[SearchJobTrackedFile]
     ([TrackedFiles_Id]);
+GO
+
+-- Creating foreign key on [Categories_Id] in table 'CategoryTrackedFile'
+ALTER TABLE [dbo].[CategoryTrackedFile]
+ADD CONSTRAINT [FK_CategoryTrackedFile_Category]
+    FOREIGN KEY ([Categories_Id])
+    REFERENCES [dbo].[Categories]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating foreign key on [TrackedFiles_Id] in table 'CategoryTrackedFile'
+ALTER TABLE [dbo].[CategoryTrackedFile]
+ADD CONSTRAINT [FK_CategoryTrackedFile_TrackedFile]
+    FOREIGN KEY ([TrackedFiles_Id])
+    REFERENCES [dbo].[TrackedFiles]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_CategoryTrackedFile_TrackedFile'
+CREATE INDEX [IX_FK_CategoryTrackedFile_TrackedFile]
+ON [dbo].[CategoryTrackedFile]
+    ([TrackedFiles_Id]);
+GO
+
+-- Creating foreign key on [TrackedFiles_Id] in table 'TrackedFileShrinkJob'
+ALTER TABLE [dbo].[TrackedFileShrinkJob]
+ADD CONSTRAINT [FK_TrackedFileShrinkJob_TrackedFile]
+    FOREIGN KEY ([TrackedFiles_Id])
+    REFERENCES [dbo].[TrackedFiles]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating foreign key on [ShrinkJobs_Id] in table 'TrackedFileShrinkJob'
+ALTER TABLE [dbo].[TrackedFileShrinkJob]
+ADD CONSTRAINT [FK_TrackedFileShrinkJob_ShrinkJob]
+    FOREIGN KEY ([ShrinkJobs_Id])
+    REFERENCES [dbo].[ShrinkJobs]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_TrackedFileShrinkJob_ShrinkJob'
+CREATE INDEX [IX_FK_TrackedFileShrinkJob_ShrinkJob]
+ON [dbo].[TrackedFileShrinkJob]
+    ([ShrinkJobs_Id]);
+GO
+
+-- Creating foreign key on [ShrinkJob_Id] in table 'ReductionLogs'
+ALTER TABLE [dbo].[ReductionLogs]
+ADD CONSTRAINT [FK_ShrinkJobReductionLog]
+    FOREIGN KEY ([ShrinkJob_Id])
+    REFERENCES [dbo].[ShrinkJobs]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_ShrinkJobReductionLog'
+CREATE INDEX [IX_FK_ShrinkJobReductionLog]
+ON [dbo].[ReductionLogs]
+    ([ShrinkJob_Id]);
+GO
+
+-- Creating foreign key on [TrackedFile_Id] in table 'ReductionLogs'
+ALTER TABLE [dbo].[ReductionLogs]
+ADD CONSTRAINT [FK_TrackedFileReductionLog]
+    FOREIGN KEY ([TrackedFile_Id])
+    REFERENCES [dbo].[TrackedFiles]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_TrackedFileReductionLog'
+CREATE INDEX [IX_FK_TrackedFileReductionLog]
+ON [dbo].[ReductionLogs]
+    ([TrackedFile_Id]);
 GO
 
 -- --------------------------------------------------
