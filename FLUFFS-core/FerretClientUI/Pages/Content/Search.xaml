@@ -12,7 +12,13 @@
         <ScrollViewer>
             <StackPanel MinWidth="200">
                 <TextBlock Text="MANAGE SEARCH JOBS" Style="{StaticResource Heading2}" />
-                <TextBlock Text="Content goes here" />
+                <TextBlock TextWrapping="Wrap">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus convallis, leo ut ultrices venenatis, metus nisi eleifend ante, scelerisque suscipit risus nulla at ante. Nunc suscipit vitae dui in efficitur. Aliquam vitae eros vel urna 
+                    laoreet tempor non a dui. Nulla dapibus ultricies nunc vulputate fermentum. In hac habitasse platea dictumst. Aenean dui dolor, blandit ut libero sed, pretium posuere arcu. Quisque quis tincidunt lectus, vel condimentum nibh. Nam ac iaculis sem. 
+                    Morbi rhoncus ante nec tortor maximus sagittis. Nulla malesuada massa at elementum bibendum. 
+                    Fusce dui justo, accumsan fringilla auctor vel, ullamcorper vitae turpis. In eleifend nunc vitae leo rutrum, et semper nunc euismod. Sed hendrerit libero id convallis ornare. Ut mollis, neque sed auctor interdum, dui purus sagittis orci, 
+                    maximus ullamcorper ipsum turpis sit amet lacus. Vestibulum metus mauris, lacinia eget malesuada a, pulvinar a velit. Praesent vehicula sapien ut pulvinar mattis. Donec vestibulum ligula quis nisi mollis, vel laoreet nisl consequat. Etiam ac suscipit nunc. Morbi at neque non neque congue laoreet vitae sit amet purus. Pellentesque sed magna felis. Donec sagittis orci lorem, id accumsan velit convallis et. Interdum et malesuada fames ac ante ipsum primis in faucibus. Etiam nulla elit, ultricies at gravida non, suscipit et orci. Sed suscipit iaculis est, quis feugiat purus commodo sit amet.
+                </TextBlock>
             </StackPanel>
         </ScrollViewer>
     </Grid>
