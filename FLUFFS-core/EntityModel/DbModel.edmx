@@ -15,9 +15,13 @@
     <EntitySet Name="Regexes" EntityType="DbModel.Store.Regexes" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="ShrinkJobs" EntityType="DbModel.Store.ShrinkJobs" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="ReductionLogs" EntityType="DbModel.Store.ReductionLogs" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Users" EntityType="DbModel.Store.Users" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="WorkingSets" EntityType="DbModel.Store.WorkingSets" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="SearchJobTrackedFile" EntityType="DbModel.Store.SearchJobTrackedFile" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="CategoryTrackedFile" EntityType="DbModel.Store.CategoryTrackedFile" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="TrackedFileShrinkJob" EntityType="DbModel.Store.TrackedFileShrinkJob" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="UserIndex" EntityType="DbModel.Store.UserIndex" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="TrackedFileWorkingSet" EntityType="DbModel.Store.TrackedFileWorkingSet" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="TrackedFolderTrackedFolder" Association="DbModel.Store.TrackedFolderTrackedFolder">
       <End Role="TrackedFolder" EntitySet="TrackedFolders" />
       <End Role="TrackedFolder1" EntitySet="TrackedFolders" />
@@ -74,6 +78,34 @@
       <End Role="TrackedFile" EntitySet="TrackedFiles" />
       <End Role="ReductionLog" EntitySet="ReductionLogs" />
     </AssociationSet>
+    <AssociationSet Name="FK_UserIndex_User" Association="DbModel.Store.FK_UserIndex_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="UserIndex" EntitySet="UserIndex" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserIndex_Index" Association="DbModel.Store.FK_UserIndex_Index">
+      <End Role="Index" EntitySet="Indices" />
+      <End Role="UserIndex" EntitySet="UserIndex" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TrackedFileWorkingSet_TrackedFile" Association="DbModel.Store.FK_TrackedFileWorkingSet_TrackedFile">
+      <End Role="TrackedFile" EntitySet="TrackedFiles" />
+      <End Role="TrackedFileWorkingSet" EntitySet="TrackedFileWorkingSet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TrackedFileWorkingSet_WorkingSet" Association="DbModel.Store.FK_TrackedFileWorkingSet_WorkingSet">
+      <End Role="WorkingSet" EntitySet="WorkingSets" />
+      <End Role="TrackedFileWorkingSet" EntitySet="TrackedFileWorkingSet" />
+    </AssociationSet>
+    <AssociationSet Name="UserWorkingSet" Association="DbModel.Store.UserWorkingSet">
+      <End Role="User" EntitySet="Users" />
+      <End Role="WorkingSet" EntitySet="WorkingSets" />
+    </AssociationSet>
+    <AssociationSet Name="UserShrinkJob" Association="DbModel.Store.UserShrinkJob">
+      <End Role="User" EntitySet="Users" />
+      <End Role="ShrinkJob" EntitySet="ShrinkJobs" />
+    </AssociationSet>
+    <AssociationSet Name="UserSearchJob" Association="DbModel.Store.UserSearchJob">
+      <End Role="User" EntitySet="Users" />
+      <End Role="SearchJob" EntitySet="SearchJobs" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="Indices">
     <Key>
@@ -127,6 +159,7 @@
     <Property Name="RequestorComments" Type="nvarchar(max)" Nullable="false" />
     <Property Name="AdminComments" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Category_Id" Type="int" Nullable="false" />
+    <Property Name="User_Id" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="SearchStrings">
     <Key>
@@ -159,6 +192,7 @@
     <Property Name="ShrinkWord" Type="bit" Nullable="false" />
     <Property Name="UpgradeWord" Type="nvarchar(max)" Nullable="false" />
     <Property Name="WordJpegTarget" Type="int" Nullable="false" />
+    <Property Name="User_Id" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="ReductionLogs">
     <Key>
@@ -169,6 +203,27 @@
     <Property Name="NewSize" Type="bigint" Nullable="false" />
     <Property Name="ShrinkJob_Id" Type="int" Nullable="false" />
     <Property Name="TrackedFile_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Firstname" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Surname" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Salt" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Hash" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Login" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="IsSysAdmin" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="WorkingSets">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="User_Id" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="SearchJobTrackedFile">
     <Key>
@@ -193,6 +248,22 @@
     </Key>
     <Property Name="TrackedFiles_Id" Type="int" Nullable="false" />
     <Property Name="ShrinkJobs_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UserIndex">
+    <Key>
+      <PropertyRef Name="Users_Id" />
+      <PropertyRef Name="Indices_Id" />
+    </Key>
+    <Property Name="Users_Id" Type="int" Nullable="false" />
+    <Property Name="Indices_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TrackedFileWorkingSet">
+    <Key>
+      <PropertyRef Name="TrackedFiles_Id" />
+      <PropertyRef Name="WorkingSets_Id" />
+    </Key>
+    <Property Name="TrackedFiles_Id" Type="int" Nullable="false" />
+    <Property Name="WorkingSets_Id" Type="int" Nullable="false" />
   </EntityType>
   <Association Name="TrackedFolderTrackedFolder">
     <End Role="TrackedFolder" Type="DbModel.Store.TrackedFolders" Multiplicity="0..1" />
@@ -290,6 +361,42 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="UserWorkingSet">
+    <End Role="User" Type="DbModel.Store.Users" Multiplicity="1" />
+    <End Role="WorkingSet" Type="DbModel.Store.WorkingSets" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="WorkingSet">
+        <PropertyRef Name="User_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="UserShrinkJob">
+    <End Role="User" Type="DbModel.Store.Users" Multiplicity="1" />
+    <End Role="ShrinkJob" Type="DbModel.Store.ShrinkJobs" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ShrinkJob">
+        <PropertyRef Name="User_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="UserSearchJob">
+    <End Role="User" Type="DbModel.Store.Users" Multiplicity="1" />
+    <End Role="SearchJob" Type="DbModel.Store.SearchJobs" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SearchJob">
+        <PropertyRef Name="User_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_SearchJobTrackedFile_SearchJob">
     <End Role="SearchJob" Type="DbModel.Store.SearchJobs" Multiplicity="1" />
     <End Role="SearchJobTrackedFile" Type="DbModel.Store.SearchJobTrackedFile" Multiplicity="*" />
@@ -359,6 +466,54 @@
       </Principal>
       <Dependent Role="TrackedFileShrinkJob">
         <PropertyRef Name="ShrinkJobs_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserIndex_User">
+    <End Role="User" Type="DbModel.Store.Users" Multiplicity="1" />
+    <End Role="UserIndex" Type="DbModel.Store.UserIndex" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserIndex">
+        <PropertyRef Name="Users_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserIndex_Index">
+    <End Role="UserIndex" Type="DbModel.Store.UserIndex" Multiplicity="*" />
+    <End Role="Index" Type="DbModel.Store.Indices" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Index">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserIndex">
+        <PropertyRef Name="Indices_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TrackedFileWorkingSet_TrackedFile">
+    <End Role="TrackedFile" Type="DbModel.Store.TrackedFiles" Multiplicity="1" />
+    <End Role="TrackedFileWorkingSet" Type="DbModel.Store.TrackedFileWorkingSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TrackedFile">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TrackedFileWorkingSet">
+        <PropertyRef Name="TrackedFiles_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TrackedFileWorkingSet_WorkingSet">
+    <End Role="TrackedFileWorkingSet" Type="DbModel.Store.TrackedFileWorkingSet" Multiplicity="*" />
+    <End Role="WorkingSet" Type="DbModel.Store.WorkingSets" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="WorkingSet">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TrackedFileWorkingSet">
+        <PropertyRef Name="WorkingSets_Id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -809,6 +964,28 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="IsTypeOf(DbModel.User)">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Firstname" ColumnName="Firstname" />
+          <ScalarProperty Name="Surname" ColumnName="Surname" />
+          <ScalarProperty Name="Salt" ColumnName="Salt" />
+          <ScalarProperty Name="Hash" ColumnName="Hash" />
+          <ScalarProperty Name="Login" ColumnName="Login" />
+          <ScalarProperty Name="IsSysAdmin" ColumnName="IsSysAdmin" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="WorkingSets">
+      <EntityTypeMapping TypeName="IsTypeOf(DbModel.WorkingSet)">
+        <MappingFragment StoreEntitySet="WorkingSets">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <AssociationSetMapping Name="SearchJobCategory" TypeName="DbModel.SearchJobCategory" StoreEntitySet="SearchJobs">
       <EndProperty Name="Category">
         <ScalarProperty Name="Id" ColumnName="Category_Id" />
@@ -862,6 +1039,46 @@
         <ScalarProperty Name="Id" ColumnName="TrackedFile_Id" />
       </EndProperty>
       <EndProperty Name="ReductionLog">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="UserIndex" TypeName="DbModel.UserIndex" StoreEntitySet="UserIndex">
+      <EndProperty Name="User">
+        <ScalarProperty Name="Id" ColumnName="Users_Id" />
+      </EndProperty>
+      <EndProperty Name="Index">
+        <ScalarProperty Name="Id" ColumnName="Indices_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="TrackedFileWorkingSet" TypeName="DbModel.TrackedFileWorkingSet" StoreEntitySet="TrackedFileWorkingSet">
+      <EndProperty Name="TrackedFile">
+        <ScalarProperty Name="Id" ColumnName="TrackedFiles_Id" />
+      </EndProperty>
+      <EndProperty Name="WorkingSet">
+        <ScalarProperty Name="Id" ColumnName="WorkingSets_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="UserWorkingSet" TypeName="DbModel.UserWorkingSet" StoreEntitySet="WorkingSets">
+      <EndProperty Name="User">
+        <ScalarProperty Name="Id" ColumnName="User_Id" />
+      </EndProperty>
+      <EndProperty Name="WorkingSet">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="UserShrinkJob" TypeName="DbModel.UserShrinkJob" StoreEntitySet="ShrinkJobs">
+      <EndProperty Name="User">
+        <ScalarProperty Name="Id" ColumnName="User_Id" />
+      </EndProperty>
+      <EndProperty Name="ShrinkJob">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="UserSearchJob" TypeName="DbModel.UserSearchJob" StoreEntitySet="SearchJobs">
+      <EndProperty Name="User">
+        <ScalarProperty Name="Id" ColumnName="User_Id" />
+      </EndProperty>
+      <EndProperty Name="SearchJob">
         <ScalarProperty Name="Id" ColumnName="Id" />
       </EndProperty>
     </AssociationSetMapping>
