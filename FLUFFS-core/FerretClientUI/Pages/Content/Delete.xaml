@@ -1,14 +1,16 @@
-﻿<UserControl x:Class="FerretClientUI.Pages.Home"
+﻿<UserControl x:Class="FerretClientUI.Pages.Content.Delete"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mui="http://firstfloorsoftware.com/ModernUI"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid Style="{StaticResource ContentRoot}">
         <ScrollViewer>
             <StackPanel MinWidth="200">
-                <TextBlock Text="This is the welcome page where we'll have a written intro, maybe links to training materials etc."  TextWrapping="Wrap" Style="{StaticResource Heading1}"/>
+                <TextBlock Text="BASIC PAGE" Style="{StaticResource Heading2}" />
+                <TextBlock Text="Content goes here" />
             </StackPanel>
         </ScrollViewer>
     </Grid>

@@ -42,6 +42,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FerretClient", "FerretClien
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FerretClientUI", "FerretClientUI\FerretClientUI.csproj", "{DFF34307-387C-48A6-AA54-E1272E205512}"
+	ProjectSection(ProjectDependencies) = postProject
+		{690CE3FE-76E1-4309-9E76-209AB7CDEE95} = {690CE3FE-76E1-4309-9E76-209AB7CDEE95}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
