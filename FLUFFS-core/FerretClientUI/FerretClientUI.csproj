@@ -57,6 +57,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Utils\RandomWordGenerator.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -66,15 +67,27 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Pages\Content\Search\MyJobs.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Content\Search\NewSearch.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Content\Search\RegexLibrary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\Delete.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\Content\Help\IndexHelp.xaml">
+    <Page Include="Pages\Help\Content\IndexHelp.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\Help\Content\IndexHelp.xaml">
+    <Page Include="Pages\Help\Content\WorkingSetHelp.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -101,14 +114,23 @@
     <Compile Include="MVVM\DelegateCommand.cs" />
     <Compile Include="MVVM\ObservableObject.cs" />
     <Compile Include="MVVM\ViewModelBase.cs" />
+    <Compile Include="Pages\Content\Search\MyJobs.xaml.cs">
+      <DependentUpon>MyJobs.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Content\Search\NewSearch.xaml.cs">
+      <DependentUpon>NewSearch.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Content\Search\RegexLibrary.xaml.cs">
+      <DependentUpon>RegexLibrary.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Delete.xaml.cs">
       <DependentUpon>Delete.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Content\Help\IndexHelp.xaml.cs">
-      <DependentUpon>IndexHelp.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Pages\Help\Content\IndexHelp.xaml.cs">
       <DependentUpon>IndexHelp.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Help\Content\WorkingSetHelp.xaml.cs">
+      <DependentUpon>WorkingSetHelp.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Index.xaml.cs">
       <DependentUpon>Index.xaml</DependentUpon>

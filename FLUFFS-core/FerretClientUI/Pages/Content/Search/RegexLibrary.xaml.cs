@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace FerretClientUI.Pages.Content.Help
+namespace FerretClientUI.Pages.Content.Search
 {
     /// <summary>
-    /// Interaction logic for IndexHelp.xaml
+    /// Interaction logic for RegexLibrary.xaml
     /// </summary>
-    public partial class IndexHelp : UserControl
+    public partial class RegexLibrary : UserControl
     {
-        public IndexHelp()
+        public RegexLibrary()
         {
             InitializeComponent();
         }

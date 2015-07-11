@@ -6,13 +6,20 @@
         ContentSource="/Pages/Home.xaml">
 
     <mui:ModernWindow.MenuLinkGroups>
-        <mui:LinkGroup DisplayName="Client control panel">
+        <mui:LinkGroup DisplayName="Indices">
             <mui:LinkGroup.Links>
                 <mui:Link DisplayName="home" Source="/Pages/Home.xaml" />
                 <mui:Link DisplayName="indices" Source="/Pages/Index.xaml" />
                 <mui:Link DisplayName="search jobs" Source="/Pages/Search.xaml" />
                 <mui:Link DisplayName="shrink jobs" Source="/Pages/Shrink.xaml" />
                 <mui:Link DisplayName="delete jobs" Source="/Pages/Delete.xaml" />
+            </mui:LinkGroup.Links>
+        </mui:LinkGroup>
+        <mui:LinkGroup DisplayName="Search Jobs">
+            <mui:LinkGroup.Links>
+                <mui:Link DisplayName="my jobs" Source="/Pages/Content/Search/MyJobs.xaml"/>
+                <mui:Link DisplayName="design a new search job" Source="/Pages/Content/Search/NewSearch.xaml"/>
+                <mui:Link DisplayName="regular expression library" Source="/Pages/Content/Search/RegexLibrary.xaml"/>
             </mui:LinkGroup.Links>
         </mui:LinkGroup>
         <mui:LinkGroup DisplayName="settings" GroupKey="settings">
