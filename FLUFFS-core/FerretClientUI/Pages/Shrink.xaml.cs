@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace FerretClientUI.Pages.Content
+namespace FerretClientUI.Pages
 {
     /// <summary>
-    /// Interaction logic for Delete.xaml
+    /// Interaction logic for Shrink.xaml
     /// </summary>
-    public partial class Delete : UserControl
+    public partial class Shrink : UserControl
     {
-        public Delete()
+        public Shrink()
         {
             InitializeComponent();
         }

@@ -66,19 +66,31 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Pages\Content\Delete.xaml">
+    <Page Include="Pages\Delete.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\Content\Index.xaml">
+    <Page Include="Pages\Content\Help\IndexHelp.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\Content\Search.xaml">
+    <Page Include="Pages\Help\Content\IndexHelp.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\Content\Shrink.xaml">
+    <Page Include="Pages\Index.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Search.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Shrink.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Help\Help.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -89,17 +101,26 @@
     <Compile Include="MVVM\DelegateCommand.cs" />
     <Compile Include="MVVM\ObservableObject.cs" />
     <Compile Include="MVVM\ViewModelBase.cs" />
-    <Compile Include="Pages\Content\Delete.xaml.cs">
+    <Compile Include="Pages\Delete.xaml.cs">
       <DependentUpon>Delete.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Content\Index.xaml.cs">
+    <Compile Include="Pages\Content\Help\IndexHelp.xaml.cs">
+      <DependentUpon>IndexHelp.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Help\Content\IndexHelp.xaml.cs">
+      <DependentUpon>IndexHelp.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Index.xaml.cs">
       <DependentUpon>Index.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Content\Search.xaml.cs">
+    <Compile Include="Pages\Search.xaml.cs">
       <DependentUpon>Search.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Content\Shrink.xaml.cs">
+    <Compile Include="Pages\Shrink.xaml.cs">
       <DependentUpon>Shrink.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Help\Help.xaml.cs">
+      <DependentUpon>Help.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Settings\About.xaml.cs">
       <DependentUpon>About.xaml</DependentUpon>

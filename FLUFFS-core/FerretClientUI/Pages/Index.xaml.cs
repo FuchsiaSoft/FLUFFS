@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace FerretClientUI.Pages.Content
+namespace FerretClientUI.Pages
 {
     /// <summary>
-    /// Interaction logic for Shrink.xaml
+    /// Interaction logic for Index.xaml
     /// </summary>
-    public partial class Shrink : UserControl
+    public partial class Index : UserControl
     {
-        public Shrink()
+        public Index()
         {
             InitializeComponent();
         }

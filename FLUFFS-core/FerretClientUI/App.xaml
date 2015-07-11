@@ -17,6 +17,10 @@
                 <Setter Property="Height" Value="300"/>
                 <Setter Property="Width" Value="300"/>
             </Style>
+            <Style TargetType="Label" BasedOn="{StaticResource {x:Type Label}}">
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="Margin" Value="5"/>
+            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

@@ -9,10 +9,10 @@
         <mui:LinkGroup DisplayName="Client control panel">
             <mui:LinkGroup.Links>
                 <mui:Link DisplayName="home" Source="/Pages/Home.xaml" />
-                <mui:Link DisplayName="indices" Source="/Pages/Content/Index.xaml" />
-                <mui:Link DisplayName="search jobs" Source="/Pages/Content/Search.xaml" />
-                <mui:Link DisplayName="shrink jobs" Source="/Pages/Content/Shrink.xaml" />
-                <mui:Link DisplayName="delete jobs" Source="/Pages/Content/Delete.xaml" />
+                <mui:Link DisplayName="indices" Source="/Pages/Index.xaml" />
+                <mui:Link DisplayName="search jobs" Source="/Pages/Search.xaml" />
+                <mui:Link DisplayName="shrink jobs" Source="/Pages/Shrink.xaml" />
+                <mui:Link DisplayName="delete jobs" Source="/Pages/Delete.xaml" />
             </mui:LinkGroup.Links>
         </mui:LinkGroup>
         <mui:LinkGroup DisplayName="settings" GroupKey="settings">
@@ -24,6 +24,6 @@
     
     <mui:ModernWindow.TitleLinks>
         <mui:Link DisplayName="settings" Source="/Pages/SettingsPage.xaml" />
-        <mui:Link DisplayName="help" Source="http://mui.codeplex.com" />
+        <mui:Link DisplayName="help" Source="/Pages/Help/Help.xaml" />
     </mui:ModernWindow.TitleLinks>
 </mui:ModernWindow>

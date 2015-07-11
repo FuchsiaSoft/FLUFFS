@@ -9,9 +9,9 @@ namespace FerretClientUI.Authentication
 {
     static class AuthenticationManager
     {
-        public User CurrentUser { get; private set; }
+        public static User CurrentUser { get; private set; }
 
-        public bool Authenticate(string login, string password)
+        public static bool Authenticate(string login, string password)
         {
             throw new NotImplementedException();
         }
