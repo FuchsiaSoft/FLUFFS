@@ -1,6 +1,7 @@
 ﻿<Application x:Class="FerretClientUI.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mui="http://firstfloorsoftware.com/ModernUI"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
@@ -20,6 +21,13 @@
             <Style TargetType="Label" BasedOn="{StaticResource {x:Type Label}}">
                 <Setter Property="VerticalAlignment" Value="Center"/>
                 <Setter Property="Margin" Value="5"/>
+            </Style>
+            <Style TargetType="mui:ModernButton" BasedOn="{StaticResource {x:Type mui:ModernButton}}">
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Foreground" Value="{DynamicResource Accent}"/>
+                    </Trigger>
+                </Style.Triggers>
             </Style>
         </ResourceDictionary>
     </Application.Resources>

@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 07/11/2015 14:39:50
+-- Date Created: 07/11/2015 17:45:00
 -- Generated from EDMX file: G:\Git\FLUFFS\FLUFFS-core\EntityModel\DbModel.edmx
 -- --------------------------------------------------
 
@@ -59,6 +59,27 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_TrackedFileReductionLog]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[ReductionLogs] DROP CONSTRAINT [FK_TrackedFileReductionLog];
 GO
+IF OBJECT_ID(N'[dbo].[FK_UserIndex_User]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[UserIndex] DROP CONSTRAINT [FK_UserIndex_User];
+GO
+IF OBJECT_ID(N'[dbo].[FK_UserIndex_Index]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[UserIndex] DROP CONSTRAINT [FK_UserIndex_Index];
+GO
+IF OBJECT_ID(N'[dbo].[FK_TrackedFileWorkingSet_TrackedFile]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[TrackedFileWorkingSet] DROP CONSTRAINT [FK_TrackedFileWorkingSet_TrackedFile];
+GO
+IF OBJECT_ID(N'[dbo].[FK_TrackedFileWorkingSet_WorkingSet]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[TrackedFileWorkingSet] DROP CONSTRAINT [FK_TrackedFileWorkingSet_WorkingSet];
+GO
+IF OBJECT_ID(N'[dbo].[FK_UserWorkingSet]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[WorkingSets] DROP CONSTRAINT [FK_UserWorkingSet];
+GO
+IF OBJECT_ID(N'[dbo].[FK_UserShrinkJob]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[ShrinkJobs] DROP CONSTRAINT [FK_UserShrinkJob];
+GO
+IF OBJECT_ID(N'[dbo].[FK_UserSearchJob]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[SearchJobs] DROP CONSTRAINT [FK_UserSearchJob];
+GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
@@ -91,6 +112,15 @@ GO
 IF OBJECT_ID(N'[dbo].[ReductionLogs]', 'U') IS NOT NULL
     DROP TABLE [dbo].[ReductionLogs];
 GO
+IF OBJECT_ID(N'[dbo].[Users]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Users];
+GO
+IF OBJECT_ID(N'[dbo].[WorkingSets]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[WorkingSets];
+GO
+IF OBJECT_ID(N'[dbo].[RegExTemplates]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[RegExTemplates];
+GO
 IF OBJECT_ID(N'[dbo].[SearchJobTrackedFile]', 'U') IS NOT NULL
     DROP TABLE [dbo].[SearchJobTrackedFile];
 GO
@@ -99,6 +129,12 @@ IF OBJECT_ID(N'[dbo].[CategoryTrackedFile]', 'U') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[TrackedFileShrinkJob]', 'U') IS NOT NULL
     DROP TABLE [dbo].[TrackedFileShrinkJob];
+GO
+IF OBJECT_ID(N'[dbo].[UserIndex]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[UserIndex];
+GO
+IF OBJECT_ID(N'[dbo].[TrackedFileWorkingSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[TrackedFileWorkingSet];
 GO
 
 -- --------------------------------------------------
@@ -223,6 +259,16 @@ CREATE TABLE [dbo].[WorkingSets] (
 );
 GO
 
+-- Creating table 'RegExTemplates'
+CREATE TABLE [dbo].[RegExTemplates] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [Title] nvarchar(max)  NOT NULL,
+    [Description] nvarchar(max)  NULL,
+    [Syntax] nvarchar(max)  NOT NULL,
+    [User_Id] int  NOT NULL
+);
+GO
+
 -- Creating table 'SearchJobTrackedFile'
 CREATE TABLE [dbo].[SearchJobTrackedFile] (
     [SearchJobs_Id] int  NOT NULL,
@@ -325,6 +371,12 @@ GO
 -- Creating primary key on [Id] in table 'WorkingSets'
 ALTER TABLE [dbo].[WorkingSets]
 ADD CONSTRAINT [PK_WorkingSets]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'RegExTemplates'
+ALTER TABLE [dbo].[RegExTemplates]
+ADD CONSTRAINT [PK_RegExTemplates]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
@@ -644,6 +696,21 @@ GO
 -- Creating non-clustered index for FOREIGN KEY 'FK_UserSearchJob'
 CREATE INDEX [IX_FK_UserSearchJob]
 ON [dbo].[SearchJobs]
+    ([User_Id]);
+GO
+
+-- Creating foreign key on [User_Id] in table 'RegExTemplates'
+ALTER TABLE [dbo].[RegExTemplates]
+ADD CONSTRAINT [FK_UserRegExTemplate]
+    FOREIGN KEY ([User_Id])
+    REFERENCES [dbo].[Users]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_UserRegExTemplate'
+CREATE INDEX [IX_FK_UserRegExTemplate]
+ON [dbo].[RegExTemplates]
     ([User_Id]);
 GO
 

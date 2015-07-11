@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:mui="http://firstfloorsoftware.com/ModernUI"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="400" d:DesignWidth="500">
     <Grid Style="{StaticResource ContentRoot}">
         <Path Style="{StaticResource BackgroundPath}"
               Data="F1 M 20,36C 22.3467,35.8579 24,33.9425 24,31L 23.9675,25.6529C 23.9675,21.2254 27.6,19.055 32,19L 32,23C 29.6533,23.0596 28,24.2042 28,27L 28,32C 28,35 26.5,37.5 24.5,38C 26.5,38.5 28,41 28,44L 28,49C 28,51.7958 29.6536,52.9404 32,53L 32,57C 27.6,56.945 23.9675,54.7746 23.9675,50.3471L 24,45C 24,42.0575 22.3467,40.1421 20,40L 20,36 Z M 56,36L 56,40C 53.6533,40.1421 52,42.0575 52,45L 52.0325,50.3471C 52.0325,54.7746 48.4,56.945 44,57L 44,53C 46.3467,52.9404 48,51.7958 48,49L 48,44C 48,41 49.5,38.5 51.5,38C 49.5,37.5 48,35 48,32L 48,27C 48,24.2042 46.3467,23.0596 44,23L 44,19C 48.4,19.055 52.0325,21.2254 52.0325,25.6529L 52,31C 52,33.9425 53.6533,35.8579 56,36 Z"/>
@@ -14,6 +14,50 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
+            <DockPanel Grid.Column="0">
+                <TextBlock Text="REGEX SYNTAX" Style="{StaticResource Heading2}" DockPanel.Dock="Top"/>
+                <TextBox Margin="5" VerticalScrollBarVisibility="Visible" Height="100" DockPanel.Dock="Top"/>
+                <ScrollViewer DockPanel.Dock="Top" Margin="5">
+                    <mui:BBCodeBlock Margin="3" Height="80" TextWrapping="Wrap">
+
+                    </mui:BBCodeBlock>
+                </ScrollViewer>
+                
+                <Separator DockPanel.Dock="Top" Margin="20,0,20,0"/>
+                <Grid DockPanel.Dock="Top">
+                    <TextBox Margin="5"/>
+                    <Path HorizontalAlignment="Right" VerticalAlignment="Center" Stretch="Uniform" Margin="5,5,10,5"
+                          Data="F1 M 42.5,22C 49.4036,22 55,27.5964 55,34.5C 55,41.4036 49.4036,47 42.5,47C 40.1356,47 37.9245,46.3435 36,45.2426L 26.9749,54.2678C 25.8033,55.4393 23.9038,55.4393 22.7322,54.2678C 21.5607,53.0962 21.5607,51.1967 22.7322,50.0251L 31.7971,40.961C 30.6565,39.0755 30,36.8644 30,34.5C 30,27.5964 35.5964,22 42.5,22 Z M 42.5,26C 37.8056,26 34,29.8056 34,34.5C 34,39.1944 37.8056,43 42.5,43C 47.1944,43 51,39.1944 51,34.5C 51,29.8056 47.1944,26 42.5,26 Z"
+                          Fill="{DynamicResource Accent}" Height="15"/>
+                </Grid>
+                <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom">
+                    <mui:ModernButton DockPanel.Dock="Bottom" Margin="5"
+                                      IconData="F1 M 44.4832,15.8147L 38.0245,32.9939L 37.8017,32.9939L 31.6771,15.8147L 21.7662,21.578L 33.4588,35.6539L 33.4588,35.8755L 16.087,32.3289L 16.087,43.523L 33.5702,40.4197L 33.6815,40.6414L 21.7662,54.4955L 31.343,60.148L 37.6904,43.0797L 37.9131,43.0797L 44.3718,60.148L 54.1713,54.4955L 42.1447,40.7522L 42.1447,40.5305L 60.0713,43.523L 60.0713,32.3289L 42.256,35.8755L 42.256,35.6539L 54.1713,21.4672L 44.4832,15.8147 Z"
+                                      Content="New"/>
+                    <mui:ModernButton DockPanel.Dock="Bottom" Margin="5"
+                                      IconData="F1 M 53.2929,21.2929L 54.7071,22.7071C 56.4645,24.4645 56.4645,27.3137 54.7071,29.0711L 52.2323,31.5459L 44.4541,23.7677L 46.9289,21.2929C 48.6863,19.5355 51.5355,19.5355 53.2929,21.2929 Z M 31.7262,52.052L 23.948,44.2738L 43.0399,25.182L 50.818,32.9601L 31.7262,52.052 Z M 23.2409,47.1023L 28.8977,52.7591L 21.0463,54.9537L 23.2409,47.1023 Z"
+                                      Content="Edit"/>
+                    <mui:ModernButton DockPanel.Dock="Bottom" Margin="5"
+                                      IconData="F1 M 25.3333,23.75L 50.6667,23.75C 51.5411,23.75 51.8541,27.3125 51.8541,27.3125L 24.1458,27.3125C 24.1458,27.3125 24.4589,23.75 25.3333,23.75 Z M 35.625,19.7917L 40.375,19.7917C 40.8122,19.7917 41.9583,20.9378 41.9583,21.375C 41.9583,21.8122 40.8122,22.9584 40.375,22.9584L 35.625,22.9584C 35.1878,22.9584 34.0416,21.8122 34.0416,21.375C 34.0416,20.9378 35.1878,19.7917 35.625,19.7917 Z M 27.7083,28.5L 48.2916,28.5C 49.1661,28.5 49.875,29.2089 49.875,30.0834L 48.2916,53.8334C 48.2916,54.7078 47.5828,55.4167 46.7083,55.4167L 29.2917,55.4167C 28.4172,55.4167 27.7083,54.7078 27.7083,53.8334L 26.125,30.0834C 26.125,29.2089 26.8339,28.5 27.7083,28.5 Z M 30.0833,31.6667L 30.4792,52.25L 33.25,52.25L 32.8542,31.6667L 30.0833,31.6667 Z M 36.4167,31.6667L 36.4167,52.25L 39.5833,52.25L 39.5833,31.6667L 36.4167,31.6667 Z M 43.1458,31.6667L 42.75,52.25L 45.5208,52.25L 45.9167,31.6667L 43.1458,31.6667 Z"
+                                      Content="Delete"/>
+                </StackPanel>
+                <DataGrid>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Title"/>
+                        <DataGridTextColumn Header="Syntax"/>
+                        <DataGridTextColumn Header="Description"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </DockPanel>
+            <DockPanel Grid.Column="1">
+                <TextBlock Text="SAMPLE TEXT" Style="{StaticResource Heading2}" DockPanel.Dock="Top"/>
+                <DockPanel DockPanel.Dock="Top">
+                    
+                </DockPanel>
+                <ScrollViewer Margin="15">
+                    <mui:BBCodeBlock BBCode="{Binding RandomText}"/>
+                </ScrollViewer>
+            </DockPanel>
         </Grid>
     </Grid>
 </UserControl>

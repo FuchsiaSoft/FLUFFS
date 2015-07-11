@@ -17,6 +17,7 @@
     <EntitySet Name="ReductionLogs" EntityType="DbModel.Store.ReductionLogs" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Users" EntityType="DbModel.Store.Users" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="WorkingSets" EntityType="DbModel.Store.WorkingSets" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="RegExTemplates" EntityType="DbModel.Store.RegExTemplates" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="SearchJobTrackedFile" EntityType="DbModel.Store.SearchJobTrackedFile" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="CategoryTrackedFile" EntityType="DbModel.Store.CategoryTrackedFile" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="TrackedFileShrinkJob" EntityType="DbModel.Store.TrackedFileShrinkJob" store:Type="Tables" Schema="dbo" />
@@ -105,6 +106,10 @@
     <AssociationSet Name="UserSearchJob" Association="DbModel.Store.UserSearchJob">
       <End Role="User" EntitySet="Users" />
       <End Role="SearchJob" EntitySet="SearchJobs" />
+    </AssociationSet>
+    <AssociationSet Name="UserRegExTemplate" Association="DbModel.Store.UserRegExTemplate">
+      <End Role="User" EntitySet="Users" />
+      <End Role="RegExTemplate" EntitySet="RegExTemplates" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="Indices">
@@ -223,6 +228,16 @@
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Description" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="User_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="RegExTemplates">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Syntax" Type="nvarchar(max)" Nullable="false" />
     <Property Name="User_Id" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="SearchJobTrackedFile">
@@ -393,6 +408,18 @@
         <PropertyRef Name="Id" />
       </Principal>
       <Dependent Role="SearchJob">
+        <PropertyRef Name="User_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="UserRegExTemplate">
+    <End Role="User" Type="DbModel.Store.Users" Multiplicity="1" />
+    <End Role="RegExTemplate" Type="DbModel.Store.RegExTemplates" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="RegExTemplate">
         <PropertyRef Name="User_Id" />
       </Dependent>
     </ReferentialConstraint>
@@ -596,6 +623,11 @@
           <AssociationSet Name="UserSearchJob" Association="DbModel.UserSearchJob">
             <End Role="User" EntitySet="Users" />
             <End Role="SearchJob" EntitySet="SearchJobs" />
+          </AssociationSet>
+          <EntitySet Name="RegExTemplates" EntityType="DbModel.RegExTemplate" />
+          <AssociationSet Name="UserRegExTemplate" Association="DbModel.UserRegExTemplate">
+            <End Role="User" EntitySet="Users" />
+            <End Role="RegExTemplate" EntitySet="RegExTemplates" />
           </AssociationSet>
         </EntityContainer>
         <EnumType Name="JobStatus">
@@ -827,6 +859,7 @@
           <NavigationProperty Name="WorkingSets" Relationship="DbModel.UserWorkingSet" FromRole="User" ToRole="WorkingSet" />
           <NavigationProperty Name="ShrinkJobs" Relationship="DbModel.UserShrinkJob" FromRole="User" ToRole="ShrinkJob" />
           <NavigationProperty Name="SearchJobs" Relationship="DbModel.UserSearchJob" FromRole="User" ToRole="SearchJob" />
+          <NavigationProperty Name="RegExTemplates" Relationship="DbModel.UserRegExTemplate" FromRole="User" ToRole="RegExTemplate" />
         </EntityType>
         <Association Name="UserIndex">
           <End Type="DbModel.User" Role="User" Multiplicity="*" />
@@ -857,6 +890,20 @@
         <Association Name="UserSearchJob">
           <End Type="DbModel.User" Role="User" Multiplicity="1" />
           <End Type="DbModel.SearchJob" Role="SearchJob" Multiplicity="*" />
+        </Association>
+        <EntityType Name="RegExTemplate">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="true" />
+          <Property Name="Syntax" Type="String" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="DbModel.UserRegExTemplate" FromRole="RegExTemplate" ToRole="User" />
+        </EntityType>
+        <Association Name="UserRegExTemplate">
+          <End Type="DbModel.User" Role="User" Multiplicity="1" />
+          <End Type="DbModel.RegExTemplate" Role="RegExTemplate" Multiplicity="*" />
         </Association>
       </Schema>
     </edmx:ConceptualModels>
@@ -986,6 +1033,16 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="RegExTemplates">
+      <EntityTypeMapping TypeName="IsTypeOf(DbModel.RegExTemplate)">
+        <MappingFragment StoreEntitySet="RegExTemplates">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Syntax" ColumnName="Syntax" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <AssociationSetMapping Name="SearchJobCategory" TypeName="DbModel.SearchJobCategory" StoreEntitySet="SearchJobs">
       <EndProperty Name="Category">
         <ScalarProperty Name="Id" ColumnName="Category_Id" />
@@ -1079,6 +1136,14 @@
         <ScalarProperty Name="Id" ColumnName="User_Id" />
       </EndProperty>
       <EndProperty Name="SearchJob">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="UserRegExTemplate" TypeName="DbModel.UserRegExTemplate" StoreEntitySet="RegExTemplates">
+      <EndProperty Name="User">
+        <ScalarProperty Name="Id" ColumnName="User_Id" />
+      </EndProperty>
+      <EndProperty Name="RegExTemplate">
         <ScalarProperty Name="Id" ColumnName="Id" />
       </EndProperty>
     </AssociationSetMapping>

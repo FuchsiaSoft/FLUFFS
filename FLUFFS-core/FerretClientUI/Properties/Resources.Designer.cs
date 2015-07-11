@@ -61,62 +61,7 @@ namespace FerretClientUI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to a
-        ///aah
-        ///aahed
-        ///aahing
-        ///aahs
-        ///aardvark
-        ///aardvarks
-        ///aardwolf
-        ///ab
-        ///abaci
-        ///aback
-        ///abacus
-        ///abacuses
-        ///abaft
-        ///abalone
-        ///abalones
-        ///abandon
-        ///abandoned
-        ///abandonedly
-        ///abandonee
-        ///abandoner
-        ///abandoners
-        ///abandoning
-        ///abandonment
-        ///abandonments
-        ///abandons
-        ///abase
-        ///abased
-        ///abasedly
-        ///abasement
-        ///abaser
-        ///abasers
-        ///abases
-        ///abash
-        ///abashed
-        ///abashedly
-        ///abashes
-        ///abashing
-        ///abashment
-        ///abashments
-        ///abasing
-        ///abatable
-        ///abate
-        ///abated
-        ///abatement
-        ///abatements
-        ///abater
-        ///abaters
-        ///abates
-        ///abating
-        ///abatis
-        ///abatises
-        ///abator
-        ///abattoir
-        ///abattoirs
-        ///abbaci [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to a        ///aah        ///aahed        ///aahing        ///aahs        ///aardvark        ///aardvarks        ///aardwolf        ///ab        ///abaci        ///aback        ///abacus        ///abacuses        ///abaft        ///abalone        ///abalones        ///abandon        ///abandoned        ///abandonedly        ///abandonee        ///abandoner        ///abandoners        ///abandoning        ///abandonment        ///abandonments        ///abandons        ///abase        ///abased        ///abasedly        ///abasement        ///abaser        ///abasers        ///abases        ///abash        ///abashed        ///abashedly        ///abashes        ///abashing        ///abashment        ///abashments        ///abasing        ///abatable        ///abate        ///abated        ///abatement        ///abatements        ///abater        ///abaters        ///abates        ///abating        ///abatis        ///abatises        ///abator        ///abattoir        ///abattoirs        ///abbacies        ///abbacy        ///abbatial        ///abbe        ///abbes        ///abbess        ///abbesses        ///abbey        ///abb [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string wordsEn {
             get {

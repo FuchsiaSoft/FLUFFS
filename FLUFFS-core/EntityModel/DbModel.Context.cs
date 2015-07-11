@@ -36,5 +36,6 @@ namespace EntityModel
         public virtual DbSet<ReductionLog> ReductionLogs { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<WorkingSet> WorkingSets { get; set; }
+        public virtual DbSet<RegExTemplate> RegExTemplates { get; set; }
     }
 }

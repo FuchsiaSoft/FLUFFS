@@ -32,6 +32,8 @@
         <AssociationConnector Association="DbModel.UserWorkingSet" />
         <AssociationConnector Association="DbModel.UserShrinkJob" />
         <AssociationConnector Association="DbModel.UserSearchJob" />
+        <EntityTypeShape EntityType="DbModel.RegExTemplate" Width="1.5" PointX="8.875" PointY="7.25" />
+        <AssociationConnector Association="DbModel.UserRegExTemplate" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

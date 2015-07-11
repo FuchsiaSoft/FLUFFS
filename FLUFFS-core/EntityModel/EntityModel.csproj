@@ -87,6 +87,9 @@
     <Compile Include="Regex.cs">
       <DependentUpon>DbModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="RegExTemplate.cs">
+      <DependentUpon>DbModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="SearchJob.cs">
       <DependentUpon>DbModel.tt</DependentUpon>
     </Compile>

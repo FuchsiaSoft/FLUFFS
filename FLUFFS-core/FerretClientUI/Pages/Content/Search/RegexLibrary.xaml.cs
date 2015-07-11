@@ -23,6 +23,7 @@ namespace FerretClientUI.Pages.Content.Search
         public RegexLibrary()
         {
             InitializeComponent();
+            this.DataContext = new RegexLibraryViewModel();
         }
     }
 }

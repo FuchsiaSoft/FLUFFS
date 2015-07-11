@@ -20,6 +20,7 @@ namespace EntityModel
             this.WorkingSets = new HashSet<WorkingSet>();
             this.ShrinkJobs = new HashSet<ShrinkJob>();
             this.SearchJobs = new HashSet<SearchJob>();
+            this.RegExTemplates = new HashSet<RegExTemplate>();
         }
     
         public int Id { get; set; }
@@ -34,5 +35,6 @@ namespace EntityModel
         public virtual ICollection<WorkingSet> WorkingSets { get; set; }
         public virtual ICollection<ShrinkJob> ShrinkJobs { get; set; }
         public virtual ICollection<SearchJob> SearchJobs { get; set; }
+        public virtual ICollection<RegExTemplate> RegExTemplates { get; set; }
     }
 }
