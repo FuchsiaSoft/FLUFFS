@@ -20,6 +20,7 @@ namespace EntityModel
             this.Categories = new HashSet<Category>();
             this.ShrinkJobs = new HashSet<ShrinkJob>();
             this.ReductionLogs = new HashSet<ReductionLog>();
+            this.WorkingSets = new HashSet<WorkingSet>();
         }
     
         public int Id { get; set; }
@@ -41,5 +42,6 @@ namespace EntityModel
         public virtual ICollection<Category> Categories { get; set; }
         public virtual ICollection<ShrinkJob> ShrinkJobs { get; set; }
         public virtual ICollection<ReductionLog> ReductionLogs { get; set; }
+        public virtual ICollection<WorkingSet> WorkingSets { get; set; }
     }
 }

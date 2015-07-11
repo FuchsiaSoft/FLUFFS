@@ -25,6 +25,13 @@
         <EntityTypeShape EntityType="DbModel.ReductionLog" Width="1.5" PointX="2.5" PointY="4.125" />
         <AssociationConnector Association="DbModel.ShrinkJobReductionLog" />
         <AssociationConnector Association="DbModel.TrackedFileReductionLog" />
+        <EntityTypeShape EntityType="DbModel.User" Width="1.5" PointX="0.5" PointY="2.875" />
+        <AssociationConnector Association="DbModel.UserIndex" />
+        <EntityTypeShape EntityType="DbModel.WorkingSet" Width="1.5" PointX="2.5" PointY="6.875" />
+        <AssociationConnector Association="DbModel.TrackedFileWorkingSet" />
+        <AssociationConnector Association="DbModel.UserWorkingSet" />
+        <AssociationConnector Association="DbModel.UserShrinkJob" />
+        <AssociationConnector Association="DbModel.UserSearchJob" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -12,28 +12,18 @@ namespace EntityModel
     using System;
     using System.Collections.Generic;
     
-    public partial class ShrinkJob
+    public partial class WorkingSet
     {
-        public ShrinkJob()
+        public WorkingSet()
         {
             this.TrackedFiles = new HashSet<TrackedFile>();
-            this.ReductionLogs = new HashSet<ReductionLog>();
         }
     
         public int Id { get; set; }
-        public string Alias { get; set; }
-        public SearchStatus Status { get; set; }
-        public string ShrinkJpegs { get; set; }
-        public int JpegTarget { get; set; }
-        public string ShrinkPdfs { get; set; }
-        public PdfVersion PdfTarget { get; set; }
-        public Nullable<int> PdfJpegTarget { get; set; }
-        public bool ShrinkWord { get; set; }
-        public string UpgradeWord { get; set; }
-        public int WordJpegTarget { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
     
         public virtual ICollection<TrackedFile> TrackedFiles { get; set; }
-        public virtual ICollection<ReductionLog> ReductionLogs { get; set; }
         public virtual User User { get; set; }
     }
 }

@@ -31,5 +31,6 @@ namespace EntityModel
         public virtual ICollection<SearchString> SearchStrings { get; set; }
         public virtual ICollection<Regex> Regexes { get; set; }
         public virtual ICollection<TrackedFile> TrackedFiles { get; set; }
+        public virtual User User { get; set; }
     }
 }

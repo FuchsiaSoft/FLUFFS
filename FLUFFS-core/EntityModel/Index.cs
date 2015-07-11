@@ -14,9 +14,15 @@ namespace EntityModel
     
     public partial class Index
     {
+        public Index()
+        {
+            this.Users = new HashSet<User>();
+        }
+    
         public int Id { get; set; }
         public string Alias { get; set; }
     
         public virtual TrackedFolder Root { get; set; }
+        public virtual ICollection<User> Users { get; set; }
     }
 }

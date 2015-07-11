@@ -420,6 +420,28 @@
             <End Role="TrackedFile" EntitySet="TrackedFiles" />
             <End Role="ReductionLog" EntitySet="ReductionLogs" />
           </AssociationSet>
+          <EntitySet Name="Users" EntityType="DbModel.User" />
+          <AssociationSet Name="UserIndex" Association="DbModel.UserIndex">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Index" EntitySet="Indices" />
+          </AssociationSet>
+          <EntitySet Name="WorkingSets" EntityType="DbModel.WorkingSet" />
+          <AssociationSet Name="TrackedFileWorkingSet" Association="DbModel.TrackedFileWorkingSet">
+            <End Role="TrackedFile" EntitySet="TrackedFiles" />
+            <End Role="WorkingSet" EntitySet="WorkingSets" />
+          </AssociationSet>
+          <AssociationSet Name="UserWorkingSet" Association="DbModel.UserWorkingSet">
+            <End Role="User" EntitySet="Users" />
+            <End Role="WorkingSet" EntitySet="WorkingSets" />
+          </AssociationSet>
+          <AssociationSet Name="UserShrinkJob" Association="DbModel.UserShrinkJob">
+            <End Role="User" EntitySet="Users" />
+            <End Role="ShrinkJob" EntitySet="ShrinkJobs" />
+          </AssociationSet>
+          <AssociationSet Name="UserSearchJob" Association="DbModel.UserSearchJob">
+            <End Role="User" EntitySet="Users" />
+            <End Role="SearchJob" EntitySet="SearchJobs" />
+          </AssociationSet>
         </EntityContainer>
         <EnumType Name="JobStatus">
           <Member Name="Working" Value="0" />
@@ -433,6 +455,7 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Alias" Type="String" Nullable="false" />
           <NavigationProperty Name="Root" Relationship="DbModel.IndexTrackedFolder" FromRole="Index" ToRole="TrackedFolder" />
+          <NavigationProperty Name="Users" Relationship="DbModel.UserIndex" FromRole="Index" ToRole="User" />
         </EntityType>
         <EntityType Name="TrackedFolder">
           <Key>
@@ -469,6 +492,7 @@
           <NavigationProperty Name="Categories" Relationship="DbModel.CategoryTrackedFile" FromRole="TrackedFile" ToRole="Category" />
           <NavigationProperty Name="ShrinkJobs" Relationship="DbModel.TrackedFileShrinkJob" FromRole="TrackedFile" ToRole="ShrinkJob" />
           <NavigationProperty Name="ReductionLogs" Relationship="DbModel.TrackedFileReductionLog" FromRole="TrackedFile" ToRole="ReductionLog" />
+          <NavigationProperty Name="WorkingSets" Relationship="DbModel.TrackedFileWorkingSet" FromRole="TrackedFile" ToRole="WorkingSet" />
         </EntityType>
         <Association Name="TrackedFolderTrackedFolder">
           <End Type="DbModel.TrackedFolder" Role="TrackedFolder" Multiplicity="0..1" >
@@ -505,6 +529,7 @@
           <NavigationProperty Name="SearchStrings" Relationship="DbModel.SearchJobSearchString" FromRole="SearchJob" ToRole="SearchString" />
           <NavigationProperty Name="Regexes" Relationship="DbModel.SearchJobRegex" FromRole="SearchJob" ToRole="Regex" />
           <NavigationProperty Name="TrackedFiles" Relationship="DbModel.SearchJobTrackedFile" FromRole="SearchJob" ToRole="TrackedFile" />
+          <NavigationProperty Name="User" Relationship="DbModel.UserSearchJob" FromRole="SearchJob" ToRole="User" />
         </EntityType>
         <Association Name="SearchJobCategory">
           <End Type="DbModel.SearchJob" Role="SearchJob" Multiplicity="1" />
@@ -601,6 +626,7 @@
           <Property Name="WordJpegTarget" Type="Int32" Nullable="false" />
           <NavigationProperty Name="TrackedFiles" Relationship="DbModel.TrackedFileShrinkJob" FromRole="ShrinkJob" ToRole="TrackedFile" />
           <NavigationProperty Name="ReductionLogs" Relationship="DbModel.ShrinkJobReductionLog" FromRole="ShrinkJob" ToRole="ReductionLog" />
+          <NavigationProperty Name="User" Relationship="DbModel.UserShrinkJob" FromRole="ShrinkJob" ToRole="User" />
         </EntityType>
         <EnumType Name="PdfVersion">
           <Member Name="v13" Value="0" />
@@ -630,6 +656,52 @@
         <Association Name="TrackedFileReductionLog">
           <End Type="DbModel.TrackedFile" Role="TrackedFile" Multiplicity="1" />
           <End Type="DbModel.ReductionLog" Role="ReductionLog" Multiplicity="*" />
+        </Association>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Firstname" Type="String" Nullable="true" />
+          <Property Name="Surname" Type="String" Nullable="true" />
+          <Property Name="Salt" Type="String" Nullable="false" />
+          <Property Name="Hash" Type="String" Nullable="false" />
+          <Property Name="Login" Type="String" Nullable="false" />
+          <Property Name="IsSysAdmin" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Indices" Relationship="DbModel.UserIndex" FromRole="User" ToRole="Index" />
+          <NavigationProperty Name="WorkingSets" Relationship="DbModel.UserWorkingSet" FromRole="User" ToRole="WorkingSet" />
+          <NavigationProperty Name="ShrinkJobs" Relationship="DbModel.UserShrinkJob" FromRole="User" ToRole="ShrinkJob" />
+          <NavigationProperty Name="SearchJobs" Relationship="DbModel.UserSearchJob" FromRole="User" ToRole="SearchJob" />
+        </EntityType>
+        <Association Name="UserIndex">
+          <End Type="DbModel.User" Role="User" Multiplicity="*" />
+          <End Type="DbModel.Index" Role="Index" Multiplicity="*" />
+        </Association>
+        <EntityType Name="WorkingSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="true" />
+          <NavigationProperty Name="TrackedFiles" Relationship="DbModel.TrackedFileWorkingSet" FromRole="WorkingSet" ToRole="TrackedFile" />
+          <NavigationProperty Name="User" Relationship="DbModel.UserWorkingSet" FromRole="WorkingSet" ToRole="User" />
+        </EntityType>
+        <Association Name="TrackedFileWorkingSet">
+          <End Type="DbModel.TrackedFile" Role="TrackedFile" Multiplicity="*" />
+          <End Type="DbModel.WorkingSet" Role="WorkingSet" Multiplicity="*" />
+        </Association>
+        <Association Name="UserWorkingSet">
+          <End Type="DbModel.User" Role="User" Multiplicity="1" />
+          <End Type="DbModel.WorkingSet" Role="WorkingSet" Multiplicity="*" />
+        </Association>
+        <Association Name="UserShrinkJob">
+          <End Type="DbModel.User" Role="User" Multiplicity="1" />
+          <End Type="DbModel.ShrinkJob" Role="ShrinkJob" Multiplicity="*" />
+        </Association>
+        <Association Name="UserSearchJob">
+          <End Type="DbModel.User" Role="User" Multiplicity="1" />
+          <End Type="DbModel.SearchJob" Role="SearchJob" Multiplicity="*" />
         </Association>
       </Schema>
     </edmx:ConceptualModels>
