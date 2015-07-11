@@ -8,6 +8,15 @@
                 <ResourceDictionary Source="/FirstFloor.ModernUI;component/Assets/ModernUI.xaml" />
                 <ResourceDictionary Source="/FirstFloor.ModernUI;component/Assets/ModernUI.Light.xaml"/>
             </ResourceDictionary.MergedDictionaries>
+            <Style TargetType="Path" x:Key="BackgroundPath">
+                <Setter Property="HorizontalAlignment" Value="Right"/>
+                <Setter Property="VerticalAlignment" Value="Bottom"/>
+                <Setter Property="Stretch" Value="Uniform"/>
+                <Setter Property="Fill" Value="{DynamicResource Accent}"/>
+                <Setter Property="Opacity" Value="0.1"/>
+                <Setter Property="Height" Value="300"/>
+                <Setter Property="Width" Value="300"/>
+            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </Application>
