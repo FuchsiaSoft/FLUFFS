@@ -1,8 +1,10 @@
-﻿using FerretClientUI.MVVM;
+﻿using EntityModel;
+using FerretClientUI.MVVM;
 using FerretClientUI.Utils;
 using FirstFloor.ModernUI.Presentation;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -20,7 +22,64 @@ namespace FerretClientUI.Pages.Content.Search
             LowerCaseChecked = true;
             WordCount = 500;
             Reload();
+
+            //TODO: testing a listview itemtemplate, delete this stuff
+            RegExTemplates = new ObservableCollection<RegExTemplate>();
+            RegExTemplates.Add(new RegExTemplate()
+            {
+                Syntax = @"(\b(07[0-9]{9}|0[1-3][0-9]{9})\b)",
+                Title = "UK phones",
+                Description = "UK landline or mobile numbers with no spaces, as a distinct word"
+            });
+            RegExTemplates.Add(new RegExTemplate()
+            {
+                Syntax = @"(?i)(\b[a-z]{5}\d{2}\b)",
+                Title = "Ref number on its own",
+                Description = "5 letters and 2 numbers, as a distinct word"
+            });
+            RegExTemplates.Add(new RegExTemplate()
+            {
+                Syntax = @"(?i)([a-z]{5}\d{2})",
+                Title = "Ref number within other words",
+                Description = "5 letters and 2 numbers, as a distinct word"
+            });
+            RegExTemplates.Add(new RegExTemplate()
+            {
+                Syntax = @"([A-Z])",
+                Title = "All uppercase letters",
+                Description = "Just all uppercase letters"
+            });
         }
+
+        //TODO: testing a listview itemtemplate, delete this stuff
+        private ObservableCollection<RegExTemplate> _RegExTemplates;
+
+        public ObservableCollection<RegExTemplate> RegExTemplates
+        {
+            get { return _RegExTemplates; }
+            set
+            {
+                _RegExTemplates = value;
+                RaisePropertyChanged("RegExTemplates");
+            }
+        }
+
+        private RegExTemplate _SelectedTemplate;
+
+        public RegExTemplate SelectedTemplate
+        {
+            get { return _SelectedTemplate; }
+            set
+            {
+                _SelectedTemplate = value;
+                RaisePropertyChanged("SelectedTemplate");
+                RegExText = SelectedTemplate.Syntax;
+                RegExDescription =
+                    "[b]" + SelectedTemplate.Title + "[/b]\n" +
+                            SelectedTemplate.Description;
+            }
+        }
+
 
 
         private string _RegExText;
@@ -31,9 +90,22 @@ namespace FerretClientUI.Pages.Content.Search
             set
             {
                 _RegExText = value;
-                RaisePropertyChanged("RegEx");
+                RaisePropertyChanged("RegExText");
             }
         }
+
+        private string _RegExDescription;
+
+        public string RegExDescription
+        {
+            get { return _RegExDescription; }
+            set
+            {
+                _RegExDescription = value;
+                RaisePropertyChanged("RegExDescription");
+            }
+        }
+
 
 
         private string _RandomText;
@@ -61,7 +133,8 @@ namespace FerretClientUI.Pages.Content.Search
                     AppearanceManager.Current.AccentColor.G.ToString("X2") +
                     AppearanceManager.Current.AccentColor.B.ToString("X2");
 
-            return Regex.Replace(text, regexPattern, delegate(Match match)
+            return System.Text.RegularExpressions.Regex.Replace
+                (text, regexPattern, delegate(Match match)
             {
                 string v = match.ToString();
                 return "[b][u][color=" + color + "]" 
