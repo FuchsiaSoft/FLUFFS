@@ -25,6 +25,18 @@ namespace FerretClientUI.MVVM
             }
         }
 
+        private bool _IsBusy;
+        public bool IsBusy
+        {
+            get { return _IsBusy; }
+            set
+            {
+                _IsBusy = value;
+                RaisePropertyChanged("IsBusy");
+            }
+        }
+
+
         private double _ControlOpacity;
         public double ControlOpacity
         {
@@ -45,12 +57,14 @@ namespace FerretClientUI.MVVM
         {
             EnableControls = false;
             ControlOpacity = opacity;
+            IsBusy = true;
         }
 
         protected void MarkFree()
         {
             EnableControls = true;
             ControlOpacity = 1;
+            IsBusy = false;
         }
 
         ~ViewModelBase()

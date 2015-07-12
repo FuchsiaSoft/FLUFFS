@@ -41,7 +41,7 @@ namespace FerretClientUI.Pages.Content.Search
             {
                 Syntax = @"(?i)([a-z]{5}\d{2})",
                 Title = "Ref number within other words",
-                Description = "5 letters and 2 numbers, as a distinct word"
+                Description = "5 letters and 2 numbers"
             });
             RegExTemplates.Add(new RegExTemplate()
             {
@@ -123,7 +123,7 @@ namespace FerretClientUI.Pages.Content.Search
             }
         }
 
-        private static string GetBBCode(string text, string regexPattern)
+        private string GetBBCode(string text, string regexPattern)
         {
             if (string.IsNullOrEmpty(regexPattern) ||
                 string.IsNullOrWhiteSpace(regexPattern)) return text;
@@ -133,7 +133,8 @@ namespace FerretClientUI.Pages.Content.Search
                     AppearanceManager.Current.AccentColor.G.ToString("X2") +
                     AppearanceManager.Current.AccentColor.B.ToString("X2");
 
-            return System.Text.RegularExpressions.Regex.Replace
+
+            string newText = System.Text.RegularExpressions.Regex.Replace
                 (text, regexPattern, delegate(Match match)
             {
                 string v = match.ToString();
@@ -141,7 +142,7 @@ namespace FerretClientUI.Pages.Content.Search
                     + v + 
                     "[/color][/u][/b]";
             });
-
+            return newText;
         }
 
         private int _WordCount;
