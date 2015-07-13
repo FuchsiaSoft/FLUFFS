@@ -58,6 +58,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Pages\Content\Search\NewSearchViewModel.cs" />
     <Compile Include="Pages\Content\Search\RegexLibraryViewModel.cs" />
     <Compile Include="Pages\Content\Search\SplitPage1.xaml.cs">
       <DependentUpon>SplitPage1.xaml</DependentUpon>

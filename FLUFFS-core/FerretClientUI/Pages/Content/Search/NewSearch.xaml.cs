@@ -23,6 +23,7 @@ namespace FerretClientUI.Pages.Content.Search
         public NewSearch()
         {
             InitializeComponent();
+            this.DataContext = new NewSearchViewModel();
         }
     }
 }

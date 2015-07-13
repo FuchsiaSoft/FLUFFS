@@ -5,13 +5,117 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:mui="http://firstfloorsoftware.com/ModernUI"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="600" d:DesignWidth="500">
     <Grid Style="{StaticResource ContentRoot}">
-        <ScrollViewer>
-            <StackPanel MinWidth="200">
-                <TextBlock Text="BASIC PAGE" Style="{StaticResource Heading2}" />
-                <TextBlock Text="Content goes here" />
-            </StackPanel>
-        </ScrollViewer>
+        <Path Style="{StaticResource BackgroundPath}"
+              Data="F1 M 20,17L 43.25,17L 56,29.75L 56,40L 52,37.5L 52,34L 39,34L 39,21L 24,21L 24,55L 36,55L 32,59L 20,59L 20,17 Z M 43,22.25L 43,30L 50.75,30L 43,22.25 Z M 48,38C 53.5228,38 58,42.4772 58,48C 58,53.5229 53.5228,58 48,58C 46.1455,58 44.4089,57.4952 42.9201,56.6155L 36.1213,63.4142C 35.3403,64.1953 34.0739,64.1953 33.2929,63.4142L 32.5858,62.7071C 31.8047,61.9261 31.8047,60.6597 32.5858,59.8787L 39.3845,53.0799C 38.5048,51.5911 38,49.8545 38,48C 38,42.4772 42.4771,38 48,38 Z M 48,42C 44.6863,42 42,44.6863 42,48C 42,51.3137 44.6863,54 48,54C 51.3137,54 54,51.3137 54,48C 54,44.6863 51.3137,42 48,42 Z"/>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="5"/>
+                <ColumnDefinition Width="250"/>
+            </Grid.ColumnDefinitions>
+            <GridSplitter Grid.Column="1"/>
+            <DockPanel Margin="0,0,10,0">
+                <TextBlock Style="{StaticResource Heading2}" Text="CATEGORY" DockPanel.Dock="Top"/>
+                <ComboBox Margin="5,5,5,0" DockPanel.Dock="Top" IsEditable="True"/>
+                <TextBlock DockPanel.Dock="Top" TextWrapping="Wrap" Margin="5,0,5,5" FontWeight="ExtraLight" FontStyle="Italic" Opacity="0.6">
+                    All files that match the regular expressions chosen below within the selected
+                    working sets will be marked as this category
+                </TextBlock>
+                <Separator DockPanel.Dock="Top" Margin="20" MaxWidth="200"/>
+                <TextBlock Style="{StaticResource Heading2}" Text="REGULAR EXPRESSIONS" DockPanel.Dock="Top"/>
+                <Grid DockPanel.Dock="Top">
+                    <TextBox Margin="5"/>
+                    <Path HorizontalAlignment="Right" VerticalAlignment="Center" Stretch="Uniform" Margin="5,5,10,5"
+                          Data="F1 M 42.5,22C 49.4036,22 55,27.5964 55,34.5C 55,41.4036 49.4036,47 42.5,47C 40.1356,47 37.9245,46.3435 36,45.2426L 26.9749,54.2678C 25.8033,55.4393 23.9038,55.4393 22.7322,54.2678C 21.5607,53.0962 21.5607,51.1967 22.7322,50.0251L 31.7971,40.961C 30.6565,39.0755 30,36.8644 30,34.5C 30,27.5964 35.5964,22 42.5,22 Z M 42.5,26C 37.8056,26 34,29.8056 34,34.5C 34,39.1944 37.8056,43 42.5,43C 47.1944,43 51,39.1944 51,34.5C 51,29.8056 47.1944,26 42.5,26 Z"
+                          Fill="{DynamicResource Accent}" Height="15"/>
+                </Grid>
+                <Grid DockPanel.Dock="Top">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="60"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <ListBox Grid.Column="0" Margin="5" BorderThickness="1" ItemsSource="{Binding AvailableRegExTemplates}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <DockPanel>
+                                    <TextBlock TextWrapping="Wrap" Text="{Binding Title}"
+                                           DockPanel.Dock="Top" FontWeight="SemiBold"/>
+                                    <TextBlock TextWrapping="NoWrap" Text="{Binding Description}"
+                                           DockPanel.Dock="Top" FontWeight="Light" TextTrimming="CharacterEllipsis"/>
+                                    <TextBlock DockPanel.Dock="Top" TextWrapping="NoWrap"
+                                           TextTrimming="CharacterEllipsis"
+                                           FontFamily="Consolas" FontSize="10" FontWeight="ExtraLight"
+                                           Text="{Binding Syntax}" Margin="0,0,0,10"/>
+                                </DockPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                    <ListBox Grid.Column="2" Margin="5" BorderThickness="1" ItemsSource="{Binding SelectedRegExTemplates}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <DockPanel>
+                                    <TextBlock TextWrapping="Wrap" Text="{Binding Title}"
+                                           DockPanel.Dock="Top" FontWeight="SemiBold"/>
+                                    <TextBlock TextWrapping="NoWrap" Text="{Binding Description}"
+                                           DockPanel.Dock="Top" FontWeight="Light" TextTrimming="CharacterEllipsis"/>
+                                    <TextBlock DockPanel.Dock="Top" TextWrapping="NoWrap"
+                                           TextTrimming="CharacterEllipsis"
+                                           FontFamily="Consolas" FontSize="10" FontWeight="ExtraLight"
+                                           Text="{Binding Syntax}" Margin="0,0,0,10"/>
+                                </DockPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                    <StackPanel VerticalAlignment="Center" Grid.Column="1">
+                        <Button Content="&lt;&lt;" Margin="5,5,5,20"/>
+                        <Button Content="&lt;" Margin="5"/>
+                        <Button Content="&gt;" Margin="5"/>
+                        <Button Content="&gt;&gt;" Margin="5,20,5,5"/>
+                    </StackPanel>
+                </Grid>
+                <Separator DockPanel.Dock="Top" Margin="20" MaxWidth="200"/>
+                <TextBlock Text="REQUESTOR COMMENTS" DockPanel.Dock="Top" Style="{StaticResource Heading2}"/>
+                <TextBlock DockPanel.Dock="Top" FontWeight="ExtraLight" TextWrapping="Wrap" Margin="5" FontStyle="Italic" Opacity="0.6">
+                    All comments entered below will be reviewed by the system administrator prior to
+                    accepting or rejecting the search job.
+                </TextBlock>
+                <TextBox Margin="5" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Visible" FontFamily="Consolas" FontSize="14"/>
+            </DockPanel>
+            <DockPanel Grid.Column="2" Margin="10,0,0,0">
+                <TextBlock Style="{StaticResource Heading2}" Text="WORKING SETS" TextWrapping="Wrap" DockPanel.Dock="Top"/>
+                <TextBlock TextWrapping="Wrap" DockPanel.Dock="Top" Margin="5">
+                    Use the list below to select which working sets this search job should apply to.
+                </TextBlock>
+                <Grid DockPanel.Dock="Top">
+                    <TextBox Margin="5"/>
+                    <Path HorizontalAlignment="Right" VerticalAlignment="Center" Stretch="Uniform" Margin="5,5,10,5"
+                          Data="F1 M 42.5,22C 49.4036,22 55,27.5964 55,34.5C 55,41.4036 49.4036,47 42.5,47C 40.1356,47 37.9245,46.3435 36,45.2426L 26.9749,54.2678C 25.8033,55.4393 23.9038,55.4393 22.7322,54.2678C 21.5607,53.0962 21.5607,51.1967 22.7322,50.0251L 31.7971,40.961C 30.6565,39.0755 30,36.8644 30,34.5C 30,27.5964 35.5964,22 42.5,22 Z M 42.5,26C 37.8056,26 34,29.8056 34,34.5C 34,39.1944 37.8056,43 42.5,43C 47.1944,43 51,39.1944 51,34.5C 51,29.8056 47.1944,26 42.5,26 Z"
+                          Fill="{DynamicResource Accent}" Height="15"/>
+                </Grid>
+                <mui:ModernButton Content="submit search job"
+                                  IconData="F1 M 51.5487,37.9814L 56.814,41.0534L 50.3383,48.7636L 50.3383,48.8841L 60.0205,46.9565L 60.0205,53.0403L 50.2777,51.414L 50.2777,51.5344L 56.814,59.0037L 51.4882,62.0757L 47.978,52.7994L 47.8569,52.7994L 44.4072,62.0757L 39.2025,59.0037L 45.6782,51.4742L 45.6177,51.3537L 36.1159,53.0403L 36.1159,46.9565L 45.5571,48.8841L 45.5571,48.7636L 39.2025,41.1137L 44.5888,37.9814L 47.9174,47.3179L 48.0385,47.3179L 51.5487,37.9814 Z M 20,17L 43.25,17L 56,29.75L 56,39L 52,36.75L 52,34L 39,34L 39,21L 24,21L 24,55L 41,55L 37.5,59L 20,59L 20,17 Z M 43,22.25L 43,30L 50.75,30L 43,22.25 Z"
+                                  Style="{StaticResource BiggerButton}" DockPanel.Dock="Bottom"/>
+                <ListView x:Name="lstWorkingSets" ItemsSource="{Binding WorkingSets}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Expander Margin="2">
+                                <Expander.Header>
+                                    <DockPanel>
+                                        <TextBlock TextWrapping="Wrap" Text="{Binding Name}" FontWeight="SemiBold"/>
+                                        <TextBlock Text="  -  "/>
+                                        <TextBlock Text="{Binding TrackedFiles.Count}" FontWeight="SemiBold"/>
+                                        <TextBlock Text=" Files" FontWeight="SemiBold"/>
+                                    </DockPanel>
+                                </Expander.Header>
+                                <TextBlock TextWrapping="Wrap" Text="{Binding Description}" FontWeight="Light" Width="250"/>
+                            </Expander>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </DockPanel>
+        </Grid>
     </Grid>
 </UserControl>
