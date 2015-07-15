@@ -7,6 +7,7 @@ using System;
 using System.Text;
 using Pri.LongPath;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace FileDigger
 {
@@ -271,7 +272,14 @@ namespace FileDigger
 
         public bool CheckRegEx(IEnumerable<string> toCheck)
         {
-            throw new NotImplementedException();
+            string contents = ReadContents();
+
+            foreach (string regex in toCheck)
+            {
+                if (Regex.IsMatch(contents, regex))
+                    return true;
+            }
+            return false;
         }
     }
 }
