@@ -78,6 +78,7 @@ namespace FileDigger
 
         private bool IsReadablePdf(string path)
         {
+            //TODO: also check headers in file.
             if (Path.GetExtension(path).ToUpper() == ".PDF")
             {
                 return true;
