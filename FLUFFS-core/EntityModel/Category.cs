@@ -16,13 +16,14 @@ namespace EntityModel
     {
         public Category()
         {
+            this.SearchJobs = new HashSet<SearchJob>();
             this.TrackedFiles = new HashSet<TrackedFile>();
         }
     
         public int Id { get; set; }
         public string Name { get; set; }
     
-        public virtual SearchJob SearchJob { get; set; }
+        public virtual ICollection<SearchJob> SearchJobs { get; set; }
         public virtual ICollection<TrackedFile> TrackedFiles { get; set; }
     }
 }

@@ -700,7 +700,7 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" Nullable="false" />
-          <NavigationProperty Name="SearchJob" Relationship="DbModel.SearchJobCategory" FromRole="Category" ToRole="SearchJob" />
+          <NavigationProperty Name="SearchJobs" Relationship="DbModel.SearchJobCategory" FromRole="Category" ToRole="SearchJob" />
           <NavigationProperty Name="TrackedFiles" Relationship="DbModel.CategoryTrackedFile" FromRole="Category" ToRole="TrackedFile" />
         </EntityType>
         <EntityType Name="SearchJob">
@@ -719,7 +719,7 @@
           <NavigationProperty Name="User" Relationship="DbModel.UserSearchJob" FromRole="SearchJob" ToRole="User" />
         </EntityType>
         <Association Name="SearchJobCategory">
-          <End Type="DbModel.SearchJob" Role="SearchJob" Multiplicity="1" />
+          <End Type="DbModel.SearchJob" Role="SearchJob" Multiplicity="*" />
           <End Type="DbModel.Category" Role="Category" Multiplicity="1" />
         </Association>
         <EnumType Name="SearchStatus">

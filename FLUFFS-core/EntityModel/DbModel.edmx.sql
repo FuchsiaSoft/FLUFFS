@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 07/11/2015 17:45:00
--- Generated from EDMX file: G:\Git\FLUFFS\FLUFFS-core\EntityModel\DbModel.edmx
+-- Date Created: 07/21/2015 15:36:46
+-- Generated from EDMX file: C:\Users\20050803\Documents\GitHub\FLUFFS\FLUFFS-core\EntityModel\DbModel.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -79,6 +79,9 @@ IF OBJECT_ID(N'[dbo].[FK_UserShrinkJob]', 'F') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[FK_UserSearchJob]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[SearchJobs] DROP CONSTRAINT [FK_UserSearchJob];
+GO
+IF OBJECT_ID(N'[dbo].[FK_UserRegExTemplate]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[RegExTemplates] DROP CONSTRAINT [FK_UserRegExTemplate];
 GO
 
 -- --------------------------------------------------
