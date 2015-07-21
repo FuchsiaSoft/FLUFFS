@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Express 2013 for Windows Desktop
-VisualStudioVersion = 12.0.30723.0
+VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FLUFFS-core", "FLUFFS-core\FLUFFS-core.csproj", "{256C30D5-DA04-46BC-B77E-43629A864CAE}"
 EndProject
@@ -44,6 +44,13 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FerretClientUI", "FerretClientUI\FerretClientUI.csproj", "{DFF34307-387C-48A6-AA54-E1272E205512}"
 	ProjectSection(ProjectDependencies) = postProject
 		{690CE3FE-76E1-4309-9E76-209AB7CDEE95} = {690CE3FE-76E1-4309-9E76-209AB7CDEE95}
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{F05620FB-7E80-4132-981C-EA56A26406EE}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
 Global
