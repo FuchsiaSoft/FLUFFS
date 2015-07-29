@@ -11,7 +11,7 @@ namespace BinaryDigger
     /// file contents into a single string of all their
     /// text.
     /// </summary>
-    interface IBinaryReader
+    public interface IBinaryReader
     {
         /// <summary>
         /// Reads the contents of a pre-2007 Office file into a single string
