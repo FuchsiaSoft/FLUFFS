@@ -8,6 +8,7 @@ using System.Text;
 using Pri.LongPath;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using BinaryDigger;
 
 namespace FileDigger
 {
@@ -73,6 +74,11 @@ namespace FileDigger
                 return true;
             }
 
+            if (BinaryReader.IsValidFile(path))
+            {
+                return true;
+            }
+
             return false;
         }
 
@@ -101,6 +107,12 @@ namespace FileDigger
             if (IsReadablePdf(_InternalFilePath))
             {
                 contents = ReadPdfContents();
+            }
+
+            if (BinaryReader.IsValidFile(_InternalFilePath))
+            {
+                IBinaryReader reader = BinaryReader.GetNew(_InternalFilePath);
+                contents = reader.ReadContents();
             }
 
             return contents;
