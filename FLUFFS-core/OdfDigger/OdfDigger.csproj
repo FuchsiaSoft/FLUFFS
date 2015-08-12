@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PowerPointReader.cs" />
     <Compile Include="ExcelReader.cs" />
     <Compile Include="IOdfReader.cs" />
     <Compile Include="OdfReader.cs" />

@@ -33,7 +33,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="BinaryDigger">
-      <HintPath>..\..\..\..\..\..\..\Ferret\Temp\FLUFFS-core\BinaryDigger\bin\Debug\BinaryDigger.dll</HintPath>
+      <HintPath>..\BinaryDigger\bin\Debug\BinaryDigger.dll</HintPath>
     </Reference>
     <Reference Include="itextsharp">
       <HintPath>..\packages\iTextSharp.5.5.5\lib\itextsharp.dll</HintPath>
