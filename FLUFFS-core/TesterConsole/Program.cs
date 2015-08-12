@@ -13,6 +13,43 @@ namespace TesterConsole
     {
         static void Main(string[] args)
         {
+            // GetHashes();
+
+            List<string> searchTerms = new List<string>() { "election" };
+            
+            // Search ODF Word file (.DOCX or .DOCM)
+            SearchDocumentsForStrings(@"C:\Ferret\SampleFiles\ODFWordFile.docx", searchTerms);
+
+            // Search Pre-2003 Excel file (.XLS)
+            SearchDocumentsForStrings(@"C:\Ferret\SampleFiles\Pre2003ExcelFile.xls", searchTerms);
+
+            // Search ODF Excel file (.XLSX or .XLSM)
+            SearchDocumentsForStrings(@"C:\Ferret\SampleFiles\ODFExcelFile.xlsx", searchTerms);
+
+            // Search ODF PowerPoint files (.PPTX)
+            SearchDocumentsForStrings(@"C:\Ferret\SampleFiles\ODFPowerPointFile.pptx", searchTerms);
+
+            Console.WriteLine("DONE!");
+            Console.ReadLine();
+        }
+
+        private static void SearchDocumentsForStrings(string documentName, List<string> searchTerms)
+        {
+            Console.WriteLine("Now searching " + documentName);
+            IFileReader reader = new FileReader();
+            reader.Open(documentName);
+            if (reader.CheckString(searchTerms))
+            {
+                Console.WriteLine("Search term found");
+            }
+            else
+            {
+                Console.WriteLine("Search term not found");
+            }
+        }
+
+        private static void GetHashes()
+        {
             Index index = new Index();
             index.BuildIndexAsync("C:\\Users", "Local Profiles");
 
@@ -44,8 +81,6 @@ namespace TesterConsole
                 Console.WriteLine(content.Length.ToString("#,###") + " characters read in " + stopwatch.ElapsedMilliseconds + "ms");
 
             }
-            Console.WriteLine("DONE!");
-            Console.ReadLine();
         }
     }
 }

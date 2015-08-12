@@ -42,6 +42,11 @@ namespace OdfDigger
             ".XLSX", ".XLSM"
         };
 
+        private static List<string> _PowerPointOdfExtensions = new List<string>()
+        {
+            ".PPTX"
+        };
+
         /// <summary>
         /// Returns a new IOdfReader that can read the contents
         /// of the provided Odf format document.  If the file format
@@ -68,6 +73,12 @@ namespace OdfDigger
                 reader = new ExcelReader(path);
                 return reader;
             }
+
+            if (_PowerPointOdfExtensions.Contains(extension))
+            {
+                reader = new PowerPointReader(path);
+                return reader;
+            }
             throw new System.IO.InvalidDataException(NOT_VALID_FILE_MESSAGE);
         }
 
@@ -91,6 +102,8 @@ namespace OdfDigger
             if (_WordOdfExtensions.Contains(extension))
                 return true;
             if (_ExcelOdfExtensions.Contains(extension))
+                return true;
+            if (_PowerPointOdfExtensions.Contains(extension))
                 return true;
             return false;
         }
