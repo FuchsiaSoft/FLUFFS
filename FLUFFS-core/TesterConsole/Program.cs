@@ -15,7 +15,7 @@ namespace TesterConsole
         {
             // GetHashes();
 
-            List<string> searchTerms = new List<string>() { "election" };
+            List<string> searchTerms = new List<string>() { "election", "Everton" };
             
             // Search ODF Word file (.DOCX or .DOCM)
             SearchDocumentsForStrings(@"C:\Ferret\SampleFiles\ODFWordFile.docx", searchTerms);
@@ -28,6 +28,9 @@ namespace TesterConsole
 
             // Search ODF PowerPoint files (.PPTX)
             SearchDocumentsForStrings(@"C:\Ferret\SampleFiles\ODFPowerPointFile.pptx", searchTerms);
+
+            SearchDocumentsForStrings(@"C:\Ferret\SampleFiles\OpenSDK\TestFootballOpenSDKSearch.docx", searchTerms);
+            SearchDocumentsForStrings(@"C:\Ferret\SampleFiles\OpenSDK\TestFootballOpenSDKSearch.pptx", searchTerms);
 
             Console.WriteLine("DONE!");
             Console.ReadLine();
