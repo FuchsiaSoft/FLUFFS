@@ -9,6 +9,7 @@ using Pri.LongPath;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using BinaryDigger;
+using OpenSDKDigger;
 
 namespace FileDigger
 {
@@ -79,6 +80,11 @@ namespace FileDigger
                 return true;
             }
 
+            if (OpenSDKReader.IsValidFile(path))
+            {
+                return true;
+            }
+
             return false;
         }
 
@@ -112,6 +118,12 @@ namespace FileDigger
             if (BinaryReader.IsValidFile(_InternalFilePath))
             {
                 IBinaryReader reader = BinaryReader.GetNew(_InternalFilePath);
+                contents = reader.ReadContents();
+            }
+
+            if (OpenSDKReader.IsValidFile(_InternalFilePath))
+            {
+                IOpenSDKReader reader = OpenSDKReader.GetNew(_InternalFilePath);
                 contents = reader.ReadContents();
             }
 
