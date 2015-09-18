@@ -21,12 +21,14 @@ namespace MVVM
             return true;
         }
 
+#pragma warning disable
         public event EventHandler CanExecuteChanged;
 
         public void Execute(object parameter)
         {
             _Action.Invoke();
         }
+#pragma warning restore
     }
 
 }
