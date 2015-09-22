@@ -7,6 +7,12 @@
                   SizeToContent="Height"
                   ResizeMode="NoResize"
                   BackgroundContent="{x:Null}">
+    <Window.Resources>
+        <Style TargetType="TextBlock" x:Key="Heading1" BasedOn="{StaticResource Heading1}">
+            <Setter Property="FontWeight" Value="UltraLight"/>
+            <Setter Property="FontSize" Value="25"/>
+        </Style>
+    </Window.Resources>
     <Grid>
         <DockPanel>
             <DockPanel DockPanel.Dock="Top" Margin="5">
@@ -24,15 +30,10 @@
                 <TextBox Height="30" VerticalAlignment="Center"
                          VerticalContentAlignment="Center"/>
             </DockPanel>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" DockPanel.Dock="Top">
                 <mui:ModernButton Content="start" VerticalAlignment="Center"
                                   Style="{StaticResource BiggerButton}"
                                   IconData="F1 M 30.0833,22.1667L 50.6665,37.6043L 50.6665,38.7918L 30.0833,53.8333L 30.0833,22.1667 Z" 
-                                  DockPanel.Dock="Right"
-                                  EllipseStrokeThickness="0"/>
-                <mui:ModernButton Content="pause" VerticalAlignment="Center"
-                                  Style="{StaticResource BiggerButton}"
-                                  IconData="F1 M 26.9167,23.75L 33.25,23.75L 33.25,52.25L 26.9167,52.25L 26.9167,23.75 Z M 42.75,23.75L 49.0833,23.75L 49.0833,52.25L 42.75,52.25L 42.75,23.75 Z" 
                                   DockPanel.Dock="Right"
                                   EllipseStrokeThickness="0"/>
                 <mui:ModernButton Content="cancel" VerticalAlignment="Center"
@@ -40,6 +41,26 @@
                                   IconData="F1 M 26.9166,22.1667L 37.9999,33.25L 49.0832,22.1668L 53.8332,26.9168L 42.7499,38L 53.8332,49.0834L 49.0833,53.8334L 37.9999,42.75L 26.9166,53.8334L 22.1666,49.0833L 33.25,38L 22.1667,26.9167L 26.9166,22.1667 Z" 
                                   DockPanel.Dock="Right"
                                   EllipseStrokeThickness="0"/>
+            </StackPanel>
+            <StackPanel Margin="10">
+                <ProgressBar IsIndeterminate="True"/>
+                <TextBlock Style="{StaticResource Heading1}" Foreground="{DynamicResource Accent}">
+                    <Run Text="3,614"/>
+                    <Run Text="files processed"/>
+                </TextBlock>
+                <TextBlock Style="{StaticResource Heading1}" Foreground="{DynamicResource Accent}">
+                    <Run Text="213"/>
+                    <Run Text="files per second"/>
+                </TextBlock>
+                <TextBlock Style="{StaticResource Heading1}" Foreground="{DynamicResource Accent}">
+                    <Run Text="00:00"/>
+                    <Run Text="total index time"/>
+                </TextBlock>
+                <Separator/>
+                <TextBlock Style="{StaticResource Emphasis}" Text="CURRENT FILE"/>
+                <TextBlock Style="{StaticResource Heading1}" Foreground="{DynamicResource Accent}">
+                    <Run Text="\\netapp\root\folder\file.txt"/>
+                </TextBlock>
             </StackPanel>
         </DockPanel>
     </Grid>
