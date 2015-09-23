@@ -6,7 +6,7 @@
                   Style="{StaticResource BlankWindow}"
                   SizeToContent="Height"
                   ResizeMode="NoResize"
-                  BackgroundContent="{x:Null}">
+                  BackgroundContent="{x:Null}" Loaded="ModernWindow_Loaded">
     <Window.Resources>
         <Style TargetType="TextBlock" x:Key="Heading1" BasedOn="{StaticResource Heading1}">
             <Setter Property="FontWeight" Value="UltraLight"/>
@@ -17,51 +17,41 @@
         <DockPanel>
             <DockPanel DockPanel.Dock="Top" Margin="5">
                 <Label Content="Root directory:" VerticalAlignment="Center" Width="100" FontWeight="SemiBold"/>
-                <mui:ModernButton Content="Browse..." VerticalAlignment="Center"
-                                  Style="{StaticResource BiggerButton}"
-                                  IconData="F1 M 19,50L 28,34L 63,34L 54,50L 19,50 Z M 19,28.0001L 35,28C 36,25 37.4999,24.0001 37.4999,24.0001L 48.75,24C 49.3023,24 50,24.6977 50,25.25L 50,28L 53.9999,28.0001L 53.9999,32L 27,32L 19,46.4L 19,28.0001 Z" 
-                                  DockPanel.Dock="Right"
-                                  EllipseStrokeThickness="0"/>
-                <TextBox Height="30" VerticalAlignment="Center"
-                         VerticalContentAlignment="Center"/>
+                <TextBox Height="30" VerticalAlignment="Center" Text="{Binding Root}"
+                         VerticalContentAlignment="Center" IsEnabled="{Binding EnableControls}"/>
             </DockPanel>
             <DockPanel DockPanel.Dock="Top" Margin="5">
                 <Label Content="Index Name:" VerticalAlignment="Center" Width="100" FontWeight="SemiBold"/>
-                <TextBox Height="30" VerticalAlignment="Center"
-                         VerticalContentAlignment="Center"/>
+                <TextBox Height="30" VerticalAlignment="Center" Text="{Binding IndexName}"
+                         VerticalContentAlignment="Center" IsEnabled="{Binding EnableControls}"/>
             </DockPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" DockPanel.Dock="Top">
                 <mui:ModernButton Content="start" VerticalAlignment="Center"
                                   Style="{StaticResource BiggerButton}"
                                   IconData="F1 M 30.0833,22.1667L 50.6665,37.6043L 50.6665,38.7918L 30.0833,53.8333L 30.0833,22.1667 Z" 
                                   DockPanel.Dock="Right"
-                                  EllipseStrokeThickness="0"/>
-                <mui:ModernButton Content="cancel" VerticalAlignment="Center"
-                                  Style="{StaticResource BiggerButton}"
-                                  IconData="F1 M 26.9166,22.1667L 37.9999,33.25L 49.0832,22.1668L 53.8332,26.9168L 42.7499,38L 53.8332,49.0834L 49.0833,53.8334L 37.9999,42.75L 26.9166,53.8334L 22.1666,49.0833L 33.25,38L 22.1667,26.9167L 26.9166,22.1667 Z" 
-                                  DockPanel.Dock="Right"
-                                  EllipseStrokeThickness="0"/>
+                                  EllipseStrokeThickness="0"
+                                  Command="{Binding StartCommand}"/>
             </StackPanel>
-            <StackPanel Margin="10">
-                <ProgressBar IsIndeterminate="True"/>
-                <TextBlock Style="{StaticResource Heading1}" Foreground="{DynamicResource Accent}">
-                    <Run Text="3,614"/>
-                    <Run Text="files processed"/>
-                </TextBlock>
-                <TextBlock Style="{StaticResource Heading1}" Foreground="{DynamicResource Accent}">
-                    <Run Text="213"/>
-                    <Run Text="files per second"/>
-                </TextBlock>
-                <TextBlock Style="{StaticResource Heading1}" Foreground="{DynamicResource Accent}">
-                    <Run Text="00:00"/>
-                    <Run Text="total index time"/>
-                </TextBlock>
-                <Separator/>
-                <TextBlock Style="{StaticResource Emphasis}" Text="CURRENT FILE"/>
-                <TextBlock Style="{StaticResource Heading1}" Foreground="{DynamicResource Accent}">
-                    <Run Text="\\netapp\root\folder\file.txt"/>
-                </TextBlock>
-            </StackPanel>
+            <DockPanel>
+                <mui:ModernProgressRing IsActive="{Binding IsBusy}" DockPanel.Dock="Right" Height="100"
+                                        Width="100" VerticalAlignment="Bottom"/>
+                <StackPanel Margin="10">
+                    <TextBlock Style="{StaticResource Heading1}" Foreground="{DynamicResource Accent}">
+                        <Run Text="{Binding FileCount, Mode=OneWay, StringFormat='#,##0'}"/>
+                        <Run Text="files processed"/>
+                    </TextBlock>
+                    <TextBlock Style="{StaticResource Heading1}" Foreground="{DynamicResource Accent}">
+                        <Run Text="{Binding FilesPerSecond, Mode=OneWay, StringFormat='#,##0.#'}"/>
+                        <Run Text="files per second"/>
+                    </TextBlock>
+                    <TextBlock Style="{StaticResource Heading1}" Foreground="{DynamicResource Accent}">
+                        <Run Text="{Binding TimeElapsed, Mode=OneWay, StringFormat='HH:mm:ss'}"/>
+                        <Run Text="total index time"/>
+                    </TextBlock>
+                </StackPanel>
+            </DockPanel>
+            
         </DockPanel>
     </Grid>
 </mui:ModernWindow>

@@ -25,5 +25,10 @@ namespace IndexingUI
         {
             InitializeComponent();
         }
+
+        private void ModernWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            this.DataContext = new MainWindowViewModel();
+        }
     }
 }

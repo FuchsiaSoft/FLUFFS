@@ -1,4 +1,5 @@
-﻿using Pri.LongPath;
+﻿using Hasher;
+using Pri.LongPath;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,11 +11,16 @@ namespace EntityModel
 {
     partial class Index
     {
+        public bool IsRunning { get; set; }
+        public int RunningFileCount { get; private set; } = 0;
+
         private const string INVALID_ROOT_MESSAGE =
             "The specified root directory could not be found.";
 
         public void BuildIndexAsync(string root, string alias)
         {
+            IsRunning = true;
+
             if (Directory.Exists(root) == false)
             {
                 throw new System.IO.DirectoryNotFoundException(INVALID_ROOT_MESSAGE);
@@ -40,6 +46,7 @@ namespace EntityModel
             Thread thread = new Thread(() =>
             {
                 DigDirectory(directory, folder.Id);
+                IsRunning = false;
             });
             thread.Start();
         }
@@ -71,6 +78,9 @@ namespace EntityModel
                         Length = file.Length,
                         TrackForUpdates = false
                     });
+                    
+                    
+                    RunningFileCount++;
                 }
             }
             catch (Exception)
