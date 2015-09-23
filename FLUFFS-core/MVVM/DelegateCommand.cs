@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace FerretClientUI.MVVM
+namespace MVVM
 {
     public class DelegateCommand : ICommand
     {
@@ -21,12 +21,14 @@ namespace FerretClientUI.MVVM
             return true;
         }
 
+#pragma warning disable
         public event EventHandler CanExecuteChanged;
 
         public void Execute(object parameter)
         {
             _Action.Invoke();
         }
+#pragma warning restore
     }
 
 }

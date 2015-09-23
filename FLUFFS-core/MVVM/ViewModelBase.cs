@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
-namespace FerretClientUI.MVVM
+namespace MVVM
 {
-    abstract class ViewModelBase : ObservableObject
+    public abstract class ViewModelBase : ObservableObject
     {
         private Window _ActiveWindow = null;
         private Action _ExitAction = null;
@@ -65,6 +65,11 @@ namespace FerretClientUI.MVVM
             EnableControls = true;
             ControlOpacity = 1;
             IsBusy = false;
+        }
+
+        public void SetExitAction(Action exitAction)
+        {
+            _ExitAction = exitAction;
         }
 
         ~ViewModelBase()
