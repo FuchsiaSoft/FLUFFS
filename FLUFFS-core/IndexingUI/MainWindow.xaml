@@ -16,6 +16,9 @@
     <Grid>
         <DockPanel>
             <DockPanel DockPanel.Dock="Top" Margin="5">
+                <mui:ModernButton Style="{StaticResource BiggerButton}"
+                                  IconData="F1 M 21,30.0001L 55.9999,30.0001L 55.9999,50L 21,50L 21,30.0001 Z M 52,28L 37,28C 38,25 39.4999,24.0001 39.4999,24.0001L 50.75,24C 51.3023,24 52,24.6977 52,25.25L 52,28 Z M 53.5,52C 54.8807,52 56,53.1193 56,54.5C 56,55.8807 54.8807,57 53.5,57C 52.1193,57 51,55.8807 51,54.5C 51,53.1193 52.1193,52 53.5,52 Z M 46.5,52C 47.8807,52 49,53.1193 49,54.5C 49,55.8807 47.8807,57 46.5,57C 45.1193,57 44,55.8807 44,54.5C 44,53.1193 45.1193,52 46.5,52 Z M 39.5,52C 40.8807,52 42,53.1193 42,54.5C 42,55.8807 40.8807,57 39.5,57C 38.1193,57 37,55.8807 37,54.5C 37,53.1193 38.1193,52 39.5,52 Z"
+                                  Command="{Binding BrowseCommand}" Content="Browse..." DockPanel.Dock="Right" EllipseStrokeThickness="0"/>
                 <Label Content="Root directory:" VerticalAlignment="Center" Width="100" FontWeight="SemiBold"/>
                 <TextBox Height="30" VerticalAlignment="Center" Text="{Binding Root}"
                          VerticalContentAlignment="Center" IsEnabled="{Binding EnableControls}"/>

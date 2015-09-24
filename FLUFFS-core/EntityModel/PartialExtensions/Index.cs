@@ -21,33 +21,35 @@ namespace EntityModel
         {
             IsRunning = true;
 
-            if (Directory.Exists(root) == false)
-            {
-                throw new System.IO.DirectoryNotFoundException(INVALID_ROOT_MESSAGE);
-            }
-
-            DirectoryInfo directory = new DirectoryInfo(root);
-            TrackedFolder folder = new TrackedFolder()
-            {
-                FullPath = directory.FullName,
-                Name = directory.Name
-            };
-
-            using (DbModelContainer db = new DbModelContainer())
-            {
-                db.Indices.Add(new Index()
-                {
-                    Alias = alias,
-                    Root = folder
-                });
-                db.SaveChanges();
-            }
-
             Thread thread = new Thread(() =>
             {
+                if (Directory.Exists(root) == false)
+                {
+                    throw new System.IO.DirectoryNotFoundException(INVALID_ROOT_MESSAGE);
+                }
+
+                DirectoryInfo directory = new DirectoryInfo(root);
+                TrackedFolder folder = new TrackedFolder()
+                {
+                    FullPath = directory.FullName,
+                    Name = directory.Name
+                };
+
+                using (DbModelContainer db = new DbModelContainer())
+                {
+                    db.Indices.Add(new Index()
+                    {
+                        Alias = alias,
+                        Root = folder
+                    });
+                    db.SaveChanges();
+                }
+
+
                 DigDirectory(directory, folder.Id);
                 IsRunning = false;
             });
+
             thread.Start();
         }
 
