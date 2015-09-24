@@ -1,6 +1,6 @@
 ﻿using EntityModel;
-using FerretClientUI.MVVM;
 using FerretClientUI.Utils;
+using MVVM;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

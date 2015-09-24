@@ -1,7 +1,7 @@
 ﻿using EntityModel;
-using FerretClientUI.MVVM;
 using FerretClientUI.Utils;
 using FirstFloor.ModernUI.Presentation;
+using MVVM;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

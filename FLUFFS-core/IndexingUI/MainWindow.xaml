@@ -1,0 +1,57 @@
+﻿<mui:ModernWindow x:Class="IndexingUI.MainWindow"
+                  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                  xmlns:mui="http://firstfloorsoftware.com/ModernUI"
+                  Title="Ferret Utility Software - Index builder" 
+                  Style="{StaticResource BlankWindow}"
+                  SizeToContent="Height"
+                  ResizeMode="NoResize"
+                  BackgroundContent="{x:Null}" Loaded="ModernWindow_Loaded">
+    <Window.Resources>
+        <Style TargetType="TextBlock" x:Key="Heading1" BasedOn="{StaticResource Heading1}">
+            <Setter Property="FontWeight" Value="UltraLight"/>
+            <Setter Property="FontSize" Value="25"/>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <DockPanel>
+            <DockPanel DockPanel.Dock="Top" Margin="5">
+                <Label Content="Root directory:" VerticalAlignment="Center" Width="100" FontWeight="SemiBold"/>
+                <TextBox Height="30" VerticalAlignment="Center" Text="{Binding Root}"
+                         VerticalContentAlignment="Center" IsEnabled="{Binding EnableControls}"/>
+            </DockPanel>
+            <DockPanel DockPanel.Dock="Top" Margin="5">
+                <Label Content="Index Name:" VerticalAlignment="Center" Width="100" FontWeight="SemiBold"/>
+                <TextBox Height="30" VerticalAlignment="Center" Text="{Binding IndexName}"
+                         VerticalContentAlignment="Center" IsEnabled="{Binding EnableControls}"/>
+            </DockPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" DockPanel.Dock="Top">
+                <mui:ModernButton Content="start" VerticalAlignment="Center"
+                                  Style="{StaticResource BiggerButton}"
+                                  IconData="F1 M 30.0833,22.1667L 50.6665,37.6043L 50.6665,38.7918L 30.0833,53.8333L 30.0833,22.1667 Z" 
+                                  DockPanel.Dock="Right"
+                                  EllipseStrokeThickness="0"
+                                  Command="{Binding StartCommand}"/>
+            </StackPanel>
+            <DockPanel>
+                <mui:ModernProgressRing IsActive="{Binding IsBusy}" DockPanel.Dock="Right" Height="100"
+                                        Width="100" VerticalAlignment="Bottom"/>
+                <StackPanel Margin="10">
+                    <TextBlock Style="{StaticResource Heading1}" Foreground="{DynamicResource Accent}">
+                        <Run Text="{Binding FileCount, Mode=OneWay, StringFormat='#,##0'}"/>
+                        <Run Text="files processed"/>
+                    </TextBlock>
+                    <TextBlock Style="{StaticResource Heading1}" Foreground="{DynamicResource Accent}">
+                        <Run Text="{Binding FilesPerSecond, Mode=OneWay, StringFormat='#,##0.#'}"/>
+                        <Run Text="files per second"/>
+                    </TextBlock>
+                    <TextBlock Style="{StaticResource Heading1}" Foreground="{DynamicResource Accent}">
+                        <Run Text="{Binding TimeElapsed, Mode=OneWay, StringFormat='HH:mm:ss'}"/>
+                        <Run Text="total index time"/>
+                    </TextBlock>
+                </StackPanel>
+            </DockPanel>
+            
+        </DockPanel>
+    </Grid>
+</mui:ModernWindow>
