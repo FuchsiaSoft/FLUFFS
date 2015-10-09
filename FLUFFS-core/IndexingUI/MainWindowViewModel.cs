@@ -1,5 +1,6 @@
 ﻿using EntityModel;
 using FirstFloor.ModernUI.Windows.Controls;
+using Microsoft.Win32;
 using MVVM;
 using System;
 using System.Collections.Generic;
@@ -7,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using System.Windows.Input;
 
 namespace IndexingUI
@@ -97,6 +99,21 @@ namespace IndexingUI
         }
 
 
+        public RelayCommand BrowseCommand { get { return new RelayCommand(Browse, CanBrowse); } }
+
+        private bool CanBrowse(object obj)
+        {
+            if (_RunningIndex == null) return true;
+            return _RunningIndex.IsRunning ? false : true;
+        }
+
+        private void Browse(object obj)
+        {
+            FolderBrowserDialog dialog = new FolderBrowserDialog();
+            dialog.ShowDialog();
+            Root = dialog.SelectedPath;
+        }
+
         public RelayCommand StartCommand { get { return new RelayCommand(StartIndex, CanStartIndex); } }
 
         private bool CanStartIndex(object obj)
@@ -126,7 +143,7 @@ namespace IndexingUI
                     RaisePropertyChanged("TimeElapsed");
                     RaisePropertyChanged("FilesPerSecond");
 
-                    Thread.Sleep(1500);
+                    Thread.Sleep(400);
 
                 } while (RunningIndex.IsRunning);
 
