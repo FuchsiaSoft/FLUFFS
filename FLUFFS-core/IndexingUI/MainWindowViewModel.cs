@@ -143,7 +143,7 @@ namespace IndexingUI
                     RaisePropertyChanged("TimeElapsed");
                     RaisePropertyChanged("FilesPerSecond");
 
-                    Thread.Sleep(1500);
+                    Thread.Sleep(400);
 
                 } while (RunningIndex.IsRunning);
 

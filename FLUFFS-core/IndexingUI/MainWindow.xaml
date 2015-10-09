@@ -45,7 +45,7 @@
                         <Run Text="files processed"/>
                     </TextBlock>
                     <TextBlock Style="{StaticResource Heading1}" Foreground="{DynamicResource Accent}">
-                        <Run Text="{Binding FilesPerSecond, Mode=OneWay, StringFormat='#,##0.#'}"/>
+                        <Run Text="{Binding FilesPerSecond, Mode=OneWay, StringFormat='#,##0'}"/>
                         <Run Text="files per second"/>
                     </TextBlock>
                     <TextBlock Style="{StaticResource Heading1}" Foreground="{DynamicResource Accent}">
