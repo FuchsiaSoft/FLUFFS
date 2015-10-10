@@ -16,10 +16,8 @@ namespace EntityModel
         /// <param name="password">The plaintext password for the user</param>
         /// <returns>true if password is correct</returns>
         public bool Authenticate (string password)
-        {
-            byte[] salt = Encoding.UTF8.GetBytes(this.Salt);
-
-            string hashedPassword = HashPasswordAndSalt(password, salt);
+        { 
+            string hashedPassword = HashPasswordAndSalt(password, this.Salt);
 
             return this.Hash == hashedPassword;
         }
@@ -28,15 +26,24 @@ namespace EntityModel
         /// Generates a new crypto random salt of 32bytes.
         /// </summary>
         /// <returns>32 crypto random bytes</returns>
-        private static byte[] GetNewSalt()
+        private static string GetNewSalt()
         {
             RandomNumberGenerator rng = RNGCryptoServiceProvider.Create();
             byte[] saltBuffer = new byte[32];
 
             rng.GetBytes(saltBuffer);
 
-            return saltBuffer;
+            StringBuilder builder = new StringBuilder();
+
+            foreach (byte element in saltBuffer)
+            {
+                builder.Append(element.ToString("X2"));
+            }
+
+            return builder.ToString();
         }
+
+        
 
         /// <summary>
         /// Returns a SHA256 of the provided plaintext password and salt data,
@@ -45,15 +52,15 @@ namespace EntityModel
         /// <param name="password">the plaintext password to hash</param>
         /// <param name="salt">the salt to combined with the password</param>
         /// <returns></returns>
-        private static string HashPasswordAndSalt(string password, byte[] salt)
+        private static string HashPasswordAndSalt(string password, string salt)
         {
-            byte[] passwordBytes = Encoding.UTF8.GetBytes(password);
+            string saltedPassword = password + salt;
 
-            byte[] saltedPassword = passwordBytes.Concat(salt).ToArray();
+            byte[] unhashed = Encoding.UTF8.GetBytes(saltedPassword);
 
             SHA256 sha256 = SHA256.Create();
 
-            byte[] hashedData = sha256.ComputeHash(saltedPassword);
+            byte[] hashedData = sha256.ComputeHash(unhashed);
 
             StringBuilder builder = new StringBuilder();
 
@@ -63,6 +70,26 @@ namespace EntityModel
             }
 
             return builder.ToString();
+        }
+
+        public void ChangePassword(string newPassword)
+        {
+            string salt = GetNewSalt();
+            
+            string hash = HashPasswordAndSalt(newPassword, salt);
+
+            using (DbModelContainer db = new DbModelContainer())
+            {
+                User user = db.Users.Find(Id);
+
+                user.Salt = salt;
+                user.Hash = hash;
+
+                this.Salt = salt;
+                this.Hash = hash;
+
+                db.SaveChanges();
+            }
         }
     }
 }

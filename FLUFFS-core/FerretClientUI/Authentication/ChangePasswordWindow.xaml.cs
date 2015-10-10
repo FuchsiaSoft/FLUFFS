@@ -25,5 +25,27 @@ namespace FerretClientUI.Authentication
         {
             InitializeComponent();
         }
+
+        private void ModernButton_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
+
+        private void ModernButton_Click_1(object sender, RoutedEventArgs e)
+        {
+            if (pwbPasswordBox1.Password != pwbPasswordBox2.Password)
+            {
+                ModernDialog.ShowMessage("Passwords do not match", "ERROR", MessageBoxButton.OK);
+                return;
+            }
+
+            AuthenticationManager.CurrentUser.ChangePassword(pwbPasswordBox1.Password);
+
+            Window window = new MainWindow();
+
+            window.Show();
+
+            this.Close();
+        }
     }
 }

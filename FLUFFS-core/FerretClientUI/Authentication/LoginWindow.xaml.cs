@@ -38,6 +38,7 @@ namespace FerretClientUI.Authentication
             {
                 ModernDialog.ShowMessage
                     ("Invalid credentials", "ERROR", MessageBoxButton.OK);
+                return;
             }
 
             //if got this far then authenticated OK.
