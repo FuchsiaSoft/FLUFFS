@@ -13,7 +13,22 @@ namespace FerretClientUI.Authentication
 
         public static bool Authenticate(string login, string password)
         {
-            throw new NotImplementedException();
+            using (DbModelContainer db = new DbModelContainer())
+            {
+                User user = db.Users
+                    .Where(u => u.Login == login)
+                    .FirstOrDefault();
+
+                if (user == null) return false;
+
+                if (user.Authenticate(password))
+                {
+                    CurrentUser = user;
+                    return true;
+                }
+
+                return false;
+            }
         }
 
 

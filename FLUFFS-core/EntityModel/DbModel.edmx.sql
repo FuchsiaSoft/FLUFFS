@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 10/10/2015 17:56:47
+-- Date Created: 10/10/2015 18:59:03
 -- Generated from EDMX file: C:\Users\dupoi\Documents\GitHub\FLUFFS\FLUFFS-core\EntityModel\DbModel.edmx
 -- --------------------------------------------------
 
@@ -249,7 +249,8 @@ CREATE TABLE [dbo].[Users] (
     [Salt] nvarchar(max)  NOT NULL,
     [Hash] nvarchar(max)  NOT NULL,
     [Login] nvarchar(max)  NOT NULL,
-    [IsSysAdmin] bit  NOT NULL
+    [IsSysAdmin] bit  NOT NULL,
+    [NewPasswordDue] bit  NOT NULL
 );
 GO
 

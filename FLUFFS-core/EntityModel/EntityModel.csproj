@@ -79,6 +79,7 @@
     </Compile>
     <Compile Include="PartialExtensions\Index.cs" />
     <Compile Include="PartialExtensions\SearchJob.cs" />
+    <Compile Include="PartialExtensions\User.cs" />
     <Compile Include="PdfVersion.cs">
       <DependentUpon>DbModel.tt</DependentUpon>
     </Compile>
@@ -124,7 +125,9 @@
     </EntityDeploy>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.Config" />
+    <None Include="App.Config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="DbModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>DbModel.Context.cs</LastGenOutput>
