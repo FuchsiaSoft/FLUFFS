@@ -95,6 +95,22 @@
     <Compile Include="Pages\Content\Search\SplitPage1.xaml.cs">
       <DependentUpon>SplitPage1.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Content\SystemAdmin\CompletedJobs.xaml.cs">
+      <DependentUpon>CompletedJobs.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Content\SystemAdmin\CompletedJobsViewModel.cs" />
+    <Compile Include="Pages\Content\SystemAdmin\OutstandingJobs.xaml.cs">
+      <DependentUpon>OutstandingJobs.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Content\SystemAdmin\OutstandingJobsViewModel.cs" />
+    <Compile Include="Pages\Content\SystemAdmin\ProcessingJobs.xaml.cs">
+      <DependentUpon>ProcessingJobs.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Content\SystemAdmin\ProcessingJobsViewModel.cs" />
+    <Compile Include="Pages\Content\SystemAdmin\UserManagement.xaml.cs">
+      <DependentUpon>UserManagement.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Content\SystemAdmin\UserManagementViewModel.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -136,6 +152,22 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\Content\Search\SplitPage1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Content\SystemAdmin\CompletedJobs.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Content\SystemAdmin\OutstandingJobs.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Content\SystemAdmin\ProcessingJobs.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Content\SystemAdmin\UserManagement.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
