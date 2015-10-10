@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 10/09/2015 10:38:15
--- Generated from EDMX file: C:\Users\20050803\Documents\GitHub\FLUFFS\FLUFFS-core\EntityModel\DbModel.edmx
+-- Date Created: 10/10/2015 17:56:47
+-- Generated from EDMX file: C:\Users\dupoi\Documents\GitHub\FLUFFS\FLUFFS-core\EntityModel\DbModel.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -483,7 +483,7 @@ ADD CONSTRAINT [FK_IndexTrackedFolder]
     FOREIGN KEY ([Root_Id])
     REFERENCES [dbo].[TrackedFolders]
         ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
+    ON DELETE CASCADE ON UPDATE NO ACTION;
 GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_IndexTrackedFolder'
@@ -498,7 +498,7 @@ ADD CONSTRAINT [FK_TrackedFolderTrackedFile]
     FOREIGN KEY ([TrackedFolderId])
     REFERENCES [dbo].[TrackedFolders]
         ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
+    ON DELETE CASCADE ON UPDATE NO ACTION;
 GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_TrackedFolderTrackedFile'
@@ -600,7 +600,7 @@ ADD CONSTRAINT [FK_TrackedFileReductionLog]
     FOREIGN KEY ([TrackedFile_Id])
     REFERENCES [dbo].[TrackedFiles]
         ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
+    ON DELETE CASCADE ON UPDATE NO ACTION;
 GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_TrackedFileReductionLog'

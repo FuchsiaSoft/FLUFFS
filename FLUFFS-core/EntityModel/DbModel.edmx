@@ -330,7 +330,9 @@
   </Association>
   <Association Name="IndexTrackedFolder">
     <End Role="Index" Type="DbModel.Store.Indices" Multiplicity="*" />
-    <End Role="TrackedFolder" Type="DbModel.Store.TrackedFolders" Multiplicity="1" />
+    <End Role="TrackedFolder" Type="DbModel.Store.TrackedFolders" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
     <ReferentialConstraint>
       <Principal Role="TrackedFolder">
         <PropertyRef Name="Id" />
@@ -341,7 +343,9 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="TrackedFolderTrackedFile">
-    <End Role="TrackedFolder" Type="DbModel.Store.TrackedFolders" Multiplicity="1" />
+    <End Role="TrackedFolder" Type="DbModel.Store.TrackedFolders" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
     <End Role="TrackedFile" Type="DbModel.Store.TrackedFiles" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="TrackedFolder">
@@ -365,7 +369,9 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="TrackedFileReductionLog">
-    <End Role="TrackedFile" Type="DbModel.Store.TrackedFiles" Multiplicity="1" />
+    <End Role="TrackedFile" Type="DbModel.Store.TrackedFiles" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
     <End Role="ReductionLog" Type="DbModel.Store.ReductionLogs" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="TrackedFile">
@@ -684,7 +690,8 @@
         <Association Name="TrackedFolderTrackedFolder">
           <End Type="DbModel.TrackedFolder" Role="TrackedFolder" Multiplicity="0..1" >
           </End>
-          <End Type="DbModel.TrackedFolder" Role="TrackedFolder1" Multiplicity="*" />
+          <End Type="DbModel.TrackedFolder" Role="TrackedFolder1" Multiplicity="*" >
+          </End>
           <ReferentialConstraint>
             <Principal Role="TrackedFolder">
               <PropertyRef Name="Id" />
@@ -773,12 +780,18 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="IndexTrackedFolder">
-          <End Type="DbModel.Index" Role="Index" Multiplicity="0..1" />
-          <End Type="DbModel.TrackedFolder" Role="TrackedFolder" Multiplicity="1" />
+          <End Type="DbModel.Index" Role="Index" Multiplicity="0..1" >
+          </End>
+          <End Type="DbModel.TrackedFolder" Role="TrackedFolder" Multiplicity="1" >
+            <OnDelete Action="Cascade" />
+          </End>
         </Association>
         <Association Name="TrackedFolderTrackedFile">
-          <End Type="DbModel.TrackedFolder" Multiplicity="1" Role="TrackedFolder" />
-          <End Type="DbModel.TrackedFile" Multiplicity="*" Role="TrackedFile" />
+          <End Type="DbModel.TrackedFolder" Multiplicity="1" Role="TrackedFolder" >
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DbModel.TrackedFile" Multiplicity="*" Role="TrackedFile" >
+          </End>
           <ReferentialConstraint>
             <Principal Role="TrackedFolder">
               <PropertyRef Name="Id" />
@@ -841,7 +854,9 @@
           <End Type="DbModel.ReductionLog" Role="ReductionLog" Multiplicity="*" />
         </Association>
         <Association Name="TrackedFileReductionLog">
-          <End Type="DbModel.TrackedFile" Role="TrackedFile" Multiplicity="1" />
+          <End Type="DbModel.TrackedFile" Role="TrackedFile" Multiplicity="1" >
+            <OnDelete Action="Cascade" />
+          </End>
           <End Type="DbModel.ReductionLog" Role="ReductionLog" Multiplicity="*" />
         </Association>
         <EntityType Name="User">
