@@ -31,6 +31,42 @@ namespace FerretClientUI.Authentication
             }
         }
 
+        /// <summary>
+        /// Creates the initial user record necessary to log in as
+        /// sys admin and create subsequent records.  Only here as
+        /// a convenience to be called with VS immediate window.
+        /// </summary>
+        /// <param name="username">The username for the new user</param>
+        /// <param name="password">Password for the new user</param>
+        /// <param name="firstname">First name of the new user</param>
+        /// <param name="lastname">Last name of the new user</param>
+        private static void CreateInitialUserRecord
+            (string username, string password, string firstname,
+             string lastname)
+        {
+            using (DbModelContainer db = new DbModelContainer())
+            {
+                User user = new User()
+                {
+                    Firstname = firstname,
+                    Surname = lastname,
+                    Login = username,
+                    IsSysAdmin = true,
+                    Salt = "salt",
+                    Hash = "hash",
+                    NewPasswordDue = true
+                };
+
+                db.Users.Add(user);
+                db.SaveChanges();
+
+                user.ChangePassword(password);
+
+                user.NewPasswordDue = true;
+                db.SaveChanges();
+            }
+        }
+
 
     }
 }

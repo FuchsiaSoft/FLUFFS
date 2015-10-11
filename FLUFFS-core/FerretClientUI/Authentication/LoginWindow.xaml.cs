@@ -49,6 +49,12 @@ namespace FerretClientUI.Authentication
                 window.ShowDialog();
                 this.Close();
             }
+            else
+            {
+                Window window = new MainWindow();
+                window.Show();
+                this.Close();
+            }
         }
     }
 }

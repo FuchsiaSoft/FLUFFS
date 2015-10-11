@@ -84,6 +84,7 @@ namespace EntityModel
 
                 user.Salt = salt;
                 user.Hash = hash;
+                user.NewPasswordDue = false;
 
                 this.Salt = salt;
                 this.Hash = hash;

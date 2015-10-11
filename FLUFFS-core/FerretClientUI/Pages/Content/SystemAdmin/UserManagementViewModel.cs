@@ -13,37 +13,10 @@ namespace FerretClientUI.Pages.Content.SystemAdmin
     {
         public UserManagementViewModel()
         {
-            //TODO: delete this, temp data for testing UI out
-
-            Users = new ObservableCollection<User>();
-
-            Users.Add(new User()
+            using (DbModelContainer db = new DbModelContainer())
             {
-                Firstname = "Chris",
-                Surname = "Wilson",
-                Login = "WILSC01"
-            });
-
-            Users.Add(new User()
-            {
-                Firstname = "Davey",
-                Surname = "Jones",
-                Login = "JONED01"
-            });
-
-            Users.Add(new User()
-            {
-                Firstname = "John",
-                Surname = "Smith",
-                Login = "SMITJ01"
-            });
-
-            Users.Add(new User()
-            {
-                Firstname = "Doctor",
-                Surname = "Who",
-                Login = "WHOD01"
-            });
+                Users = new ObservableCollection<User>(db.Users);
+            }
         }
 
 
