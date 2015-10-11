@@ -30,6 +30,7 @@ namespace EntityModel
         public string Hash { get; set; }
         public string Login { get; set; }
         public bool IsSysAdmin { get; set; }
+        public bool NewPasswordDue { get; set; }
     
         public virtual ICollection<Index> Indices { get; set; }
         public virtual ICollection<WorkingSet> WorkingSets { get; set; }

@@ -220,6 +220,7 @@
     <Property Name="Hash" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Login" Type="nvarchar(max)" Nullable="false" />
     <Property Name="IsSysAdmin" Type="bit" Nullable="false" />
+    <Property Name="NewPasswordDue" Type="bit" Nullable="false" />
   </EntityType>
   <EntityType Name="WorkingSets">
     <Key>
@@ -875,6 +876,7 @@
           <NavigationProperty Name="ShrinkJobs" Relationship="DbModel.UserShrinkJob" FromRole="User" ToRole="ShrinkJob" />
           <NavigationProperty Name="SearchJobs" Relationship="DbModel.UserSearchJob" FromRole="User" ToRole="SearchJob" />
           <NavigationProperty Name="RegExTemplates" Relationship="DbModel.UserRegExTemplate" FromRole="User" ToRole="RegExTemplate" />
+          <Property Name="NewPasswordDue" Type="Boolean" Nullable="false" />
         </EntityType>
         <Association Name="UserIndex">
           <End Type="DbModel.User" Role="User" Multiplicity="*" />
@@ -1036,6 +1038,7 @@
           <ScalarProperty Name="Hash" ColumnName="Hash" />
           <ScalarProperty Name="Login" ColumnName="Login" />
           <ScalarProperty Name="IsSysAdmin" ColumnName="IsSysAdmin" />
+          <ScalarProperty Name="NewPasswordDue" ColumnName="NewPasswordDue" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

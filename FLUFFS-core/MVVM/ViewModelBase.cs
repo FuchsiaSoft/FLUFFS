@@ -72,6 +72,13 @@ namespace MVVM
             _ExitAction = exitAction;
         }
 
+        public ICommand CloseWindowCommand { get { return new DelegateCommand(CloseWindow); } }
+
+        protected void CloseWindow()
+        {
+            _ActiveWindow.Close();
+        }
+
         ~ViewModelBase()
         {
             if (_ExitAction != null &&

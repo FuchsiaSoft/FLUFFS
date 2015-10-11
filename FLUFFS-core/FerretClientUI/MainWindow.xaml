@@ -22,6 +22,14 @@
                 <mui:Link DisplayName="regular expression library" Source="/Pages/Content/Search/RegexLibrary.xaml"/>
             </mui:LinkGroup.Links>
         </mui:LinkGroup>
+        <mui:LinkGroup DisplayName="System Administration">
+            <mui:LinkGroup.Links>
+                <mui:Link DisplayName="Outstanding jobs" Source="/Pages/Content/SystemAdmin/OutstandingJobs.xaml"/>
+                <mui:Link DisplayName="Processing jobs" Source="/Pages/Content/SystemAdmin/ProcessingJobs.xaml"/>
+                <mui:Link DisplayName="Completed Jobs" Source="/Pages/Content/SystemAdmin/CompletedJobs.xaml"/>
+                <mui:Link DisplayName="User Management" Source="/Pages/Content/SystemAdmin/UserManagement.xaml"/>
+            </mui:LinkGroup.Links>
+        </mui:LinkGroup>
         <mui:LinkGroup DisplayName="settings" GroupKey="settings">
             <mui:LinkGroup.Links>
                 <mui:Link DisplayName="software" Source="/Pages/SettingsPage.xaml" />
