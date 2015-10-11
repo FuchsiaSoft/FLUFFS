@@ -14,6 +14,9 @@ namespace EntityModel
         public bool IsRunning { get; set; }
         public int RunningFileCount { get; private set; } = 0;
 
+        //Used only for binding in grids.
+        public bool IsSelected { get; set; }
+
         private const string INVALID_ROOT_MESSAGE =
             "The specified root directory could not be found.";
 
