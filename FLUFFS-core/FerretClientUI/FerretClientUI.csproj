@@ -90,6 +90,7 @@
     <Compile Include="Authentication\LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DataEntry\DataEntryViewModelBase.cs" />
     <Compile Include="Pages\Content\Search\NewSearchViewModel.cs" />
     <Compile Include="Pages\Content\Search\RegexLibraryViewModel.cs" />
     <Compile Include="Pages\Content\Search\SplitPage1.xaml.cs">
@@ -292,6 +293,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets\" />
+    <Folder Include="DataEntry\DataEntryWindows\" />
     <Folder Include="Pages\Content\Indices\" />
   </ItemGroup>
   <ItemGroup>
