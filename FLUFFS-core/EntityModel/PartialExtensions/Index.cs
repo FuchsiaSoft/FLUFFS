@@ -69,7 +69,8 @@ namespace EntityModel
             List<TrackedFile> trackedFiles = new List<TrackedFile>();
             try
             {
-                files = directory.EnumerateFiles();
+                files = directory.GetFiles();
+
                 foreach (FileInfo file in files)
                 {
                     trackedFiles.Add(new TrackedFile()
