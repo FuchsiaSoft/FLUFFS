@@ -23,6 +23,8 @@
     <EntitySet Name="TrackedFileShrinkJob" EntityType="DbModel.Store.TrackedFileShrinkJob" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="UserIndex" EntityType="DbModel.Store.UserIndex" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="TrackedFileWorkingSet" EntityType="DbModel.Store.TrackedFileWorkingSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="SearchJobPending" EntityType="DbModel.Store.SearchJobPending" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="SearchJobDone" EntityType="DbModel.Store.SearchJobDone" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="TrackedFolderTrackedFolder" Association="DbModel.Store.TrackedFolderTrackedFolder">
       <End Role="TrackedFolder" EntitySet="TrackedFolders" />
       <End Role="TrackedFolder1" EntitySet="TrackedFolders" />
@@ -111,6 +113,26 @@
       <End Role="User" EntitySet="Users" />
       <End Role="RegExTemplate" EntitySet="RegExTemplates" />
     </AssociationSet>
+    <AssociationSet Name="IndexTrackedFile" Association="DbModel.Store.IndexTrackedFile">
+      <End Role="Index" EntitySet="Indices" />
+      <End Role="TrackedFile" EntitySet="TrackedFiles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SearchJobPending_SearchJob" Association="DbModel.Store.FK_SearchJobPending_SearchJob">
+      <End Role="SearchJob" EntitySet="SearchJobs" />
+      <End Role="SearchJobPending" EntitySet="SearchJobPending" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SearchJobPending_TrackedFile" Association="DbModel.Store.FK_SearchJobPending_TrackedFile">
+      <End Role="TrackedFile" EntitySet="TrackedFiles" />
+      <End Role="SearchJobPending" EntitySet="SearchJobPending" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SearchJobDone_SearchJob" Association="DbModel.Store.FK_SearchJobDone_SearchJob">
+      <End Role="SearchJob" EntitySet="SearchJobs" />
+      <End Role="SearchJobDone" EntitySet="SearchJobDone" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SearchJobDone_TrackedFile" Association="DbModel.Store.FK_SearchJobDone_TrackedFile">
+      <End Role="TrackedFile" EntitySet="TrackedFiles" />
+      <End Role="SearchJobDone" EntitySet="SearchJobDone" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="Indices">
     <Key>
@@ -146,6 +168,8 @@
     <Property Name="Created" Type="datetime" Nullable="false" />
     <Property Name="LastSeen" Type="datetime" Nullable="false" />
     <Property Name="TrackedFolderId" Type="int" Nullable="false" />
+    <Property Name="IndexId" Type="int" Nullable="false" />
+    <Property Name="UpdatesSeen" Type="int" Nullable="true" />
   </EntityType>
   <EntityType Name="Categories">
     <Key>
@@ -280,6 +304,22 @@
     </Key>
     <Property Name="TrackedFiles_Id" Type="int" Nullable="false" />
     <Property Name="WorkingSets_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SearchJobPending">
+    <Key>
+      <PropertyRef Name="PendingSearchJobs_Id" />
+      <PropertyRef Name="PendingFiles_Id" />
+    </Key>
+    <Property Name="PendingSearchJobs_Id" Type="int" Nullable="false" />
+    <Property Name="PendingFiles_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SearchJobDone">
+    <Key>
+      <PropertyRef Name="DoneSearchJobs_Id" />
+      <PropertyRef Name="DoneFiles_Id" />
+    </Key>
+    <Property Name="DoneSearchJobs_Id" Type="int" Nullable="false" />
+    <Property Name="DoneFiles_Id" Type="int" Nullable="false" />
   </EntityType>
   <Association Name="TrackedFolderTrackedFolder">
     <End Role="TrackedFolder" Type="DbModel.Store.TrackedFolders" Multiplicity="0..1" />
@@ -431,6 +471,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="IndexTrackedFile">
+    <End Role="Index" Type="DbModel.Store.Indices" Multiplicity="1" />
+    <End Role="TrackedFile" Type="DbModel.Store.TrackedFiles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Index">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TrackedFile">
+        <PropertyRef Name="IndexId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_SearchJobTrackedFile_SearchJob">
     <End Role="SearchJob" Type="DbModel.Store.SearchJobs" Multiplicity="1" />
     <End Role="SearchJobTrackedFile" Type="DbModel.Store.SearchJobTrackedFile" Multiplicity="*" />
@@ -551,6 +603,54 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_SearchJobPending_SearchJob">
+    <End Role="SearchJob" Type="DbModel.Store.SearchJobs" Multiplicity="1" />
+    <End Role="SearchJobPending" Type="DbModel.Store.SearchJobPending" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SearchJob">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SearchJobPending">
+        <PropertyRef Name="PendingSearchJobs_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SearchJobPending_TrackedFile">
+    <End Role="SearchJobPending" Type="DbModel.Store.SearchJobPending" Multiplicity="*" />
+    <End Role="TrackedFile" Type="DbModel.Store.TrackedFiles" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="TrackedFile">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SearchJobPending">
+        <PropertyRef Name="PendingFiles_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SearchJobDone_SearchJob">
+    <End Role="SearchJob" Type="DbModel.Store.SearchJobs" Multiplicity="1" />
+    <End Role="SearchJobDone" Type="DbModel.Store.SearchJobDone" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SearchJob">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SearchJobDone">
+        <PropertyRef Name="DoneSearchJobs_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SearchJobDone_TrackedFile">
+    <End Role="SearchJobDone" Type="DbModel.Store.SearchJobDone" Multiplicity="*" />
+    <End Role="TrackedFile" Type="DbModel.Store.TrackedFiles" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="TrackedFile">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SearchJobDone">
+        <PropertyRef Name="DoneFiles_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -636,6 +736,18 @@
             <End Role="User" EntitySet="Users" />
             <End Role="RegExTemplate" EntitySet="RegExTemplates" />
           </AssociationSet>
+          <AssociationSet Name="IndexTrackedFile" Association="DbModel.IndexTrackedFile">
+            <End Role="Index" EntitySet="Indices" />
+            <End Role="TrackedFile" EntitySet="TrackedFiles" />
+          </AssociationSet>
+          <AssociationSet Name="SearchJobPending" Association="DbModel.SearchJobPending">
+            <End Role="SearchJob" EntitySet="SearchJobs" />
+            <End Role="TrackedFile" EntitySet="TrackedFiles" />
+          </AssociationSet>
+          <AssociationSet Name="SearchJobDone" Association="DbModel.SearchJobDone">
+            <End Role="SearchJob" EntitySet="SearchJobs" />
+            <End Role="TrackedFile" EntitySet="TrackedFiles" />
+          </AssociationSet>
         </EntityContainer>
         <EnumType Name="JobStatus">
           <Member Name="Working" Value="0" />
@@ -650,6 +762,7 @@
           <Property Name="Alias" Type="String" Nullable="false" />
           <NavigationProperty Name="Root" Relationship="DbModel.IndexTrackedFolder" FromRole="Index" ToRole="TrackedFolder" />
           <NavigationProperty Name="Users" Relationship="DbModel.UserIndex" FromRole="Index" ToRole="User" />
+          <NavigationProperty Name="TrackedFiles" Relationship="DbModel.IndexTrackedFile" FromRole="Index" ToRole="TrackedFile" />
         </EntityType>
         <EntityType Name="TrackedFolder">
           <Key>
@@ -687,6 +800,11 @@
           <NavigationProperty Name="ShrinkJobs" Relationship="DbModel.TrackedFileShrinkJob" FromRole="TrackedFile" ToRole="ShrinkJob" />
           <NavigationProperty Name="ReductionLogs" Relationship="DbModel.TrackedFileReductionLog" FromRole="TrackedFile" ToRole="ReductionLog" />
           <NavigationProperty Name="WorkingSets" Relationship="DbModel.TrackedFileWorkingSet" FromRole="TrackedFile" ToRole="WorkingSet" />
+          <NavigationProperty Name="Index" Relationship="DbModel.IndexTrackedFile" FromRole="TrackedFile" ToRole="Index" />
+          <Property Name="IndexId" Type="Int32" Nullable="false" />
+          <Property Name="UpdatesSeen" Type="Int32" Nullable="true" />
+          <NavigationProperty Name="PendingSearchJobs" Relationship="DbModel.SearchJobPending" FromRole="TrackedFile" ToRole="SearchJob" />
+          <NavigationProperty Name="DoneSearchJobs" Relationship="DbModel.SearchJobDone" FromRole="TrackedFile" ToRole="SearchJob" />
         </EntityType>
         <Association Name="TrackedFolderTrackedFolder">
           <End Type="DbModel.TrackedFolder" Role="TrackedFolder" Multiplicity="0..1" >
@@ -725,6 +843,8 @@
           <NavigationProperty Name="Regexes" Relationship="DbModel.SearchJobRegex" FromRole="SearchJob" ToRole="Regex" />
           <NavigationProperty Name="TrackedFiles" Relationship="DbModel.SearchJobTrackedFile" FromRole="SearchJob" ToRole="TrackedFile" />
           <NavigationProperty Name="User" Relationship="DbModel.UserSearchJob" FromRole="SearchJob" ToRole="User" />
+          <NavigationProperty Name="PendingFiles" Relationship="DbModel.SearchJobPending" FromRole="SearchJob" ToRole="TrackedFile" />
+          <NavigationProperty Name="DoneFiles" Relationship="DbModel.SearchJobDone" FromRole="SearchJob" ToRole="TrackedFile" />
         </EntityType>
         <Association Name="SearchJobCategory">
           <End Type="DbModel.SearchJob" Role="SearchJob" Multiplicity="*" />
@@ -922,6 +1042,26 @@
           <End Type="DbModel.User" Role="User" Multiplicity="1" />
           <End Type="DbModel.RegExTemplate" Role="RegExTemplate" Multiplicity="*" />
         </Association>
+        <Association Name="IndexTrackedFile">
+          <End Type="DbModel.Index" Role="Index" Multiplicity="1" />
+          <End Type="DbModel.TrackedFile" Role="TrackedFile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Index">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TrackedFile">
+              <PropertyRef Name="IndexId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SearchJobPending">
+          <End Type="DbModel.SearchJob" Role="SearchJob" Multiplicity="*" />
+          <End Type="DbModel.TrackedFile" Role="TrackedFile" Multiplicity="*" />
+        </Association>
+        <Association Name="SearchJobDone">
+          <End Type="DbModel.SearchJob" Role="SearchJob" Multiplicity="*" />
+          <End Type="DbModel.TrackedFile" Role="TrackedFile" Multiplicity="*" />
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -962,6 +1102,8 @@
           <ScalarProperty Name="Created" ColumnName="Created" />
           <ScalarProperty Name="LastSeen" ColumnName="LastSeen" />
           <ScalarProperty Name="TrackedFolderId" ColumnName="TrackedFolderId" />
+          <ScalarProperty Name="IndexId" ColumnName="IndexId" />
+          <ScalarProperty Name="UpdatesSeen" ColumnName="UpdatesSeen" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -1163,6 +1305,22 @@
       </EndProperty>
       <EndProperty Name="RegExTemplate">
         <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="SearchJobPending" TypeName="DbModel.SearchJobPending" StoreEntitySet="SearchJobPending">
+      <EndProperty Name="SearchJob">
+        <ScalarProperty Name="Id" ColumnName="PendingSearchJobs_Id" />
+      </EndProperty>
+      <EndProperty Name="TrackedFile">
+        <ScalarProperty Name="Id" ColumnName="PendingFiles_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="SearchJobDone" TypeName="DbModel.SearchJobDone" StoreEntitySet="SearchJobDone">
+      <EndProperty Name="SearchJob">
+        <ScalarProperty Name="Id" ColumnName="DoneSearchJobs_Id" />
+      </EndProperty>
+      <EndProperty Name="TrackedFile">
+        <ScalarProperty Name="Id" ColumnName="DoneFiles_Id" />
       </EndProperty>
     </AssociationSetMapping>
   </EntityContainerMapping>

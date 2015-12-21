@@ -40,12 +40,20 @@ namespace EntityModel
 
                 using (DbModelContainer db = new DbModelContainer())
                 {
-                    db.Indices.Add(new Index()
+                    Index index = new Index()
                     {
                         Alias = alias,
                         Root = folder
-                    });
+                    };
+
+                    db.Indices.Add(index);
+
                     db.SaveChanges();
+
+                    //temporarily assign this index object the ID of the
+                    //newly created one for use in dig directory
+                    this.Id = index.Id;
+                    this.Alias = alias;
                 }
 
 
@@ -82,7 +90,8 @@ namespace EntityModel
                         Extension = file.Extension,
                         TrackedFolderId = parentID,
                         Length = file.Length,
-                        TrackForUpdates = false
+                        TrackForUpdates = false,
+                        IndexId = this.Id
                     });
                     
                     
@@ -117,6 +126,8 @@ namespace EntityModel
 
             using (DbModelContainer db = new DbModelContainer())
             {
+                db.Database.CommandTimeout = 1800;
+
                 db.TrackedFolders.AddRange(trackedFolders);
                 db.TrackedFiles.AddRange(trackedFiles);
                 db.SaveChanges();

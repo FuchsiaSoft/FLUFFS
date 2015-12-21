@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 10/10/2015 18:59:03
--- Generated from EDMX file: C:\Users\dupoi\Documents\GitHub\FLUFFS\FLUFFS-core\EntityModel\DbModel.edmx
+-- Date Created: 12/21/2015 09:44:09
+-- Generated from EDMX file: C:\Users\20050803\Documents\GitHub\FLUFFS\FLUFFS-core\EntityModel\DbModel.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -82,6 +82,9 @@ IF OBJECT_ID(N'[dbo].[FK_UserSearchJob]', 'F') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[FK_UserRegExTemplate]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[RegExTemplates] DROP CONSTRAINT [FK_UserRegExTemplate];
+GO
+IF OBJECT_ID(N'[dbo].[FK_IndexTrackedFile]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[TrackedFiles] DROP CONSTRAINT [FK_IndexTrackedFile];
 GO
 
 -- --------------------------------------------------
@@ -175,7 +178,9 @@ CREATE TABLE [dbo].[TrackedFiles] (
     [TrackForUpdates] bit  NOT NULL,
     [Created] datetime  NOT NULL,
     [LastSeen] datetime  NOT NULL,
-    [TrackedFolderId] int  NOT NULL
+    [TrackedFolderId] int  NOT NULL,
+    [IndexId] int  NOT NULL,
+    [UpdatesSeen] int  NULL
 );
 GO
 
@@ -308,6 +313,20 @@ CREATE TABLE [dbo].[TrackedFileWorkingSet] (
 );
 GO
 
+-- Creating table 'SearchJobPending'
+CREATE TABLE [dbo].[SearchJobPending] (
+    [PendingSearchJobs_Id] int  NOT NULL,
+    [PendingFiles_Id] int  NOT NULL
+);
+GO
+
+-- Creating table 'SearchJobDone'
+CREATE TABLE [dbo].[SearchJobDone] (
+    [DoneSearchJobs_Id] int  NOT NULL,
+    [DoneFiles_Id] int  NOT NULL
+);
+GO
+
 -- --------------------------------------------------
 -- Creating all PRIMARY KEY constraints
 -- --------------------------------------------------
@@ -412,6 +431,18 @@ GO
 ALTER TABLE [dbo].[TrackedFileWorkingSet]
 ADD CONSTRAINT [PK_TrackedFileWorkingSet]
     PRIMARY KEY CLUSTERED ([TrackedFiles_Id], [WorkingSets_Id] ASC);
+GO
+
+-- Creating primary key on [PendingSearchJobs_Id], [PendingFiles_Id] in table 'SearchJobPending'
+ALTER TABLE [dbo].[SearchJobPending]
+ADD CONSTRAINT [PK_SearchJobPending]
+    PRIMARY KEY CLUSTERED ([PendingSearchJobs_Id], [PendingFiles_Id] ASC);
+GO
+
+-- Creating primary key on [DoneSearchJobs_Id], [DoneFiles_Id] in table 'SearchJobDone'
+ALTER TABLE [dbo].[SearchJobDone]
+ADD CONSTRAINT [PK_SearchJobDone]
+    PRIMARY KEY CLUSTERED ([DoneSearchJobs_Id], [DoneFiles_Id] ASC);
 GO
 
 -- --------------------------------------------------
@@ -716,6 +747,69 @@ GO
 CREATE INDEX [IX_FK_UserRegExTemplate]
 ON [dbo].[RegExTemplates]
     ([User_Id]);
+GO
+
+-- Creating foreign key on [IndexId] in table 'TrackedFiles'
+ALTER TABLE [dbo].[TrackedFiles]
+ADD CONSTRAINT [FK_IndexTrackedFile]
+    FOREIGN KEY ([IndexId])
+    REFERENCES [dbo].[Indices]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_IndexTrackedFile'
+CREATE INDEX [IX_FK_IndexTrackedFile]
+ON [dbo].[TrackedFiles]
+    ([IndexId]);
+GO
+
+-- Creating foreign key on [PendingSearchJobs_Id] in table 'SearchJobPending'
+ALTER TABLE [dbo].[SearchJobPending]
+ADD CONSTRAINT [FK_SearchJobPending_SearchJob]
+    FOREIGN KEY ([PendingSearchJobs_Id])
+    REFERENCES [dbo].[SearchJobs]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating foreign key on [PendingFiles_Id] in table 'SearchJobPending'
+ALTER TABLE [dbo].[SearchJobPending]
+ADD CONSTRAINT [FK_SearchJobPending_TrackedFile]
+    FOREIGN KEY ([PendingFiles_Id])
+    REFERENCES [dbo].[TrackedFiles]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_SearchJobPending_TrackedFile'
+CREATE INDEX [IX_FK_SearchJobPending_TrackedFile]
+ON [dbo].[SearchJobPending]
+    ([PendingFiles_Id]);
+GO
+
+-- Creating foreign key on [DoneSearchJobs_Id] in table 'SearchJobDone'
+ALTER TABLE [dbo].[SearchJobDone]
+ADD CONSTRAINT [FK_SearchJobDone_SearchJob]
+    FOREIGN KEY ([DoneSearchJobs_Id])
+    REFERENCES [dbo].[SearchJobs]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating foreign key on [DoneFiles_Id] in table 'SearchJobDone'
+ALTER TABLE [dbo].[SearchJobDone]
+ADD CONSTRAINT [FK_SearchJobDone_TrackedFile]
+    FOREIGN KEY ([DoneFiles_Id])
+    REFERENCES [dbo].[TrackedFiles]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_SearchJobDone_TrackedFile'
+CREATE INDEX [IX_FK_SearchJobDone_TrackedFile]
+ON [dbo].[SearchJobDone]
+    ([DoneFiles_Id]);
 GO
 
 -- --------------------------------------------------
