@@ -14,6 +14,9 @@ namespace EntityModel
         public bool IsRunning { get; set; }
         public int RunningFileCount { get; private set; } = 0;
 
+        //Used only for binding in grids.
+        public bool IsSelected { get; set; }
+
         private const string INVALID_ROOT_MESSAGE =
             "The specified root directory could not be found.";
 
@@ -37,12 +40,20 @@ namespace EntityModel
 
                 using (DbModelContainer db = new DbModelContainer())
                 {
-                    db.Indices.Add(new Index()
+                    Index index = new Index()
                     {
                         Alias = alias,
                         Root = folder
-                    });
+                    };
+
+                    db.Indices.Add(index);
+
                     db.SaveChanges();
+
+                    //temporarily assign this index object the ID of the
+                    //newly created one for use in dig directory
+                    this.Id = index.Id;
+                    this.Alias = alias;
                 }
 
 
@@ -66,7 +77,8 @@ namespace EntityModel
             List<TrackedFile> trackedFiles = new List<TrackedFile>();
             try
             {
-                files = directory.EnumerateFiles();
+                files = directory.GetFiles();
+
                 foreach (FileInfo file in files)
                 {
                     trackedFiles.Add(new TrackedFile()
@@ -78,7 +90,8 @@ namespace EntityModel
                         Extension = file.Extension,
                         TrackedFolderId = parentID,
                         Length = file.Length,
-                        TrackForUpdates = false
+                        TrackForUpdates = false,
+                        IndexId = this.Id
                     });
                     
                     
@@ -113,6 +126,8 @@ namespace EntityModel
 
             using (DbModelContainer db = new DbModelContainer())
             {
+                db.Database.CommandTimeout = 1800;
+
                 db.TrackedFolders.AddRange(trackedFolders);
                 db.TrackedFiles.AddRange(trackedFiles);
                 db.SaveChanges();

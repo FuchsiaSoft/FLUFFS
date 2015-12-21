@@ -10,8 +10,8 @@ namespace MVVM
 {
     public abstract class ViewModelBase : ObservableObject
     {
-        private Window _ActiveWindow = null;
-        private Action _ExitAction = null;
+        protected Window _ActiveWindow = null;
+        protected Action _ExitAction = null;
         private bool _HasExecuted = false;
 
         private bool _EnableControls;
@@ -77,15 +77,21 @@ namespace MVVM
         protected void CloseWindow()
         {
             _ActiveWindow.Close();
+            InvokeExitAction();
         }
 
-        ~ViewModelBase()
+        protected void InvokeExitAction()
         {
             if (_ExitAction != null &&
                 _HasExecuted == false)
             {
                 _ExitAction.Invoke();
             }
+        }
+
+        ~ViewModelBase()
+        {
+            InvokeExitAction();
         }
     }
 }

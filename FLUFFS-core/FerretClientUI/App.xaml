@@ -18,6 +18,20 @@
                 <Setter Property="Height" Value="400"/>
                 <Setter Property="Width" Value="400"/>
             </Style>
+
+            <Style TargetType="TextBlock" BasedOn="{StaticResource Heading2}" x:Key="Heading2">
+                <Setter Property="FontWeight" Value="Light"/>
+                <Setter Property="Foreground" Value="{DynamicResource Accent}"/>
+                <Setter Property="FontSize" Value="21"/>
+            </Style>
+
+            <Style TargetType="TextBox" BasedOn="{StaticResource {x:Type TextBox}}">
+                <Setter Property="Margin" Value="5"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                <Setter Property="Height" Value="25"/>
+            </Style>
+            
             <Style TargetType="Label" BasedOn="{StaticResource {x:Type Label}}" x:Key="LabelStyle">
                 <Setter Property="VerticalAlignment" Value="Center"/>
                 <Setter Property="Margin" Value="5"/>

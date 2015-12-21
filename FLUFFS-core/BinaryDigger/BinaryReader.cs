@@ -34,7 +34,7 @@ namespace BinaryDigger
         /// </summary>
         private static List<string> _WordBinaryExtensions = new List<string>()
         {
-            ".DOC"
+            ".DOC", ".DOT"
         };
 
         /// <summary>
@@ -43,7 +43,7 @@ namespace BinaryDigger
         /// </summary>
         private static List<string> _ExcelBinaryExtensions = new List<string>()
         {
-            ".XLS"
+            ".XLS", ".XLT"
         };
 
         /// <summary>
@@ -61,17 +61,19 @@ namespace BinaryDigger
 
             IBinaryReader reader = null;
 
-            //if (_WordBinaryExtensions.Contains(extension))
-            //{
-            //    reader = new WordReader(path);
-            //    return reader;
-            //}
+            if (_WordBinaryExtensions.Contains(extension))
+            {
+                reader = new WordReader(path);
+                return reader;
+            }
 
             if (_ExcelBinaryExtensions.Contains(extension))
             {
                 reader = new ExcelReader(path);
                 return reader;
             }
+
+
             throw new System.IO.InvalidDataException(NOT_VALID_FILE_MESSAGE);
         }
 

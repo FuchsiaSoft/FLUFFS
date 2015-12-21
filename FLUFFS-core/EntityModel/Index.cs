@@ -17,6 +17,7 @@ namespace EntityModel
         public Index()
         {
             this.Users = new HashSet<User>();
+            this.TrackedFiles = new HashSet<TrackedFile>();
         }
     
         public int Id { get; set; }
@@ -24,5 +25,6 @@ namespace EntityModel
     
         public virtual TrackedFolder Root { get; set; }
         public virtual ICollection<User> Users { get; set; }
+        public virtual ICollection<TrackedFile> TrackedFiles { get; set; }
     }
 }

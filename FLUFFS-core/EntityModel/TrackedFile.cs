@@ -21,6 +21,8 @@ namespace EntityModel
             this.ShrinkJobs = new HashSet<ShrinkJob>();
             this.ReductionLogs = new HashSet<ReductionLog>();
             this.WorkingSets = new HashSet<WorkingSet>();
+            this.PendingSearchJobs = new HashSet<SearchJob>();
+            this.DoneSearchJobs = new HashSet<SearchJob>();
         }
     
         public int Id { get; set; }
@@ -36,6 +38,8 @@ namespace EntityModel
         public System.DateTime Created { get; set; }
         public System.DateTime LastSeen { get; set; }
         public int TrackedFolderId { get; set; }
+        public int IndexId { get; set; }
+        public Nullable<int> UpdatesSeen { get; set; }
     
         public virtual TrackedFolder TrackedFolder { get; set; }
         public virtual ICollection<SearchJob> SearchJobs { get; set; }
@@ -43,5 +47,8 @@ namespace EntityModel
         public virtual ICollection<ShrinkJob> ShrinkJobs { get; set; }
         public virtual ICollection<ReductionLog> ReductionLogs { get; set; }
         public virtual ICollection<WorkingSet> WorkingSets { get; set; }
+        public virtual Index Index { get; set; }
+        public virtual ICollection<SearchJob> PendingSearchJobs { get; set; }
+        public virtual ICollection<SearchJob> DoneSearchJobs { get; set; }
     }
 }

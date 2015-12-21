@@ -10,12 +10,15 @@
         <BooleanToVisibilityConverter x:Key="BoolToVis"/>
     </UserControl.Resources>
     <Grid Style="{StaticResource ContentRoot}">
+        <mui:ModernProgressRing HorizontalAlignment="Right" VerticalAlignment="Bottom"
+                                IsActive="{Binding IsBusy}" Width="200" Height="200" Margin="10"/>
         <DockPanel>
-            <WrapPanel DockPanel.Dock="Top">
-                <mui:ModernButton Content="New User" Style="{StaticResource BiggerButton}" IconData="F1 M 26.9167,38L 31.6667,38L 31.6667,45.9167L 39.5833,45.9167L 39.5833,50.6667L 31.6667,50.6667L 31.6667,58.5833L 26.9167,58.5833L 26.9167,50.6667L 19,50.6667L 19,45.9167L 26.9167,45.9167L 26.9167,38 Z M 38,19C 43.5417,19 45.9167,22.1667 45.1174,28.8134C 45.8315,29.2229 46.3125,29.9928 46.3125,30.875C 46.3125,31.9545 45.5923,32.8658 44.6061,33.1546C 44.1941,34.623 43.5543,35.9229 42.75,36.9628L 42.75,41.9583C 45.3889,42.4861 47.5,42.75 50.6667,44.3333C 53.8333,45.9167 54.8889,47.3681 57,49.4792L 57,57L 33.25,57L 33.25,52.25L 41.1667,52.25L 41.1666,44.3333L 33.25,44.3333L 33.25,36.9628L 33.25,36.4167L 32.8586,36.4167C 32.237,35.4811 31.7366,34.3762 31.3939,33.1546C 30.4077,32.8658 29.6875,31.9545 29.6875,30.875C 29.6875,29.9928 30.1685,29.2229 30.8826,28.8134C 30.0833,22.1667 32.4583,19 38,19 Z M 19,57L 19,52.25L 25.3333,52.25L 25.3333,57L 19,57 Z"/>
+            <WrapPanel DockPanel.Dock="Top" HorizontalAlignment="Right">
+                <mui:ModernButton Content="New User" Style="{StaticResource BiggerButton}" 
+                                  Command="{Binding NewUserCommand}"
+                                  IconData="F1 M 26.9167,38L 31.6667,38L 31.6667,45.9167L 39.5833,45.9167L 39.5833,50.6667L 31.6667,50.6667L 31.6667,58.5833L 26.9167,58.5833L 26.9167,50.6667L 19,50.6667L 19,45.9167L 26.9167,45.9167L 26.9167,38 Z M 38,19C 43.5417,19 45.9167,22.1667 45.1174,28.8134C 45.8315,29.2229 46.3125,29.9928 46.3125,30.875C 46.3125,31.9545 45.5923,32.8658 44.6061,33.1546C 44.1941,34.623 43.5543,35.9229 42.75,36.9628L 42.75,41.9583C 45.3889,42.4861 47.5,42.75 50.6667,44.3333C 53.8333,45.9167 54.8889,47.3681 57,49.4792L 57,57L 33.25,57L 33.25,52.25L 41.1667,52.25L 41.1666,44.3333L 33.25,44.3333L 33.25,36.9628L 33.25,36.4167L 32.8586,36.4167C 32.237,35.4811 31.7366,34.3762 31.3939,33.1546C 30.4077,32.8658 29.6875,31.9545 29.6875,30.875C 29.6875,29.9928 30.1685,29.2229 30.8826,28.8134C 30.0833,22.1667 32.4583,19 38,19 Z M 19,57L 19,52.25L 25.3333,52.25L 25.3333,57L 19,57 Z"/>
             </WrapPanel>
-            <Separator Margin="10" DockPanel.Dock="Top"/>
-            <TextBlock Style="{StaticResource Heading2}" Text="Current Users" DockPanel.Dock="Top" Margin="10,0,0,0"/>
+            <TextBlock Style="{StaticResource Heading2}" Text="CURRENT USERS" DockPanel.Dock="Top" Margin="10,0,0,0"/>
             <DataGrid IsReadOnly="True" SelectionMode="Single"
                       ItemsSource="{Binding Users}" SelectedItem="{Binding SelectedUser}"
                       AutoGenerateColumns="False">
@@ -23,6 +26,18 @@
                     <DataGridTextColumn Header="Forename" Binding="{Binding Firstname}"/>
                     <DataGridTextColumn Header="Surname" Binding="{Binding Surname}"/>
                     <DataGridTextColumn Header="Login" Binding="{Binding Login}"/>
+                    <DataGridTemplateColumn Header="Level">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock>
+                                    <Run Text="{Binding Firstname}"/>
+                                    <Run Text="has access to"/>
+                                    <Run Text="{Binding Indices.Count, Mode=OneWay}" FontWeight="SemiBold"/>
+                                    <Run Text="indices" FontWeight="SemiBold"/>
+                                </TextBlock>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
                     <DataGridTemplateColumn Header="Actions">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
@@ -32,8 +47,9 @@
                                             <Setter Property="Visibility" Value="{Binding Path=IsMouseOver, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGridRow}, Converter={StaticResource BoolToVis}}"/>
                                         </Style>
                                     </StackPanel.Style>
-                                    <mui:ModernButton Content="Edit" Style="{StaticResource SmallInlineButton}" IconData="F1 M 53.2929,21.2929L 54.7071,22.7071C 56.4645,24.4645 56.4645,27.3137 54.7071,29.0711L 52.2323,31.5459L 44.4541,23.7677L 46.9289,21.2929C 48.6863,19.5355 51.5355,19.5355 53.2929,21.2929 Z M 31.7262,52.052L 23.948,44.2738L 43.0399,25.182L 50.818,32.9601L 31.7262,52.052 Z M 23.2409,47.1023L 28.8977,52.7591L 21.0463,54.9537L 23.2409,47.1023 Z"/>
-                                    <mui:ModernButton Content="Lock/Disable" Style="{StaticResource SmallInlineButton}" IconData="F1 M 38,19C 48.4934,19 57,27.5066 57,38C 57,48.4934 48.4934,57 38,57C 27.5066,57 19,48.4934 19,38C 19,27.5066 27.5066,19 38,19 Z M 23.75,34.8334L 23.75,41.1667L 52.25,41.1667L 52.25,34.8334L 23.75,34.8334 Z"/>
+                                    <mui:ModernButton Content="Edit" Style="{StaticResource SmallInlineButton}" 
+                                                      Command="{Binding Path=DataContext.EditUserCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}" CommandParameter="{Binding}"
+                                                      IconData="F1 M 53.2929,21.2929L 54.7071,22.7071C 56.4645,24.4645 56.4645,27.3137 54.7071,29.0711L 52.2323,31.5459L 44.4541,23.7677L 46.9289,21.2929C 48.6863,19.5355 51.5355,19.5355 53.2929,21.2929 Z M 31.7262,52.052L 23.948,44.2738L 43.0399,25.182L 50.818,32.9601L 31.7262,52.052 Z M 23.2409,47.1023L 28.8977,52.7591L 21.0463,54.9537L 23.2409,47.1023 Z"/>
                                 </StackPanel>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
