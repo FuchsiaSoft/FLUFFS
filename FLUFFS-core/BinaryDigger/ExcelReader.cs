@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using File = Pri.LongPath.File;
 
 namespace BinaryDigger
 {
@@ -28,7 +29,7 @@ namespace BinaryDigger
         /// <returns>Contents of any 2003 and prior Excel files (.xls) as a single string</returns>
         public override string ReadContents()
         {
-            FileStream stream = File.Open(_FilePath, FileMode.Open, FileAccess.Read);
+            Stream stream = new MemoryStream(File.ReadAllBytes(_FilePath));
             IExcelDataReader excelReader = ExcelReaderFactory.CreateBinaryReader(stream);
 
             // get all the worksheets in the spreadsheet
