@@ -45,6 +45,12 @@ namespace OpenSDKDigger
             ".PPTX"
         };
 
+
+        private static List<string> _ExcelOpenSDKExtensions = new List<string>()
+        {
+            ".XLSX", ".XLTX", ".XLSB"
+        };
+
         /// <summary>
         /// Returns a new IOpenSDKReader that can read the contents
         /// of the provided format document.  If the file format
@@ -72,6 +78,12 @@ namespace OpenSDKDigger
                 return reader;
             }
 
+            if (_ExcelOpenSDKExtensions.Contains(extension))
+            {
+                reader = new ExcelReader(path);
+                return reader;
+            }
+
             throw new System.IO.InvalidDataException(NOT_VALID_FILE_MESSAGE);
         }
 
@@ -94,6 +106,8 @@ namespace OpenSDKDigger
             if (_WordOpenSDKExtensions.Contains(extension))
                 return true;
             if (_PowerPointOpenSDKExtensions.Contains(extension))
+                return true;
+            if (_ExcelOpenSDKExtensions.Contains(extension))
                 return true;
             return false;
         }
