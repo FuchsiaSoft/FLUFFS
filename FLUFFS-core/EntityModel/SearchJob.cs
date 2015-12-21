@@ -19,6 +19,8 @@ namespace EntityModel
             this.SearchStrings = new HashSet<SearchString>();
             this.Regexes = new HashSet<Regex>();
             this.TrackedFiles = new HashSet<TrackedFile>();
+            this.PendingFiles = new HashSet<TrackedFile>();
+            this.DoneFiles = new HashSet<TrackedFile>();
         }
     
         public int Id { get; set; }
@@ -32,5 +34,7 @@ namespace EntityModel
         public virtual ICollection<Regex> Regexes { get; set; }
         public virtual ICollection<TrackedFile> TrackedFiles { get; set; }
         public virtual User User { get; set; }
+        public virtual ICollection<TrackedFile> PendingFiles { get; set; }
+        public virtual ICollection<TrackedFile> DoneFiles { get; set; }
     }
 }

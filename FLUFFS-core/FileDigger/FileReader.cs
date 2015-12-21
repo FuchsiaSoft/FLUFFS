@@ -104,12 +104,6 @@ namespace FileDigger
 
             string contents = string.Empty;
 
-            if (OdfReader.IsValidFile(_InternalFilePath))
-            {
-                IOdfReader reader = OdfReader.GetNew(_InternalFilePath);
-                contents = reader.ReadContents();
-            }
-
             if (IsReadablePdf(_InternalFilePath))
             {
                 contents = ReadPdfContents();

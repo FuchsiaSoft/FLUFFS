@@ -4,36 +4,40 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="db7e9702bc6e43cbb28b99d579bac539" Name="Diagram1" >
-        <EntityTypeShape EntityType="DbModel.Index" Width="1.5" PointX="0.875" PointY="0.5" />
-        <EntityTypeShape EntityType="DbModel.TrackedFolder" Width="1.5" PointX="2.875" PointY="0.5" />
-        <EntityTypeShape EntityType="DbModel.TrackedFile" Width="1.5" PointX="4.875" PointY="0.5" />
+      <Diagram DiagramId="db7e9702bc6e43cbb28b99d579bac539" Name="Diagram1" DisplayType="true" ZoomLevel="94" >
+        <EntityTypeShape EntityType="DbModel.Index" Width="1.5" PointX="0.5" PointY="0.5" />
+        <EntityTypeShape EntityType="DbModel.TrackedFolder" Width="2" PointX="2.625" PointY="0.5" />
+        <EntityTypeShape EntityType="DbModel.TrackedFile" Width="2" PointX="5.25" PointY="0.5" />
         <AssociationConnector Association="DbModel.TrackedFolderTrackedFolder" />
-        <EntityTypeShape EntityType="DbModel.Category" Width="1.5" PointX="6.75" PointY="0.5" />
-        <EntityTypeShape EntityType="DbModel.SearchJob" Width="1.5" PointX="6.75" PointY="3" />
+        <EntityTypeShape EntityType="DbModel.Category" Width="1.5" PointX="11.25" PointY="0.5" />
+        <EntityTypeShape EntityType="DbModel.SearchJob" Width="2.375" PointX="7.75" PointY="1.5" />
         <AssociationConnector Association="DbModel.SearchJobCategory" />
-        <EntityTypeShape EntityType="DbModel.SearchString" Width="1.5" PointX="8.875" PointY="2.375" />
-        <EntityTypeShape EntityType="DbModel.Regex" Width="1.5" PointX="8.875" PointY="4.75" />
+        <EntityTypeShape EntityType="DbModel.SearchString" Width="1.75" PointX="11" PointY="2.5" />
+        <EntityTypeShape EntityType="DbModel.Regex" Width="1.875" PointX="10.75" PointY="4.75" IsExpanded="true" />
         <AssociationConnector Association="DbModel.SearchJobSearchString" />
         <AssociationConnector Association="DbModel.SearchJobRegex" />
         <AssociationConnector Association="DbModel.IndexTrackedFolder" />
         <AssociationConnector Association="DbModel.TrackedFolderTrackedFile" />
         <AssociationConnector Association="DbModel.SearchJobTrackedFile" />
         <AssociationConnector Association="DbModel.CategoryTrackedFile" />
-        <EntityTypeShape EntityType="DbModel.ShrinkJob" Width="1.5" PointX="4.875" PointY="5.625" />
+        <EntityTypeShape EntityType="DbModel.ShrinkJob" Width="2.375" PointX="4.625" PointY="6.625" />
         <AssociationConnector Association="DbModel.TrackedFileShrinkJob" />
-        <EntityTypeShape EntityType="DbModel.ReductionLog" Width="1.5" PointX="2.5" PointY="6.625" />
+        <EntityTypeShape EntityType="DbModel.ReductionLog" Width="1.5" PointX="2.5" PointY="7" />
         <AssociationConnector Association="DbModel.ShrinkJobReductionLog" />
         <AssociationConnector Association="DbModel.TrackedFileReductionLog" />
-        <EntityTypeShape EntityType="DbModel.User" Width="1.5" PointX="6.75" PointY="7.25" />
+        <EntityTypeShape EntityType="DbModel.User" Width="2.25" PointX="8" PointY="7" />
         <AssociationConnector Association="DbModel.UserIndex" />
-        <EntityTypeShape EntityType="DbModel.WorkingSet" Width="1.5" PointX="2" PointY="3.5" />
+        <EntityTypeShape EntityType="DbModel.WorkingSet" Width="1.75" PointX="2" PointY="3.875" />
         <AssociationConnector Association="DbModel.TrackedFileWorkingSet" />
         <AssociationConnector Association="DbModel.UserWorkingSet" />
         <AssociationConnector Association="DbModel.UserShrinkJob" />
         <AssociationConnector Association="DbModel.UserSearchJob" />
-        <EntityTypeShape EntityType="DbModel.RegExTemplate" Width="1.5" PointX="8.875" PointY="7.25" />
+        <EntityTypeShape EntityType="DbModel.RegExTemplate" Width="1.75" PointX="11.125" PointY="7" />
         <AssociationConnector Association="DbModel.UserRegExTemplate" />
+        <AssociationConnector Association="DbModel.IndexTrackedFile" ManuallyRouted="false" >
+        </AssociationConnector>
+        <AssociationConnector Association="DbModel.SearchJobPending" />
+        <AssociationConnector Association="DbModel.SearchJobDone" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
