@@ -27,6 +27,12 @@ namespace FileDigger
             "either call with a file path in the constructor or " +
             "call the Open method";
 
+        /// <summary>
+        /// Private holding field to prevent multiple content reads
+        /// from the same file when several checks are performed.
+        /// </summary>
+        private string _FileContent = null;
+
         public FileReader() { }
 
         public FileReader(string path)
@@ -279,7 +285,12 @@ namespace FileDigger
 
         public bool CheckString(IEnumerable<string> toCheck)
         {
-            string contents = ReadContents().ToUpper();
+            if (_FileContent == null)
+            {
+                _FileContent = ReadContents();
+            }
+
+            string contents = _FileContent.ToUpper();
 
             foreach (string item in toCheck)
             {
@@ -291,11 +302,14 @@ namespace FileDigger
 
         public bool CheckRegEx(IEnumerable<string> toCheck)
         {
-            string contents = ReadContents();
+            if (_FileContent == null)
+            {
+                _FileContent = ReadContents();
+            }
 
             foreach (string regex in toCheck)
             {
-                if (Regex.IsMatch(contents, regex))
+                if (Regex.IsMatch(_FileContent, regex, RegexOptions.None, new TimeSpan(0,2,0)))
                     return true;
             }
             return false;

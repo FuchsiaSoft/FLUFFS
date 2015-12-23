@@ -4,654 +4,662 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="DbModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-  <EntityContainer Name="DbModelStoreContainer">
-    <EntitySet Name="Indices" EntityType="DbModel.Store.Indices" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="TrackedFolders" EntityType="DbModel.Store.TrackedFolders" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="TrackedFiles" EntityType="DbModel.Store.TrackedFiles" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Categories" EntityType="DbModel.Store.Categories" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="SearchJobs" EntityType="DbModel.Store.SearchJobs" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="SearchStrings" EntityType="DbModel.Store.SearchStrings" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Regexes" EntityType="DbModel.Store.Regexes" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="ShrinkJobs" EntityType="DbModel.Store.ShrinkJobs" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="ReductionLogs" EntityType="DbModel.Store.ReductionLogs" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Users" EntityType="DbModel.Store.Users" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="WorkingSets" EntityType="DbModel.Store.WorkingSets" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="RegExTemplates" EntityType="DbModel.Store.RegExTemplates" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="SearchJobTrackedFile" EntityType="DbModel.Store.SearchJobTrackedFile" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="CategoryTrackedFile" EntityType="DbModel.Store.CategoryTrackedFile" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="TrackedFileShrinkJob" EntityType="DbModel.Store.TrackedFileShrinkJob" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="UserIndex" EntityType="DbModel.Store.UserIndex" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="TrackedFileWorkingSet" EntityType="DbModel.Store.TrackedFileWorkingSet" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="SearchJobPending" EntityType="DbModel.Store.SearchJobPending" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="SearchJobDone" EntityType="DbModel.Store.SearchJobDone" store:Type="Tables" Schema="dbo" />
-    <AssociationSet Name="TrackedFolderTrackedFolder" Association="DbModel.Store.TrackedFolderTrackedFolder">
-      <End Role="TrackedFolder" EntitySet="TrackedFolders" />
-      <End Role="TrackedFolder1" EntitySet="TrackedFolders" />
-    </AssociationSet>
-    <AssociationSet Name="SearchJobCategory" Association="DbModel.Store.SearchJobCategory">
-      <End Role="SearchJob" EntitySet="SearchJobs" />
-      <End Role="Category" EntitySet="Categories" />
-    </AssociationSet>
-    <AssociationSet Name="SearchJobSearchString" Association="DbModel.Store.SearchJobSearchString">
-      <End Role="SearchJob" EntitySet="SearchJobs" />
-      <End Role="SearchString" EntitySet="SearchStrings" />
-    </AssociationSet>
-    <AssociationSet Name="SearchJobRegex" Association="DbModel.Store.SearchJobRegex">
-      <End Role="SearchJob" EntitySet="SearchJobs" />
-      <End Role="Regex" EntitySet="Regexes" />
-    </AssociationSet>
-    <AssociationSet Name="IndexTrackedFolder" Association="DbModel.Store.IndexTrackedFolder">
-      <End Role="Index" EntitySet="Indices" />
-      <End Role="TrackedFolder" EntitySet="TrackedFolders" />
-    </AssociationSet>
-    <AssociationSet Name="TrackedFolderTrackedFile" Association="DbModel.Store.TrackedFolderTrackedFile">
-      <End Role="TrackedFolder" EntitySet="TrackedFolders" />
-      <End Role="TrackedFile" EntitySet="TrackedFiles" />
-    </AssociationSet>
-    <AssociationSet Name="FK_SearchJobTrackedFile_SearchJob" Association="DbModel.Store.FK_SearchJobTrackedFile_SearchJob">
-      <End Role="SearchJob" EntitySet="SearchJobs" />
-      <End Role="SearchJobTrackedFile" EntitySet="SearchJobTrackedFile" />
-    </AssociationSet>
-    <AssociationSet Name="FK_SearchJobTrackedFile_TrackedFile" Association="DbModel.Store.FK_SearchJobTrackedFile_TrackedFile">
-      <End Role="TrackedFile" EntitySet="TrackedFiles" />
-      <End Role="SearchJobTrackedFile" EntitySet="SearchJobTrackedFile" />
-    </AssociationSet>
-    <AssociationSet Name="FK_CategoryTrackedFile_Category" Association="DbModel.Store.FK_CategoryTrackedFile_Category">
-      <End Role="Category" EntitySet="Categories" />
-      <End Role="CategoryTrackedFile" EntitySet="CategoryTrackedFile" />
-    </AssociationSet>
-    <AssociationSet Name="FK_CategoryTrackedFile_TrackedFile" Association="DbModel.Store.FK_CategoryTrackedFile_TrackedFile">
-      <End Role="TrackedFile" EntitySet="TrackedFiles" />
-      <End Role="CategoryTrackedFile" EntitySet="CategoryTrackedFile" />
-    </AssociationSet>
-    <AssociationSet Name="FK_TrackedFileShrinkJob_TrackedFile" Association="DbModel.Store.FK_TrackedFileShrinkJob_TrackedFile">
-      <End Role="TrackedFile" EntitySet="TrackedFiles" />
-      <End Role="TrackedFileShrinkJob" EntitySet="TrackedFileShrinkJob" />
-    </AssociationSet>
-    <AssociationSet Name="FK_TrackedFileShrinkJob_ShrinkJob" Association="DbModel.Store.FK_TrackedFileShrinkJob_ShrinkJob">
-      <End Role="ShrinkJob" EntitySet="ShrinkJobs" />
-      <End Role="TrackedFileShrinkJob" EntitySet="TrackedFileShrinkJob" />
-    </AssociationSet>
-    <AssociationSet Name="ShrinkJobReductionLog" Association="DbModel.Store.ShrinkJobReductionLog">
-      <End Role="ShrinkJob" EntitySet="ShrinkJobs" />
-      <End Role="ReductionLog" EntitySet="ReductionLogs" />
-    </AssociationSet>
-    <AssociationSet Name="TrackedFileReductionLog" Association="DbModel.Store.TrackedFileReductionLog">
-      <End Role="TrackedFile" EntitySet="TrackedFiles" />
-      <End Role="ReductionLog" EntitySet="ReductionLogs" />
-    </AssociationSet>
-    <AssociationSet Name="FK_UserIndex_User" Association="DbModel.Store.FK_UserIndex_User">
-      <End Role="User" EntitySet="Users" />
-      <End Role="UserIndex" EntitySet="UserIndex" />
-    </AssociationSet>
-    <AssociationSet Name="FK_UserIndex_Index" Association="DbModel.Store.FK_UserIndex_Index">
-      <End Role="Index" EntitySet="Indices" />
-      <End Role="UserIndex" EntitySet="UserIndex" />
-    </AssociationSet>
-    <AssociationSet Name="FK_TrackedFileWorkingSet_TrackedFile" Association="DbModel.Store.FK_TrackedFileWorkingSet_TrackedFile">
-      <End Role="TrackedFile" EntitySet="TrackedFiles" />
-      <End Role="TrackedFileWorkingSet" EntitySet="TrackedFileWorkingSet" />
-    </AssociationSet>
-    <AssociationSet Name="FK_TrackedFileWorkingSet_WorkingSet" Association="DbModel.Store.FK_TrackedFileWorkingSet_WorkingSet">
-      <End Role="WorkingSet" EntitySet="WorkingSets" />
-      <End Role="TrackedFileWorkingSet" EntitySet="TrackedFileWorkingSet" />
-    </AssociationSet>
-    <AssociationSet Name="UserWorkingSet" Association="DbModel.Store.UserWorkingSet">
-      <End Role="User" EntitySet="Users" />
-      <End Role="WorkingSet" EntitySet="WorkingSets" />
-    </AssociationSet>
-    <AssociationSet Name="UserShrinkJob" Association="DbModel.Store.UserShrinkJob">
-      <End Role="User" EntitySet="Users" />
-      <End Role="ShrinkJob" EntitySet="ShrinkJobs" />
-    </AssociationSet>
-    <AssociationSet Name="UserSearchJob" Association="DbModel.Store.UserSearchJob">
-      <End Role="User" EntitySet="Users" />
-      <End Role="SearchJob" EntitySet="SearchJobs" />
-    </AssociationSet>
-    <AssociationSet Name="UserRegExTemplate" Association="DbModel.Store.UserRegExTemplate">
-      <End Role="User" EntitySet="Users" />
-      <End Role="RegExTemplate" EntitySet="RegExTemplates" />
-    </AssociationSet>
-    <AssociationSet Name="IndexTrackedFile" Association="DbModel.Store.IndexTrackedFile">
-      <End Role="Index" EntitySet="Indices" />
-      <End Role="TrackedFile" EntitySet="TrackedFiles" />
-    </AssociationSet>
-    <AssociationSet Name="FK_SearchJobPending_SearchJob" Association="DbModel.Store.FK_SearchJobPending_SearchJob">
-      <End Role="SearchJob" EntitySet="SearchJobs" />
-      <End Role="SearchJobPending" EntitySet="SearchJobPending" />
-    </AssociationSet>
-    <AssociationSet Name="FK_SearchJobPending_TrackedFile" Association="DbModel.Store.FK_SearchJobPending_TrackedFile">
-      <End Role="TrackedFile" EntitySet="TrackedFiles" />
-      <End Role="SearchJobPending" EntitySet="SearchJobPending" />
-    </AssociationSet>
-    <AssociationSet Name="FK_SearchJobDone_SearchJob" Association="DbModel.Store.FK_SearchJobDone_SearchJob">
-      <End Role="SearchJob" EntitySet="SearchJobs" />
-      <End Role="SearchJobDone" EntitySet="SearchJobDone" />
-    </AssociationSet>
-    <AssociationSet Name="FK_SearchJobDone_TrackedFile" Association="DbModel.Store.FK_SearchJobDone_TrackedFile">
-      <End Role="TrackedFile" EntitySet="TrackedFiles" />
-      <End Role="SearchJobDone" EntitySet="SearchJobDone" />
-    </AssociationSet>
-  </EntityContainer>
-  <EntityType Name="Indices">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Alias" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Root_Id" Type="int" Nullable="false" />
-  </EntityType>
-  <EntityType Name="TrackedFolders">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="FullPath" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="TrackedFolderId" Type="int" Nullable="true" />
-  </EntityType>
-  <EntityType Name="TrackedFiles">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="FullPath" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Length" Type="bigint" Nullable="true" />
-    <Property Name="Extension" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="PreHash" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="MD5" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="SHA1" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="SHA256" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="TrackForUpdates" Type="bit" Nullable="false" />
-    <Property Name="Created" Type="datetime" Nullable="false" />
-    <Property Name="LastSeen" Type="datetime" Nullable="false" />
-    <Property Name="TrackedFolderId" Type="int" Nullable="false" />
-    <Property Name="IndexId" Type="int" Nullable="false" />
-    <Property Name="UpdatesSeen" Type="int" Nullable="true" />
-  </EntityType>
-  <EntityType Name="Categories">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
-  </EntityType>
-  <EntityType Name="SearchJobs">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Alias" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Status" Type="int" Nullable="false" />
-    <Property Name="RequestorComments" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="AdminComments" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Category_Id" Type="int" Nullable="false" />
-    <Property Name="User_Id" Type="int" Nullable="false" />
-  </EntityType>
-  <EntityType Name="SearchStrings">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Content" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="SearchJobId" Type="int" Nullable="false" />
-  </EntityType>
-  <EntityType Name="Regexes">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Content" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="SearchJobId" Type="int" Nullable="false" />
-  </EntityType>
-  <EntityType Name="ShrinkJobs">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Alias" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Status" Type="int" Nullable="false" />
-    <Property Name="ShrinkJpegs" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="JpegTarget" Type="int" Nullable="false" />
-    <Property Name="ShrinkPdfs" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="PdfTarget" Type="int" Nullable="false" />
-    <Property Name="PdfJpegTarget" Type="int" Nullable="true" />
-    <Property Name="ShrinkWord" Type="bit" Nullable="false" />
-    <Property Name="UpgradeWord" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="WordJpegTarget" Type="int" Nullable="false" />
-    <Property Name="User_Id" Type="int" Nullable="false" />
-  </EntityType>
-  <EntityType Name="ReductionLogs">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="OldSize" Type="bigint" Nullable="false" />
-    <Property Name="NewSize" Type="bigint" Nullable="false" />
-    <Property Name="ShrinkJob_Id" Type="int" Nullable="false" />
-    <Property Name="TrackedFile_Id" Type="int" Nullable="false" />
-  </EntityType>
-  <EntityType Name="Users">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Firstname" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="Surname" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="Salt" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Hash" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Login" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="IsSysAdmin" Type="bit" Nullable="false" />
-    <Property Name="NewPasswordDue" Type="bit" Nullable="false" />
-  </EntityType>
-  <EntityType Name="WorkingSets">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Description" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="User_Id" Type="int" Nullable="false" />
-  </EntityType>
-  <EntityType Name="RegExTemplates">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Description" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="Syntax" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="User_Id" Type="int" Nullable="false" />
-  </EntityType>
-  <EntityType Name="SearchJobTrackedFile">
-    <Key>
-      <PropertyRef Name="SearchJobs_Id" />
-      <PropertyRef Name="TrackedFiles_Id" />
-    </Key>
-    <Property Name="SearchJobs_Id" Type="int" Nullable="false" />
-    <Property Name="TrackedFiles_Id" Type="int" Nullable="false" />
-  </EntityType>
-  <EntityType Name="CategoryTrackedFile">
-    <Key>
-      <PropertyRef Name="Categories_Id" />
-      <PropertyRef Name="TrackedFiles_Id" />
-    </Key>
-    <Property Name="Categories_Id" Type="int" Nullable="false" />
-    <Property Name="TrackedFiles_Id" Type="int" Nullable="false" />
-  </EntityType>
-  <EntityType Name="TrackedFileShrinkJob">
-    <Key>
-      <PropertyRef Name="TrackedFiles_Id" />
-      <PropertyRef Name="ShrinkJobs_Id" />
-    </Key>
-    <Property Name="TrackedFiles_Id" Type="int" Nullable="false" />
-    <Property Name="ShrinkJobs_Id" Type="int" Nullable="false" />
-  </EntityType>
-  <EntityType Name="UserIndex">
-    <Key>
-      <PropertyRef Name="Users_Id" />
-      <PropertyRef Name="Indices_Id" />
-    </Key>
-    <Property Name="Users_Id" Type="int" Nullable="false" />
-    <Property Name="Indices_Id" Type="int" Nullable="false" />
-  </EntityType>
-  <EntityType Name="TrackedFileWorkingSet">
-    <Key>
-      <PropertyRef Name="TrackedFiles_Id" />
-      <PropertyRef Name="WorkingSets_Id" />
-    </Key>
-    <Property Name="TrackedFiles_Id" Type="int" Nullable="false" />
-    <Property Name="WorkingSets_Id" Type="int" Nullable="false" />
-  </EntityType>
-  <EntityType Name="SearchJobPending">
-    <Key>
-      <PropertyRef Name="PendingSearchJobs_Id" />
-      <PropertyRef Name="PendingFiles_Id" />
-    </Key>
-    <Property Name="PendingSearchJobs_Id" Type="int" Nullable="false" />
-    <Property Name="PendingFiles_Id" Type="int" Nullable="false" />
-  </EntityType>
-  <EntityType Name="SearchJobDone">
-    <Key>
-      <PropertyRef Name="DoneSearchJobs_Id" />
-      <PropertyRef Name="DoneFiles_Id" />
-    </Key>
-    <Property Name="DoneSearchJobs_Id" Type="int" Nullable="false" />
-    <Property Name="DoneFiles_Id" Type="int" Nullable="false" />
-  </EntityType>
-  <Association Name="TrackedFolderTrackedFolder">
-    <End Role="TrackedFolder" Type="DbModel.Store.TrackedFolders" Multiplicity="0..1" />
-    <End Role="TrackedFolder1" Type="DbModel.Store.TrackedFolders" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="TrackedFolder">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="TrackedFolder1">
-        <PropertyRef Name="TrackedFolderId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="SearchJobCategory">
-    <End Role="SearchJob" Type="DbModel.Store.SearchJobs" Multiplicity="*" />
-    <End Role="Category" Type="DbModel.Store.Categories" Multiplicity="1" />
-    <ReferentialConstraint>
-      <Principal Role="Category">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="SearchJob">
-        <PropertyRef Name="Category_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="SearchJobSearchString">
-    <End Role="SearchJob" Type="DbModel.Store.SearchJobs" Multiplicity="1" />
-    <End Role="SearchString" Type="DbModel.Store.SearchStrings" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="SearchJob">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="SearchString">
-        <PropertyRef Name="SearchJobId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="SearchJobRegex">
-    <End Role="SearchJob" Type="DbModel.Store.SearchJobs" Multiplicity="1" />
-    <End Role="Regex" Type="DbModel.Store.Regexes" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="SearchJob">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Regex">
-        <PropertyRef Name="SearchJobId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="IndexTrackedFolder">
-    <End Role="Index" Type="DbModel.Store.Indices" Multiplicity="*" />
-    <End Role="TrackedFolder" Type="DbModel.Store.TrackedFolders" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <ReferentialConstraint>
-      <Principal Role="TrackedFolder">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Index">
-        <PropertyRef Name="Root_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="TrackedFolderTrackedFile">
-    <End Role="TrackedFolder" Type="DbModel.Store.TrackedFolders" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Role="TrackedFile" Type="DbModel.Store.TrackedFiles" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="TrackedFolder">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="TrackedFile">
-        <PropertyRef Name="TrackedFolderId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="ShrinkJobReductionLog">
-    <End Role="ShrinkJob" Type="DbModel.Store.ShrinkJobs" Multiplicity="1" />
-    <End Role="ReductionLog" Type="DbModel.Store.ReductionLogs" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="ShrinkJob">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="ReductionLog">
-        <PropertyRef Name="ShrinkJob_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="TrackedFileReductionLog">
-    <End Role="TrackedFile" Type="DbModel.Store.TrackedFiles" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Role="ReductionLog" Type="DbModel.Store.ReductionLogs" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="TrackedFile">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="ReductionLog">
-        <PropertyRef Name="TrackedFile_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="UserWorkingSet">
-    <End Role="User" Type="DbModel.Store.Users" Multiplicity="1" />
-    <End Role="WorkingSet" Type="DbModel.Store.WorkingSets" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="User">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="WorkingSet">
-        <PropertyRef Name="User_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="UserShrinkJob">
-    <End Role="User" Type="DbModel.Store.Users" Multiplicity="1" />
-    <End Role="ShrinkJob" Type="DbModel.Store.ShrinkJobs" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="User">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="ShrinkJob">
-        <PropertyRef Name="User_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="UserSearchJob">
-    <End Role="User" Type="DbModel.Store.Users" Multiplicity="1" />
-    <End Role="SearchJob" Type="DbModel.Store.SearchJobs" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="User">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="SearchJob">
-        <PropertyRef Name="User_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="UserRegExTemplate">
-    <End Role="User" Type="DbModel.Store.Users" Multiplicity="1" />
-    <End Role="RegExTemplate" Type="DbModel.Store.RegExTemplates" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="User">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="RegExTemplate">
-        <PropertyRef Name="User_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="IndexTrackedFile">
-    <End Role="Index" Type="DbModel.Store.Indices" Multiplicity="1" />
-    <End Role="TrackedFile" Type="DbModel.Store.TrackedFiles" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Index">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="TrackedFile">
-        <PropertyRef Name="IndexId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_SearchJobTrackedFile_SearchJob">
-    <End Role="SearchJob" Type="DbModel.Store.SearchJobs" Multiplicity="1" />
-    <End Role="SearchJobTrackedFile" Type="DbModel.Store.SearchJobTrackedFile" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="SearchJob">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="SearchJobTrackedFile">
-        <PropertyRef Name="SearchJobs_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_SearchJobTrackedFile_TrackedFile">
-    <End Role="SearchJobTrackedFile" Type="DbModel.Store.SearchJobTrackedFile" Multiplicity="*" />
-    <End Role="TrackedFile" Type="DbModel.Store.TrackedFiles" Multiplicity="1" />
-    <ReferentialConstraint>
-      <Principal Role="TrackedFile">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="SearchJobTrackedFile">
-        <PropertyRef Name="TrackedFiles_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_CategoryTrackedFile_Category">
-    <End Role="Category" Type="DbModel.Store.Categories" Multiplicity="1" />
-    <End Role="CategoryTrackedFile" Type="DbModel.Store.CategoryTrackedFile" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Category">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="CategoryTrackedFile">
-        <PropertyRef Name="Categories_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_CategoryTrackedFile_TrackedFile">
-    <End Role="CategoryTrackedFile" Type="DbModel.Store.CategoryTrackedFile" Multiplicity="*" />
-    <End Role="TrackedFile" Type="DbModel.Store.TrackedFiles" Multiplicity="1" />
-    <ReferentialConstraint>
-      <Principal Role="TrackedFile">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="CategoryTrackedFile">
-        <PropertyRef Name="TrackedFiles_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_TrackedFileShrinkJob_TrackedFile">
-    <End Role="TrackedFile" Type="DbModel.Store.TrackedFiles" Multiplicity="1" />
-    <End Role="TrackedFileShrinkJob" Type="DbModel.Store.TrackedFileShrinkJob" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="TrackedFile">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="TrackedFileShrinkJob">
-        <PropertyRef Name="TrackedFiles_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_TrackedFileShrinkJob_ShrinkJob">
-    <End Role="TrackedFileShrinkJob" Type="DbModel.Store.TrackedFileShrinkJob" Multiplicity="*" />
-    <End Role="ShrinkJob" Type="DbModel.Store.ShrinkJobs" Multiplicity="1" />
-    <ReferentialConstraint>
-      <Principal Role="ShrinkJob">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="TrackedFileShrinkJob">
-        <PropertyRef Name="ShrinkJobs_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_UserIndex_User">
-    <End Role="User" Type="DbModel.Store.Users" Multiplicity="1" />
-    <End Role="UserIndex" Type="DbModel.Store.UserIndex" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="User">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="UserIndex">
-        <PropertyRef Name="Users_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_UserIndex_Index">
-    <End Role="UserIndex" Type="DbModel.Store.UserIndex" Multiplicity="*" />
-    <End Role="Index" Type="DbModel.Store.Indices" Multiplicity="1" />
-    <ReferentialConstraint>
-      <Principal Role="Index">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="UserIndex">
-        <PropertyRef Name="Indices_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_TrackedFileWorkingSet_TrackedFile">
-    <End Role="TrackedFile" Type="DbModel.Store.TrackedFiles" Multiplicity="1" />
-    <End Role="TrackedFileWorkingSet" Type="DbModel.Store.TrackedFileWorkingSet" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="TrackedFile">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="TrackedFileWorkingSet">
-        <PropertyRef Name="TrackedFiles_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_TrackedFileWorkingSet_WorkingSet">
-    <End Role="TrackedFileWorkingSet" Type="DbModel.Store.TrackedFileWorkingSet" Multiplicity="*" />
-    <End Role="WorkingSet" Type="DbModel.Store.WorkingSets" Multiplicity="1" />
-    <ReferentialConstraint>
-      <Principal Role="WorkingSet">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="TrackedFileWorkingSet">
-        <PropertyRef Name="WorkingSets_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_SearchJobPending_SearchJob">
-    <End Role="SearchJob" Type="DbModel.Store.SearchJobs" Multiplicity="1" />
-    <End Role="SearchJobPending" Type="DbModel.Store.SearchJobPending" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="SearchJob">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="SearchJobPending">
-        <PropertyRef Name="PendingSearchJobs_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_SearchJobPending_TrackedFile">
-    <End Role="SearchJobPending" Type="DbModel.Store.SearchJobPending" Multiplicity="*" />
-    <End Role="TrackedFile" Type="DbModel.Store.TrackedFiles" Multiplicity="1" />
-    <ReferentialConstraint>
-      <Principal Role="TrackedFile">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="SearchJobPending">
-        <PropertyRef Name="PendingFiles_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_SearchJobDone_SearchJob">
-    <End Role="SearchJob" Type="DbModel.Store.SearchJobs" Multiplicity="1" />
-    <End Role="SearchJobDone" Type="DbModel.Store.SearchJobDone" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="SearchJob">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="SearchJobDone">
-        <PropertyRef Name="DoneSearchJobs_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_SearchJobDone_TrackedFile">
-    <End Role="SearchJobDone" Type="DbModel.Store.SearchJobDone" Multiplicity="*" />
-    <End Role="TrackedFile" Type="DbModel.Store.TrackedFiles" Multiplicity="1" />
-    <ReferentialConstraint>
-      <Principal Role="TrackedFile">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="SearchJobDone">
-        <PropertyRef Name="DoneFiles_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-</Schema></edmx:StorageModels>
+    <Schema Namespace="DbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Categories">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CategoryTrackedFile">
+          <Key>
+            <PropertyRef Name="Categories_Id" />
+            <PropertyRef Name="TrackedFiles_Id" />
+          </Key>
+          <Property Name="Categories_Id" Type="int" Nullable="false" />
+          <Property Name="TrackedFiles_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Indices">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Alias" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Root_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ReductionLogs">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OldSize" Type="bigint" Nullable="false" />
+          <Property Name="NewSize" Type="bigint" Nullable="false" />
+          <Property Name="ShrinkJob_Id" Type="int" Nullable="false" />
+          <Property Name="TrackedFile_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Regexes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Content" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="SearchJobId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RegExTemplates">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="Syntax" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="User_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SearchJobDone">
+          <Key>
+            <PropertyRef Name="DoneSearchJobs_Id" />
+            <PropertyRef Name="DoneFiles_Id" />
+          </Key>
+          <Property Name="DoneSearchJobs_Id" Type="int" Nullable="false" />
+          <Property Name="DoneFiles_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SearchJobPending">
+          <Key>
+            <PropertyRef Name="PendingSearchJobs_Id" />
+            <PropertyRef Name="PendingFiles_Id" />
+          </Key>
+          <Property Name="PendingSearchJobs_Id" Type="int" Nullable="false" />
+          <Property Name="PendingFiles_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SearchJobs">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Alias" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Status" Type="int" Nullable="false" />
+          <Property Name="RequestorComments" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="AdminComments" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Category_Id" Type="int" Nullable="false" />
+          <Property Name="User_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SearchJobTrackedFile">
+          <Key>
+            <PropertyRef Name="SearchJobs_Id" />
+            <PropertyRef Name="TrackedFiles_Id" />
+          </Key>
+          <Property Name="SearchJobs_Id" Type="int" Nullable="false" />
+          <Property Name="TrackedFiles_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SearchStrings">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Content" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="SearchJobId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ShrinkJobs">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Alias" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Status" Type="int" Nullable="false" />
+          <Property Name="ShrinkJpegs" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="JpegTarget" Type="int" Nullable="false" />
+          <Property Name="ShrinkPdfs" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="PdfTarget" Type="int" Nullable="false" />
+          <Property Name="PdfJpegTarget" Type="int" />
+          <Property Name="ShrinkWord" Type="bit" Nullable="false" />
+          <Property Name="UpgradeWord" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="WordJpegTarget" Type="int" Nullable="false" />
+          <Property Name="User_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TrackedFiles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="FullPath" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Length" Type="bigint" />
+          <Property Name="Extension" Type="nvarchar(max)" />
+          <Property Name="PreHash" Type="nvarchar(max)" />
+          <Property Name="MD5" Type="nvarchar(max)" />
+          <Property Name="SHA1" Type="nvarchar(max)" />
+          <Property Name="SHA256" Type="nvarchar(max)" />
+          <Property Name="TrackForUpdates" Type="bit" Nullable="false" />
+          <Property Name="Created" Type="datetime" Nullable="false" />
+          <Property Name="LastSeen" Type="datetime" Nullable="false" />
+          <Property Name="TrackedFolderId" Type="int" Nullable="false" />
+          <Property Name="IndexId" Type="int" Nullable="false" />
+          <Property Name="UpdatesSeen" Type="int" />
+        </EntityType>
+        <EntityType Name="TrackedFileShrinkJob">
+          <Key>
+            <PropertyRef Name="TrackedFiles_Id" />
+            <PropertyRef Name="ShrinkJobs_Id" />
+          </Key>
+          <Property Name="TrackedFiles_Id" Type="int" Nullable="false" />
+          <Property Name="ShrinkJobs_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TrackedFileWorkingSet">
+          <Key>
+            <PropertyRef Name="TrackedFiles_Id" />
+            <PropertyRef Name="WorkingSets_Id" />
+          </Key>
+          <Property Name="TrackedFiles_Id" Type="int" Nullable="false" />
+          <Property Name="WorkingSets_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TrackedFolders">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="FullPath" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="TrackedFolderId" Type="int" />
+        </EntityType>
+        <EntityType Name="UserIndex">
+          <Key>
+            <PropertyRef Name="Users_Id" />
+            <PropertyRef Name="Indices_Id" />
+          </Key>
+          <Property Name="Users_Id" Type="int" Nullable="false" />
+          <Property Name="Indices_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Firstname" Type="nvarchar(max)" />
+          <Property Name="Surname" Type="nvarchar(max)" />
+          <Property Name="Salt" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Hash" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Login" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="IsSysAdmin" Type="bit" Nullable="false" />
+          <Property Name="NewPasswordDue" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="WorkingSets">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="User_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_CategoryTrackedFile_Category">
+          <End Role="Categories" Type="Self.Categories" Multiplicity="1" />
+          <End Role="CategoryTrackedFile" Type="Self.CategoryTrackedFile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categories">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CategoryTrackedFile">
+              <PropertyRef Name="Categories_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CategoryTrackedFile_TrackedFile">
+          <End Role="TrackedFiles" Type="Self.TrackedFiles" Multiplicity="1" />
+          <End Role="CategoryTrackedFile" Type="Self.CategoryTrackedFile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TrackedFiles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CategoryTrackedFile">
+              <PropertyRef Name="TrackedFiles_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IndexTrackedFile">
+          <End Role="Indices" Type="Self.Indices" Multiplicity="1" />
+          <End Role="TrackedFiles" Type="Self.TrackedFiles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Indices">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TrackedFiles">
+              <PropertyRef Name="IndexId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IndexTrackedFolder">
+          <End Role="TrackedFolders" Type="Self.TrackedFolders" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Indices" Type="Self.Indices" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TrackedFolders">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Indices">
+              <PropertyRef Name="Root_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SearchJobCategory">
+          <End Role="Categories" Type="Self.Categories" Multiplicity="1" />
+          <End Role="SearchJobs" Type="Self.SearchJobs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categories">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SearchJobs">
+              <PropertyRef Name="Category_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SearchJobDone_SearchJob">
+          <End Role="SearchJobs" Type="Self.SearchJobs" Multiplicity="1" />
+          <End Role="SearchJobDone" Type="Self.SearchJobDone" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SearchJobs">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SearchJobDone">
+              <PropertyRef Name="DoneSearchJobs_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SearchJobDone_TrackedFile">
+          <End Role="TrackedFiles" Type="Self.TrackedFiles" Multiplicity="1" />
+          <End Role="SearchJobDone" Type="Self.SearchJobDone" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TrackedFiles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SearchJobDone">
+              <PropertyRef Name="DoneFiles_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SearchJobPending_SearchJob">
+          <End Role="SearchJobs" Type="Self.SearchJobs" Multiplicity="1" />
+          <End Role="SearchJobPending" Type="Self.SearchJobPending" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SearchJobs">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SearchJobPending">
+              <PropertyRef Name="PendingSearchJobs_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SearchJobPending_TrackedFile">
+          <End Role="TrackedFiles" Type="Self.TrackedFiles" Multiplicity="1" />
+          <End Role="SearchJobPending" Type="Self.SearchJobPending" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TrackedFiles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SearchJobPending">
+              <PropertyRef Name="PendingFiles_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SearchJobRegex">
+          <End Role="SearchJobs" Type="Self.SearchJobs" Multiplicity="1" />
+          <End Role="Regexes" Type="Self.Regexes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SearchJobs">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Regexes">
+              <PropertyRef Name="SearchJobId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SearchJobSearchString">
+          <End Role="SearchJobs" Type="Self.SearchJobs" Multiplicity="1" />
+          <End Role="SearchStrings" Type="Self.SearchStrings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SearchJobs">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SearchStrings">
+              <PropertyRef Name="SearchJobId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SearchJobTrackedFile_SearchJob">
+          <End Role="SearchJobs" Type="Self.SearchJobs" Multiplicity="1" />
+          <End Role="SearchJobTrackedFile" Type="Self.SearchJobTrackedFile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SearchJobs">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SearchJobTrackedFile">
+              <PropertyRef Name="SearchJobs_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SearchJobTrackedFile_TrackedFile">
+          <End Role="TrackedFiles" Type="Self.TrackedFiles" Multiplicity="1" />
+          <End Role="SearchJobTrackedFile" Type="Self.SearchJobTrackedFile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TrackedFiles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SearchJobTrackedFile">
+              <PropertyRef Name="TrackedFiles_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ShrinkJobReductionLog">
+          <End Role="ShrinkJobs" Type="Self.ShrinkJobs" Multiplicity="1" />
+          <End Role="ReductionLogs" Type="Self.ReductionLogs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ShrinkJobs">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ReductionLogs">
+              <PropertyRef Name="ShrinkJob_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TrackedFileReductionLog">
+          <End Role="TrackedFiles" Type="Self.TrackedFiles" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ReductionLogs" Type="Self.ReductionLogs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TrackedFiles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ReductionLogs">
+              <PropertyRef Name="TrackedFile_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TrackedFileShrinkJob_ShrinkJob">
+          <End Role="ShrinkJobs" Type="Self.ShrinkJobs" Multiplicity="1" />
+          <End Role="TrackedFileShrinkJob" Type="Self.TrackedFileShrinkJob" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ShrinkJobs">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TrackedFileShrinkJob">
+              <PropertyRef Name="ShrinkJobs_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TrackedFileShrinkJob_TrackedFile">
+          <End Role="TrackedFiles" Type="Self.TrackedFiles" Multiplicity="1" />
+          <End Role="TrackedFileShrinkJob" Type="Self.TrackedFileShrinkJob" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TrackedFiles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TrackedFileShrinkJob">
+              <PropertyRef Name="TrackedFiles_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TrackedFileWorkingSet_TrackedFile">
+          <End Role="TrackedFiles" Type="Self.TrackedFiles" Multiplicity="1" />
+          <End Role="TrackedFileWorkingSet" Type="Self.TrackedFileWorkingSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TrackedFiles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TrackedFileWorkingSet">
+              <PropertyRef Name="TrackedFiles_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TrackedFileWorkingSet_WorkingSet">
+          <End Role="WorkingSets" Type="Self.WorkingSets" Multiplicity="1" />
+          <End Role="TrackedFileWorkingSet" Type="Self.TrackedFileWorkingSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WorkingSets">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TrackedFileWorkingSet">
+              <PropertyRef Name="WorkingSets_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TrackedFolderTrackedFile">
+          <End Role="TrackedFolders" Type="Self.TrackedFolders" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TrackedFiles" Type="Self.TrackedFiles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TrackedFolders">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TrackedFiles">
+              <PropertyRef Name="TrackedFolderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TrackedFolderTrackedFolder">
+          <End Role="TrackedFolders" Type="Self.TrackedFolders" Multiplicity="0..1" />
+          <End Role="TrackedFolders1" Type="Self.TrackedFolders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TrackedFolders">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TrackedFolders1">
+              <PropertyRef Name="TrackedFolderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserIndex_Index">
+          <End Role="Indices" Type="Self.Indices" Multiplicity="1" />
+          <End Role="UserIndex" Type="Self.UserIndex" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Indices">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserIndex">
+              <PropertyRef Name="Indices_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserIndex_User">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="UserIndex" Type="Self.UserIndex" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserIndex">
+              <PropertyRef Name="Users_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRegExTemplate">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="RegExTemplates" Type="Self.RegExTemplates" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RegExTemplates">
+              <PropertyRef Name="User_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserSearchJob">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="SearchJobs" Type="Self.SearchJobs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SearchJobs">
+              <PropertyRef Name="User_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserShrinkJob">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="ShrinkJobs" Type="Self.ShrinkJobs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ShrinkJobs">
+              <PropertyRef Name="User_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserWorkingSet">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="WorkingSets" Type="Self.WorkingSets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="WorkingSets">
+              <PropertyRef Name="User_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="MarkFileDone" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="FileId" Type="int" Mode="In" />
+          <Parameter Name="SearchJobId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="TrackedFilesDue" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="RowCount" Type="int" Mode="In" />
+          <Parameter Name="SearchJobId" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="DbModelStoreContainer">
+          <EntitySet Name="Categories" EntityType="Self.Categories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CategoryTrackedFile" EntityType="Self.CategoryTrackedFile" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Indices" EntityType="Self.Indices" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ReductionLogs" EntityType="Self.ReductionLogs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Regexes" EntityType="Self.Regexes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RegExTemplates" EntityType="Self.RegExTemplates" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SearchJobDone" EntityType="Self.SearchJobDone" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SearchJobPending" EntityType="Self.SearchJobPending" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SearchJobs" EntityType="Self.SearchJobs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SearchJobTrackedFile" EntityType="Self.SearchJobTrackedFile" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SearchStrings" EntityType="Self.SearchStrings" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ShrinkJobs" EntityType="Self.ShrinkJobs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TrackedFiles" EntityType="Self.TrackedFiles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TrackedFileShrinkJob" EntityType="Self.TrackedFileShrinkJob" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TrackedFileWorkingSet" EntityType="Self.TrackedFileWorkingSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TrackedFolders" EntityType="Self.TrackedFolders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserIndex" EntityType="Self.UserIndex" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WorkingSets" EntityType="Self.WorkingSets" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_CategoryTrackedFile_Category" Association="Self.FK_CategoryTrackedFile_Category">
+            <End Role="Categories" EntitySet="Categories" />
+            <End Role="CategoryTrackedFile" EntitySet="CategoryTrackedFile" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CategoryTrackedFile_TrackedFile" Association="Self.FK_CategoryTrackedFile_TrackedFile">
+            <End Role="TrackedFiles" EntitySet="TrackedFiles" />
+            <End Role="CategoryTrackedFile" EntitySet="CategoryTrackedFile" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IndexTrackedFile" Association="Self.FK_IndexTrackedFile">
+            <End Role="Indices" EntitySet="Indices" />
+            <End Role="TrackedFiles" EntitySet="TrackedFiles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IndexTrackedFolder" Association="Self.FK_IndexTrackedFolder">
+            <End Role="TrackedFolders" EntitySet="TrackedFolders" />
+            <End Role="Indices" EntitySet="Indices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SearchJobCategory" Association="Self.FK_SearchJobCategory">
+            <End Role="Categories" EntitySet="Categories" />
+            <End Role="SearchJobs" EntitySet="SearchJobs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SearchJobDone_SearchJob" Association="Self.FK_SearchJobDone_SearchJob">
+            <End Role="SearchJobs" EntitySet="SearchJobs" />
+            <End Role="SearchJobDone" EntitySet="SearchJobDone" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SearchJobDone_TrackedFile" Association="Self.FK_SearchJobDone_TrackedFile">
+            <End Role="TrackedFiles" EntitySet="TrackedFiles" />
+            <End Role="SearchJobDone" EntitySet="SearchJobDone" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SearchJobPending_SearchJob" Association="Self.FK_SearchJobPending_SearchJob">
+            <End Role="SearchJobs" EntitySet="SearchJobs" />
+            <End Role="SearchJobPending" EntitySet="SearchJobPending" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SearchJobPending_TrackedFile" Association="Self.FK_SearchJobPending_TrackedFile">
+            <End Role="TrackedFiles" EntitySet="TrackedFiles" />
+            <End Role="SearchJobPending" EntitySet="SearchJobPending" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SearchJobRegex" Association="Self.FK_SearchJobRegex">
+            <End Role="SearchJobs" EntitySet="SearchJobs" />
+            <End Role="Regexes" EntitySet="Regexes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SearchJobSearchString" Association="Self.FK_SearchJobSearchString">
+            <End Role="SearchJobs" EntitySet="SearchJobs" />
+            <End Role="SearchStrings" EntitySet="SearchStrings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SearchJobTrackedFile_SearchJob" Association="Self.FK_SearchJobTrackedFile_SearchJob">
+            <End Role="SearchJobs" EntitySet="SearchJobs" />
+            <End Role="SearchJobTrackedFile" EntitySet="SearchJobTrackedFile" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SearchJobTrackedFile_TrackedFile" Association="Self.FK_SearchJobTrackedFile_TrackedFile">
+            <End Role="TrackedFiles" EntitySet="TrackedFiles" />
+            <End Role="SearchJobTrackedFile" EntitySet="SearchJobTrackedFile" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ShrinkJobReductionLog" Association="Self.FK_ShrinkJobReductionLog">
+            <End Role="ShrinkJobs" EntitySet="ShrinkJobs" />
+            <End Role="ReductionLogs" EntitySet="ReductionLogs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TrackedFileReductionLog" Association="Self.FK_TrackedFileReductionLog">
+            <End Role="TrackedFiles" EntitySet="TrackedFiles" />
+            <End Role="ReductionLogs" EntitySet="ReductionLogs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TrackedFileShrinkJob_ShrinkJob" Association="Self.FK_TrackedFileShrinkJob_ShrinkJob">
+            <End Role="ShrinkJobs" EntitySet="ShrinkJobs" />
+            <End Role="TrackedFileShrinkJob" EntitySet="TrackedFileShrinkJob" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TrackedFileShrinkJob_TrackedFile" Association="Self.FK_TrackedFileShrinkJob_TrackedFile">
+            <End Role="TrackedFiles" EntitySet="TrackedFiles" />
+            <End Role="TrackedFileShrinkJob" EntitySet="TrackedFileShrinkJob" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TrackedFileWorkingSet_TrackedFile" Association="Self.FK_TrackedFileWorkingSet_TrackedFile">
+            <End Role="TrackedFiles" EntitySet="TrackedFiles" />
+            <End Role="TrackedFileWorkingSet" EntitySet="TrackedFileWorkingSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TrackedFileWorkingSet_WorkingSet" Association="Self.FK_TrackedFileWorkingSet_WorkingSet">
+            <End Role="WorkingSets" EntitySet="WorkingSets" />
+            <End Role="TrackedFileWorkingSet" EntitySet="TrackedFileWorkingSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TrackedFolderTrackedFile" Association="Self.FK_TrackedFolderTrackedFile">
+            <End Role="TrackedFolders" EntitySet="TrackedFolders" />
+            <End Role="TrackedFiles" EntitySet="TrackedFiles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TrackedFolderTrackedFolder" Association="Self.FK_TrackedFolderTrackedFolder">
+            <End Role="TrackedFolders" EntitySet="TrackedFolders" />
+            <End Role="TrackedFolders1" EntitySet="TrackedFolders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserIndex_Index" Association="Self.FK_UserIndex_Index">
+            <End Role="Indices" EntitySet="Indices" />
+            <End Role="UserIndex" EntitySet="UserIndex" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserIndex_User" Association="Self.FK_UserIndex_User">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserIndex" EntitySet="UserIndex" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRegExTemplate" Association="Self.FK_UserRegExTemplate">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="RegExTemplates" EntitySet="RegExTemplates" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserSearchJob" Association="Self.FK_UserSearchJob">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="SearchJobs" EntitySet="SearchJobs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserShrinkJob" Association="Self.FK_UserShrinkJob">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="ShrinkJobs" EntitySet="ShrinkJobs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserWorkingSet" Association="Self.FK_UserWorkingSet">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="WorkingSets" EntitySet="WorkingSets" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="DbModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
@@ -748,6 +756,14 @@
             <End Role="SearchJob" EntitySet="SearchJobs" />
             <End Role="TrackedFile" EntitySet="TrackedFiles" />
           </AssociationSet>
+          <FunctionImport Name="TrackedFilesDue" ReturnType="Collection(DbModel.TrackedFilesDue_Result)">
+            <Parameter Name="RowCount" Mode="In" Type="Int32" />
+            <Parameter Name="SearchJobId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="MarkFileDone">
+            <Parameter Name="FileId" Mode="In" Type="Int32" />
+            <Parameter Name="SearchJobId" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <EnumType Name="JobStatus">
           <Member Name="Working" Value="0" />
@@ -759,7 +775,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Alias" Type="String" Nullable="false" />
+          <Property Name="Alias" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="Root" Relationship="DbModel.IndexTrackedFolder" FromRole="Index" ToRole="TrackedFolder" />
           <NavigationProperty Name="Users" Relationship="DbModel.UserIndex" FromRole="Index" ToRole="User" />
           <NavigationProperty Name="TrackedFiles" Relationship="DbModel.IndexTrackedFile" FromRole="Index" ToRole="TrackedFile" />
@@ -769,8 +785,8 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" Nullable="false" />
-          <Property Name="FullPath" Type="String" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="FullPath" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="SubFolders" Relationship="DbModel.TrackedFolderTrackedFolder" FromRole="TrackedFolder" ToRole="TrackedFolder1" />
           <NavigationProperty Name="Parent" Relationship="DbModel.TrackedFolderTrackedFolder" FromRole="TrackedFolder1" ToRole="TrackedFolder" />
           <Property Name="TrackedFolderId" Type="Int32" Nullable="true" />
@@ -782,17 +798,17 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" Nullable="false" />
-          <Property Name="FullPath" Type="String" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="FullPath" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
           <Property Name="Length" Type="Int64" Nullable="true" />
-          <Property Name="Extension" Type="String" Nullable="true" />
-          <Property Name="PreHash" Type="String" Nullable="true" />
-          <Property Name="MD5" Type="String" Nullable="true" />
-          <Property Name="SHA1" Type="String" Nullable="true" />
-          <Property Name="SHA256" Type="String" Nullable="true" />
+          <Property Name="Extension" Type="String" Nullable="true" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="PreHash" Type="String" Nullable="true" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="MD5" Type="String" Nullable="true" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="SHA1" Type="String" Nullable="true" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="SHA256" Type="String" Nullable="true" MaxLength="Max" Unicode="true" FixedLength="false" />
           <Property Name="TrackForUpdates" Type="Boolean" Nullable="false" />
-          <Property Name="Created" Type="DateTime" Nullable="false" />
-          <Property Name="LastSeen" Type="DateTime" Nullable="false" />
+          <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LastSeen" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="TrackedFolder" Relationship="DbModel.TrackedFolderTrackedFile" FromRole="TrackedFile" ToRole="TrackedFolder" />
           <Property Name="TrackedFolderId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="SearchJobs" Relationship="DbModel.SearchJobTrackedFile" FromRole="TrackedFile" ToRole="SearchJob" />
@@ -825,7 +841,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="SearchJobs" Relationship="DbModel.SearchJobCategory" FromRole="Category" ToRole="SearchJob" />
           <NavigationProperty Name="TrackedFiles" Relationship="DbModel.CategoryTrackedFile" FromRole="Category" ToRole="TrackedFile" />
         </EntityType>
@@ -834,11 +850,11 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Alias" Type="String" Nullable="false" />
+          <Property Name="Alias" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="Category" Relationship="DbModel.SearchJobCategory" FromRole="SearchJob" ToRole="Category" />
           <Property Name="Status" Type="DbModel.SearchStatus" Nullable="false" />
-          <Property Name="RequestorComments" Type="String" Nullable="false" />
-          <Property Name="AdminComments" Type="String" Nullable="false" />
+          <Property Name="RequestorComments" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="AdminComments" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="SearchStrings" Relationship="DbModel.SearchJobSearchString" FromRole="SearchJob" ToRole="SearchString" />
           <NavigationProperty Name="Regexes" Relationship="DbModel.SearchJobRegex" FromRole="SearchJob" ToRole="Regex" />
           <NavigationProperty Name="TrackedFiles" Relationship="DbModel.SearchJobTrackedFile" FromRole="SearchJob" ToRole="TrackedFile" />
@@ -863,7 +879,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Content" Type="String" Nullable="false" />
+          <Property Name="Content" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="SearchJob" Relationship="DbModel.SearchJobSearchString" FromRole="SearchString" ToRole="SearchJob" />
           <Property Name="SearchJobId" Type="Int32" Nullable="false" />
         </EntityType>
@@ -872,7 +888,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Content" Type="String" Nullable="false" />
+          <Property Name="Content" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="SearchJob" Relationship="DbModel.SearchJobRegex" FromRole="Regex" ToRole="SearchJob" />
           <Property Name="SearchJobId" Type="Int32" Nullable="false" />
         </EntityType>
@@ -935,15 +951,15 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Alias" Type="String" Nullable="false" />
+          <Property Name="Alias" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
           <Property Name="Status" Type="DbModel.SearchStatus" Nullable="false" />
-          <Property Name="ShrinkJpegs" Type="String" Nullable="false" />
+          <Property Name="ShrinkJpegs" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
           <Property Name="JpegTarget" Type="Int32" Nullable="false" />
-          <Property Name="ShrinkPdfs" Type="String" Nullable="false" />
+          <Property Name="ShrinkPdfs" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
           <Property Name="PdfTarget" Type="DbModel.PdfVersion" Nullable="false" />
           <Property Name="PdfJpegTarget" Type="Int32" Nullable="true" />
           <Property Name="ShrinkWord" Type="Boolean" Nullable="false" />
-          <Property Name="UpgradeWord" Type="String" Nullable="false" />
+          <Property Name="UpgradeWord" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
           <Property Name="WordJpegTarget" Type="Int32" Nullable="false" />
           <NavigationProperty Name="TrackedFiles" Relationship="DbModel.TrackedFileShrinkJob" FromRole="ShrinkJob" ToRole="TrackedFile" />
           <NavigationProperty Name="ReductionLogs" Relationship="DbModel.ShrinkJobReductionLog" FromRole="ShrinkJob" ToRole="ReductionLog" />
@@ -985,11 +1001,11 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Firstname" Type="String" Nullable="true" />
-          <Property Name="Surname" Type="String" Nullable="true" />
-          <Property Name="Salt" Type="String" Nullable="false" />
-          <Property Name="Hash" Type="String" Nullable="false" />
-          <Property Name="Login" Type="String" Nullable="false" />
+          <Property Name="Firstname" Type="String" Nullable="true" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Surname" Type="String" Nullable="true" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Salt" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Hash" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Login" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
           <Property Name="IsSysAdmin" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Indices" Relationship="DbModel.UserIndex" FromRole="User" ToRole="Index" />
           <NavigationProperty Name="WorkingSets" Relationship="DbModel.UserWorkingSet" FromRole="User" ToRole="WorkingSet" />
@@ -1007,8 +1023,8 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" Nullable="false" />
-          <Property Name="Description" Type="String" Nullable="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Description" Type="String" Nullable="true" MaxLength="Max" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="TrackedFiles" Relationship="DbModel.TrackedFileWorkingSet" FromRole="WorkingSet" ToRole="TrackedFile" />
           <NavigationProperty Name="User" Relationship="DbModel.UserWorkingSet" FromRole="WorkingSet" ToRole="User" />
         </EntityType>
@@ -1033,9 +1049,9 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Title" Type="String" Nullable="false" />
-          <Property Name="Description" Type="String" Nullable="true" />
-          <Property Name="Syntax" Type="String" Nullable="false" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Description" Type="String" Nullable="true" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Syntax" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="User" Relationship="DbModel.UserRegExTemplate" FromRole="RegExTemplate" ToRole="User" />
         </EntityType>
         <Association Name="UserRegExTemplate">
@@ -1062,6 +1078,23 @@
           <End Type="DbModel.SearchJob" Role="SearchJob" Multiplicity="*" />
           <End Type="DbModel.TrackedFile" Role="TrackedFile" Multiplicity="*" />
         </Association>
+        <ComplexType Name="TrackedFilesDue_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" />
+          <Property Type="String" Name="FullPath" Nullable="false" />
+          <Property Type="Int64" Name="Length" Nullable="true" />
+          <Property Type="String" Name="Extension" Nullable="true" />
+          <Property Type="String" Name="PreHash" Nullable="true" />
+          <Property Type="String" Name="MD5" Nullable="true" />
+          <Property Type="String" Name="SHA1" Nullable="true" />
+          <Property Type="String" Name="SHA256" Nullable="true" />
+          <Property Type="Boolean" Name="TrackForUpdates" Nullable="false" />
+          <Property Type="DateTime" Name="Created" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="LastSeen" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="TrackedFolderId" Nullable="false" />
+          <Property Type="Int32" Name="IndexId" Nullable="false" />
+          <Property Type="Int32" Name="UpdatesSeen" Nullable="true" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1323,6 +1356,28 @@
         <ScalarProperty Name="Id" ColumnName="DoneFiles_Id" />
       </EndProperty>
     </AssociationSetMapping>
+          <FunctionImportMapping FunctionImportName="TrackedFilesDue" FunctionName="DbModel.Store.TrackedFilesDue">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DbModel.TrackedFilesDue_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="FullPath" ColumnName="FullPath" />
+                <ScalarProperty Name="Length" ColumnName="Length" />
+                <ScalarProperty Name="Extension" ColumnName="Extension" />
+                <ScalarProperty Name="PreHash" ColumnName="PreHash" />
+                <ScalarProperty Name="MD5" ColumnName="MD5" />
+                <ScalarProperty Name="SHA1" ColumnName="SHA1" />
+                <ScalarProperty Name="SHA256" ColumnName="SHA256" />
+                <ScalarProperty Name="TrackForUpdates" ColumnName="TrackForUpdates" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="LastSeen" ColumnName="LastSeen" />
+                <ScalarProperty Name="TrackedFolderId" ColumnName="TrackedFolderId" />
+                <ScalarProperty Name="IndexId" ColumnName="IndexId" />
+                <ScalarProperty Name="UpdatesSeen" ColumnName="UpdatesSeen" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="MarkFileDone" FunctionName="DbModel.Store.MarkFileDone" />
   </EntityContainerMapping>
 </Mapping></edmx:Mappings>
   </edmx:Runtime>
@@ -1339,6 +1394,7 @@
         <DesignerProperty Name="EnablePluralization" Value="True" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
         <DesignerProperty Name="UseLegacyProvider" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
       </DesignerInfoPropertySet>
     </edmx:Options>
     <!-- Diagram content (shape and connector positions) -->
