@@ -12,6 +12,8 @@ namespace EntityModel
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class DbModelContainer : DbContext
     {
@@ -37,5 +39,31 @@ namespace EntityModel
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<WorkingSet> WorkingSets { get; set; }
         public virtual DbSet<RegExTemplate> RegExTemplates { get; set; }
+    
+        public virtual ObjectResult<TrackedFilesDue_Result> TrackedFilesDue(Nullable<int> rowCount, Nullable<int> searchJobId)
+        {
+            var rowCountParameter = rowCount.HasValue ?
+                new ObjectParameter("RowCount", rowCount) :
+                new ObjectParameter("RowCount", typeof(int));
+    
+            var searchJobIdParameter = searchJobId.HasValue ?
+                new ObjectParameter("SearchJobId", searchJobId) :
+                new ObjectParameter("SearchJobId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<TrackedFilesDue_Result>("TrackedFilesDue", rowCountParameter, searchJobIdParameter);
+        }
+    
+        public virtual int MarkFileDone(Nullable<int> fileId, Nullable<int> searchJobId)
+        {
+            var fileIdParameter = fileId.HasValue ?
+                new ObjectParameter("FileId", fileId) :
+                new ObjectParameter("FileId", typeof(int));
+    
+            var searchJobIdParameter = searchJobId.HasValue ?
+                new ObjectParameter("SearchJobId", searchJobId) :
+                new ObjectParameter("SearchJobId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("MarkFileDone", fileIdParameter, searchJobIdParameter);
+        }
     }
 }

@@ -10,6 +10,8 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using BinaryDigger;
 using OpenSDKDigger;
+using System.Linq;
+using System.Diagnostics;
 
 namespace FileDigger
 {
@@ -26,6 +28,12 @@ namespace FileDigger
             "The FileReader has not been initialised correctly, " +
             "either call with a file path in the constructor or " +
             "call the Open method";
+
+        /// <summary>
+        /// Private holding field to prevent multiple content reads
+        /// from the same file when several checks are performed.
+        /// </summary>
+        private string _FileContent = null;
 
         public FileReader() { }
 
@@ -104,6 +112,8 @@ namespace FileDigger
 
             string contents = string.Empty;
 
+            Stopwatch stopwatch = Stopwatch.StartNew();
+
             if (IsReadablePdf(_InternalFilePath))
             {
                 contents = ReadPdfContents();
@@ -119,6 +129,15 @@ namespace FileDigger
             {
                 IOpenSDKReader reader = OpenSDKReader.GetNew(_InternalFilePath);
                 contents = reader.ReadContents();
+            }
+
+            stopwatch.Stop();
+
+            if (stopwatch.Elapsed.TotalMinutes > 1)
+            {
+                //took a long time to read this file, log it
+                System.IO.File.AppendAllText("C:\\temp\\crawler\\logs\\LongRunning.log",
+                    _InternalFilePath + "," + stopwatch.Elapsed.TotalMinutes.ToString("0.00") + Environment.NewLine);
             }
 
             return contents;
@@ -279,26 +298,40 @@ namespace FileDigger
 
         public bool CheckString(IEnumerable<string> toCheck)
         {
-            string contents = ReadContents().ToUpper();
+            if (toCheck.Count() == 0) return false;
+
+            if (_FileContent == null)
+            {
+                _FileContent = ReadContents();
+            }
+
+            string contents = _FileContent.ToUpper();
 
             foreach (string item in toCheck)
             {
-                if (contents.Contains(item.ToUpper()))
-                    return true;
+                if (contents.Contains(item.ToUpper()) == false)
+                    return false;
             }
-            return false;
+            return true;
         }
 
         public bool CheckRegEx(IEnumerable<string> toCheck)
         {
-            string contents = ReadContents();
+            if (toCheck.Count() == 0) return false;
+
+            if (_FileContent == null)
+            {
+                _FileContent = ReadContents();
+            }
 
             foreach (string regex in toCheck)
             {
-                if (Regex.IsMatch(contents, regex))
-                    return true;
+                if (Regex.IsMatch(_FileContent,regex,RegexOptions.None, new TimeSpan(0,1,0)) == false)
+                {
+                    return false;
+                }
             }
-            return false;
+            return true;
         }
     }
 }

@@ -80,6 +80,7 @@
     </Compile>
     <Compile Include="PartialExtensions\Index.cs" />
     <Compile Include="PartialExtensions\SearchJob.cs" />
+    <Compile Include="PartialExtensions\TrackedFile.cs" />
     <Compile Include="PartialExtensions\User.cs" />
     <Compile Include="PdfVersion.cs">
       <DependentUpon>DbModel.tt</DependentUpon>
@@ -107,6 +108,9 @@
       <DependentUpon>DbModel.tt</DependentUpon>
     </Compile>
     <Compile Include="TrackedFile.cs">
+      <DependentUpon>DbModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TrackedFilesDue_Result.cs">
       <DependentUpon>DbModel.tt</DependentUpon>
     </Compile>
     <Compile Include="TrackedFolder.cs">
@@ -151,9 +155,25 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BinaryDigger\BinaryDigger.csproj">
+      <Project>{05286693-b04b-40fc-bcfe-29eb15ff58e5}</Project>
+      <Name>BinaryDigger</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CollectionSplitter\CollectionSplitter.csproj">
+      <Project>{176c5b3d-088e-4057-9843-4348d31466f4}</Project>
+      <Name>CollectionSplitter</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FileDigger\FileDigger.csproj">
+      <Project>{d6fe8d7d-1e5e-41b5-8c13-b2861cac2ecd}</Project>
+      <Name>FileDigger</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Hasher\Hasher.csproj">
       <Project>{e6a89c99-16db-4cdb-8b84-8d01a40f5502}</Project>
       <Name>Hasher</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OpenSDKDigger\OpenSDKDigger.csproj">
+      <Project>{86c0557d-cbf1-4189-8504-73f387738850}</Project>
+      <Name>OpenSDKDigger</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

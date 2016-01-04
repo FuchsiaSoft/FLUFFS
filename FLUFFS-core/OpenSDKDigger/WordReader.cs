@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using File = Pri.LongPath.File;
 
 namespace OpenSDKDigger
 {
@@ -22,7 +23,10 @@ namespace OpenSDKDigger
         public override string ReadContents()
         {
             string documentContent = null;
-            using (WordprocessingDocument wordDoc = WordprocessingDocument.Open(_FilePath, false))
+
+            Stream stream = new MemoryStream(File.ReadAllBytes(_FilePath));
+
+            using (WordprocessingDocument wordDoc = WordprocessingDocument.Open(stream, false))
             {
                 using (StreamReader sr = new StreamReader(wordDoc.MainDocumentPart.GetStream()))
                 {
