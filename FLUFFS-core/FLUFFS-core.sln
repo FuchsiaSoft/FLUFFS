@@ -25,6 +25,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntityModel", "EntityModel\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileDigger", "FileDigger\FileDigger.csproj", "{D6FE8D7D-1E5E-41B5-8C13-B2861CAC2ECD}"
 	ProjectSection(ProjectDependencies) = postProject
+		{05286693-B04B-40FC-BCFE-29EB15FF58E5} = {05286693-B04B-40FC-BCFE-29EB15FF58E5}
 		{E6A89C99-16DB-4CDB-8B84-8D01A40F5502} = {E6A89C99-16DB-4CDB-8B84-8D01A40F5502}
 	EndProjectSection
 EndProject
@@ -69,6 +70,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{B4490547-C932-4429-A540-2C610D2649DE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crawler", "Crawler\Crawler.csproj", "{F2C8B701-A1B7-49ED-8811-732B6E6C23DB}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D6FE8D7D-1E5E-41B5-8C13-B2861CAC2ECD} = {D6FE8D7D-1E5E-41B5-8C13-B2861CAC2ECD}
+		{05286693-B04B-40FC-BCFE-29EB15FF58E5} = {05286693-B04B-40FC-BCFE-29EB15FF58E5}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

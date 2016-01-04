@@ -123,7 +123,7 @@ namespace EntityModel
         {
             do
             {
-                Thread.Sleep(1000);
+                Thread.Sleep(5000);
 
             } while (_WorkerThreads.Count(t => t.IsAlive) > 0);
         }
