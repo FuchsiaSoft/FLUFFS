@@ -65,5 +65,10 @@ namespace EntityModel
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("MarkFileDone", fileIdParameter, searchJobIdParameter);
         }
+    
+        public virtual ObjectResult<FilesDueForHash_Result> FilesDueForHash()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<FilesDueForHash_Result>("FilesDueForHash");
+        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -32,6 +33,13 @@ namespace Hasher
         string GetMD5(byte[] buffer);
 
         /// <summary>
+        /// Generates MD5 hash for the specified file.
+        /// </summary>
+        /// <param name="stream">The stream to hash</param>
+        /// <returns>string representing the hash</returns>
+        string GetMD5(Stream stream);
+
+        /// <summary>
         /// Generates SHA1 hash for the specified
         /// file.
         /// </summary>
@@ -48,6 +56,14 @@ namespace Hasher
         string GetSHA1(byte[] buffer);
 
         /// <summary>
+        /// Generates SHA1 hash for the specified
+        /// file.
+        /// </summary>
+        /// <param name="stream">The file to hash.</param>
+        /// <returns>string representing the hash.</returns>
+        string GetSHA1(Stream stream);
+
+        /// <summary>
         /// Generates SHA256 hash for the specified
         /// file.
         /// </summary>
@@ -62,6 +78,14 @@ namespace Hasher
         /// <param name="buffer">The file to hash.</param>
         /// <returns>string representing the hash.</returns>
         string GetSHA256(byte[] buffer);
+
+        /// <summary>
+        /// Generates SHA256 hash for the specified
+        /// file.
+        /// </summary>
+        /// <param name="stream">The file to hash.</param>
+        /// <returns>string representing the hash.</returns>
+        string GetSHA256(Stream stream);
 
         //NOTE: prehash does not allow for a buffer, string
         //only due to its behaviour.

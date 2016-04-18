@@ -136,6 +136,7 @@
           <Property Name="TrackedFolderId" Type="int" Nullable="false" />
           <Property Name="IndexId" Type="int" Nullable="false" />
           <Property Name="UpdatesSeen" Type="int" />
+          <Property Name="HashAttempted" Type="datetime" />
         </EntityType>
         <EntityType Name="TrackedFileShrinkJob">
           <Key>
@@ -522,6 +523,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="FilesDueForHash" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="MarkFileDone" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="FileId" Type="int" Mode="In" />
           <Parameter Name="SearchJobId" Type="int" Mode="In" />
@@ -764,6 +766,7 @@
             <Parameter Name="FileId" Mode="In" Type="Int32" />
             <Parameter Name="SearchJobId" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="FilesDueForHash" ReturnType="Collection(DbModel.FilesDueForHash_Result)" />
         </EntityContainer>
         <EnumType Name="JobStatus">
           <Member Name="Working" Value="0" />
@@ -821,6 +824,7 @@
           <Property Name="UpdatesSeen" Type="Int32" Nullable="true" />
           <NavigationProperty Name="PendingSearchJobs" Relationship="DbModel.SearchJobPending" FromRole="TrackedFile" ToRole="SearchJob" />
           <NavigationProperty Name="DoneSearchJobs" Relationship="DbModel.SearchJobDone" FromRole="TrackedFile" ToRole="SearchJob" />
+          <Property Name="HashAttempted" Type="DateTime" Precision="3" Nullable="true" />
         </EntityType>
         <Association Name="TrackedFolderTrackedFolder">
           <End Type="DbModel.TrackedFolder" Role="TrackedFolder" Multiplicity="0..1" >
@@ -1095,6 +1099,24 @@
           <Property Type="Int32" Name="IndexId" Nullable="false" />
           <Property Type="Int32" Name="UpdatesSeen" Nullable="true" />
         </ComplexType>
+        <ComplexType Name="FilesDueForHash_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" />
+          <Property Type="String" Name="FullPath" Nullable="false" />
+          <Property Type="Int64" Name="Length" Nullable="true" />
+          <Property Type="String" Name="Extension" Nullable="true" />
+          <Property Type="String" Name="PreHash" Nullable="true" />
+          <Property Type="String" Name="MD5" Nullable="true" />
+          <Property Type="String" Name="SHA1" Nullable="true" />
+          <Property Type="String" Name="SHA256" Nullable="true" />
+          <Property Type="Boolean" Name="TrackForUpdates" Nullable="false" />
+          <Property Type="DateTime" Name="Created" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="LastSeen" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="TrackedFolderId" Nullable="false" />
+          <Property Type="Int32" Name="IndexId" Nullable="false" />
+          <Property Type="Int32" Name="UpdatesSeen" Nullable="true" />
+          <Property Type="DateTime" Name="HashAttempted" Nullable="true" Precision="23" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1122,7 +1144,8 @@
     <EntitySetMapping Name="TrackedFiles">
       <EntityTypeMapping TypeName="IsTypeOf(DbModel.TrackedFile)">
         <MappingFragment StoreEntitySet="TrackedFiles">
-          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="HashAttempted" ColumnName="HashAttempted" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="FullPath" ColumnName="FullPath" />
           <ScalarProperty Name="Length" ColumnName="Length" />
@@ -1378,6 +1401,28 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="MarkFileDone" FunctionName="DbModel.Store.MarkFileDone" />
+          <FunctionImportMapping FunctionImportName="FilesDueForHash" FunctionName="DbModel.Store.FilesDueForHash">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DbModel.FilesDueForHash_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="FullPath" ColumnName="FullPath" />
+                <ScalarProperty Name="Length" ColumnName="Length" />
+                <ScalarProperty Name="Extension" ColumnName="Extension" />
+                <ScalarProperty Name="PreHash" ColumnName="PreHash" />
+                <ScalarProperty Name="MD5" ColumnName="MD5" />
+                <ScalarProperty Name="SHA1" ColumnName="SHA1" />
+                <ScalarProperty Name="SHA256" ColumnName="SHA256" />
+                <ScalarProperty Name="TrackForUpdates" ColumnName="TrackForUpdates" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="LastSeen" ColumnName="LastSeen" />
+                <ScalarProperty Name="TrackedFolderId" ColumnName="TrackedFolderId" />
+                <ScalarProperty Name="IndexId" ColumnName="IndexId" />
+                <ScalarProperty Name="UpdatesSeen" ColumnName="UpdatesSeen" />
+                <ScalarProperty Name="HashAttempted" ColumnName="HashAttempted" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
   </EntityContainerMapping>
 </Mapping></edmx:Mappings>
   </edmx:Runtime>

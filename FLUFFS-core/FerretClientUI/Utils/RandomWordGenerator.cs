@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace FerretClientUI.Utils
 {
-    internal enum CaseOption
+    public enum CaseOption
     {
         AllCaps,
         TitleCase,
@@ -17,7 +17,7 @@ namespace FerretClientUI.Utils
         RandomCase
     }
 
-    internal enum NumberOption 
+    public enum NumberOption 
     {
         NoNumbers, 
         AllNumbers, 
@@ -31,7 +31,7 @@ namespace FerretClientUI.Utils
         NumbersAsWords
     }
 
-    internal static class RandomWordGenerator
+    public static class RandomWordGenerator
     {
         private static List<string> _WordList = GetWords();
         private static Random random = new Random();

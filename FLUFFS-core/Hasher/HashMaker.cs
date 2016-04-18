@@ -4,8 +4,9 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
-using Pri.LongPath;
+using File = Pri.LongPath.File;
 using Hasher.Properties;
+using System.IO;
 
 namespace Hasher
 {
@@ -13,37 +14,52 @@ namespace Hasher
     {
         public string GetMD5(string path)
         {
-            return GetMD5(File.ReadAllBytes(path));
+            return GetMD5(File.OpenRead(path));
         }
 
         public string GetMD5(byte[] buffer)
         {
+            return GetMD5(new MemoryStream(buffer));
+        }
+
+        public string GetMD5(Stream stream)
+        {
             MD5 md5 = MD5.Create();
-            byte[] hash = md5.ComputeHash(buffer);
+            byte[] hash = md5.ComputeHash(stream);
             return HashToString(hash);
         }
 
         public string GetSHA1(string path)
         {
-            return GetSHA1(File.ReadAllBytes(path));
+            return GetSHA1(File.OpenRead(path));
         }
 
         public string GetSHA1(byte[] buffer)
         {
+            return GetSHA1(new MemoryStream(buffer));
+        }
+
+        public string GetSHA1(Stream stream)
+        {
             SHA1 sha1 = SHA1.Create();
-            byte[] hash = sha1.ComputeHash(buffer);
+            byte[] hash = sha1.ComputeHash(stream);
             return HashToString(hash);
         }
 
         public string GetSHA256(string path)
         {
-            return GetSHA256(File.ReadAllBytes(path));
+            return GetSHA256(File.OpenRead(path));
         }
 
         public string GetSHA256(byte[] buffer)
         {
+            return GetSHA256(new MemoryStream(buffer));
+        }
+
+        public string GetSHA256(Stream stream)
+        {
             SHA256 sha256 = SHA256.Create();
-            byte[] hash = sha256.ComputeHash(buffer);
+            byte[] hash = sha256.ComputeHash(stream);
             return HashToString(hash);
         }
 

@@ -53,6 +53,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="FileReading\ExcelTests.cs" />
+    <Compile Include="FileReading\OutlookTests.cs" />
     <Compile Include="FileReading\PdfTests.cs" />
     <Compile Include="FileReading\TestConstants.cs" />
     <Compile Include="FileReading\WordTests.cs" />
@@ -188,6 +189,19 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="FileReading\SampleFiles\Word_07_TextHeavy.docx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="FileReading\SampleFiles\Msg_NoAttachments.msg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="FileReading\SampleFiles\Msg_PdfAttachment.msg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="FileReading\SampleFiles\Msg_WordAttachment.msg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

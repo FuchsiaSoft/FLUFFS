@@ -15,6 +15,14 @@ namespace FileDigger
     public interface IFileReader : IDisposable
     {
         /// <summary>
+        /// Gets or sets whether the reader will include embedded files.
+        /// The default value will be as defined in application scope settings
+        /// for this library, but can be overridden by setting this property
+        /// explicitly
+        /// </summary>
+        bool IncludeEmbeddedFiles { get; set; }
+
+        /// <summary>
         /// Prepares the instance for working on the specified
         /// file by generating a local cache of it.  This method
         /// must be called before attempting any file access

@@ -40,5 +40,14 @@ namespace FileDigger.Properties {
                 return ((bool)(this["HoldBufferInMemory"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool IncludeEmbeddedFiles {
+            get {
+                return ((bool)(this["IncludeEmbeddedFiles"]));
+            }
+        }
     }
 }

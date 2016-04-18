@@ -20,7 +20,7 @@
         <AssociationConnector Association="DbModel.TrackedFolderTrackedFile" />
         <AssociationConnector Association="DbModel.SearchJobTrackedFile" />
         <AssociationConnector Association="DbModel.CategoryTrackedFile" />
-        <EntityTypeShape EntityType="DbModel.ShrinkJob" Width="2.375" PointX="4.625" PointY="6.625" />
+        <EntityTypeShape EntityType="DbModel.ShrinkJob" Width="2.375" PointX="4.625" PointY="6.5" />
         <AssociationConnector Association="DbModel.TrackedFileShrinkJob" />
         <EntityTypeShape EntityType="DbModel.ReductionLog" Width="1.5" PointX="2.5" PointY="7" />
         <AssociationConnector Association="DbModel.ShrinkJobReductionLog" />

@@ -10,21 +10,9 @@
 namespace EntityModel
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class TrackedFile
+    public partial class FilesDueForHash_Result
     {
-        public TrackedFile()
-        {
-            this.SearchJobs = new HashSet<SearchJob>();
-            this.Categories = new HashSet<Category>();
-            this.ShrinkJobs = new HashSet<ShrinkJob>();
-            this.ReductionLogs = new HashSet<ReductionLog>();
-            this.WorkingSets = new HashSet<WorkingSet>();
-            this.PendingSearchJobs = new HashSet<SearchJob>();
-            this.DoneSearchJobs = new HashSet<SearchJob>();
-        }
-    
         public int Id { get; set; }
         public string Name { get; set; }
         public string FullPath { get; set; }
@@ -41,15 +29,5 @@ namespace EntityModel
         public int IndexId { get; set; }
         public Nullable<int> UpdatesSeen { get; set; }
         public Nullable<System.DateTime> HashAttempted { get; set; }
-    
-        public virtual TrackedFolder TrackedFolder { get; set; }
-        public virtual ICollection<SearchJob> SearchJobs { get; set; }
-        public virtual ICollection<Category> Categories { get; set; }
-        public virtual ICollection<ShrinkJob> ShrinkJobs { get; set; }
-        public virtual ICollection<ReductionLog> ReductionLogs { get; set; }
-        public virtual ICollection<WorkingSet> WorkingSets { get; set; }
-        public virtual Index Index { get; set; }
-        public virtual ICollection<SearchJob> PendingSearchJobs { get; set; }
-        public virtual ICollection<SearchJob> DoneSearchJobs { get; set; }
     }
 }

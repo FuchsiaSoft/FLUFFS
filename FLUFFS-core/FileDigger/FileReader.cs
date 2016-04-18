@@ -12,6 +12,7 @@ using BinaryDigger;
 using OpenSDKDigger;
 using System.Linq;
 using System.Diagnostics;
+using OutlookMessageReader;
 
 namespace FileDigger
 {
@@ -28,6 +29,26 @@ namespace FileDigger
             "The FileReader has not been initialised correctly, " +
             "either call with a file path in the constructor or " +
             "call the Open method";
+
+        private bool? _IncludeEmbeddedFiles = null;
+        public bool IncludeEmbeddedFiles
+        {
+            get
+            {
+                if (_IncludeEmbeddedFiles == null)
+                {
+                    return Settings.Default.IncludeEmbeddedFiles;
+                }
+                else
+                {
+                    return (bool)_IncludeEmbeddedFiles;
+                }
+            }
+            set
+            {
+                _IncludeEmbeddedFiles = value;
+            }
+        }
 
         /// <summary>
         /// Private holding field to prevent multiple content reads
@@ -93,6 +114,11 @@ namespace FileDigger
                 return true;
             }
 
+            if (OutlookReader.IsValidFile(path))
+            {
+                return true;
+            }
+
             return false;
         }
 
@@ -112,7 +138,7 @@ namespace FileDigger
 
             string contents = string.Empty;
 
-            Stopwatch stopwatch = Stopwatch.StartNew();
+            //Stopwatch stopwatch = Stopwatch.StartNew();
 
             if (IsReadablePdf(_InternalFilePath))
             {
@@ -131,14 +157,48 @@ namespace FileDigger
                 contents = reader.ReadContents();
             }
 
-            stopwatch.Stop();
-
-            if (stopwatch.Elapsed.TotalMinutes > 1)
+            if (OutlookReader.IsValidFile(_InternalFilePath))
             {
-                //took a long time to read this file, log it
-                System.IO.File.AppendAllText("C:\\temp\\crawler\\logs\\LongRunning.log",
-                    _InternalFilePath + "," + stopwatch.Elapsed.TotalMinutes.ToString("0.00") + Environment.NewLine);
+                IOutlookReader reader = OutlookReader.GetNew(_InternalFilePath);
+                contents = reader.ReadContents();
+
+                if (IncludeEmbeddedFiles)
+                {
+                    StringBuilder builder = new StringBuilder(contents);
+
+                    foreach (string tempEmbeddedFile in reader.GetEmbeddedFiles())
+                    {
+                        //NOTE: the GetEmbeddedFiles method of OutlookDataReader creates and
+                        //returns temp files for the attachments, if they exist, therefore
+                        //the caller method is responsible for disposing of them here when
+                        //done
+
+                        IFileReader embeddedFileReader = new FileReader();
+                        if (embeddedFileReader.IsReadable(tempEmbeddedFile))
+                        {
+                            embeddedFileReader.Open(tempEmbeddedFile);
+                            builder.Append(embeddedFileReader.ReadContents());
+                        }
+
+                        try
+                        {
+                            File.Delete(tempEmbeddedFile);
+                        }
+                        catch (Exception) { }
+                    }
+
+                    contents = builder.ToString();
+                }
             }
+
+            //stopwatch.Stop();
+
+            //if (stopwatch.Elapsed.TotalMinutes > 1)
+            //{
+            //    //took a long time to read this file, log it
+            //    System.IO.File.AppendAllText("C:\\temp\\crawler\\logs\\LongRunning.log",
+            //        _InternalFilePath + "," + stopwatch.Elapsed.TotalMinutes.ToString("0.00") + Environment.NewLine);
+            //}
 
             return contents;
         }

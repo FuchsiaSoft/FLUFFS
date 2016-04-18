@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FLUFFS-core", "FLUFFS-core\FLUFFS-core.csproj", "{256C30D5-DA04-46BC-B77E-43629A864CAE}"
 EndProject
@@ -75,6 +75,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crawler", "Crawler\Crawler.
 		{05286693-B04B-40FC-BCFE-29EB15FF58E5} = {05286693-B04B-40FC-BCFE-29EB15FF58E5}
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HashRunner", "HashRunner\HashRunner.csproj", "{55026C91-9C85-4A37-B043-895584DA1B54}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OutlookMessageReader", "OutlookMessageReader\OutlookMessageReader.csproj", "{28C8D5D8-9392-47DA-A814-74BEBB696F64}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -145,6 +149,14 @@ Global
 		{F2C8B701-A1B7-49ED-8811-732B6E6C23DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F2C8B701-A1B7-49ED-8811-732B6E6C23DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F2C8B701-A1B7-49ED-8811-732B6E6C23DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55026C91-9C85-4A37-B043-895584DA1B54}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55026C91-9C85-4A37-B043-895584DA1B54}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55026C91-9C85-4A37-B043-895584DA1B54}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55026C91-9C85-4A37-B043-895584DA1B54}.Release|Any CPU.Build.0 = Release|Any CPU
+		{28C8D5D8-9392-47DA-A814-74BEBB696F64}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28C8D5D8-9392-47DA-A814-74BEBB696F64}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28C8D5D8-9392-47DA-A814-74BEBB696F64}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28C8D5D8-9392-47DA-A814-74BEBB696F64}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -165,5 +177,7 @@ Global
 		{176C5B3D-088E-4057-9843-4348D31466F4} = {1BC0B7D5-45A3-4D8B-8645-C5B87C4AC205}
 		{B4490547-C932-4429-A540-2C610D2649DE} = {ED51FEEF-C245-4652-949F-430176725D68}
 		{F2C8B701-A1B7-49ED-8811-732B6E6C23DB} = {041BE5B9-D4BD-472C-86A5-AE3D38F14D6A}
+		{55026C91-9C85-4A37-B043-895584DA1B54} = {041BE5B9-D4BD-472C-86A5-AE3D38F14D6A}
+		{28C8D5D8-9392-47DA-A814-74BEBB696F64} = {F875565F-BDF4-4471-8469-6E5C1CEA186B}
 	EndGlobalSection
 EndGlobal
